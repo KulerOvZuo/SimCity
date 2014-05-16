@@ -10,9 +10,9 @@ CStructure::CStructure() :
 }
 CStructure::CStructure(int age, QString name, double buildCost,double destroyCost,
            double costPerTick, CCoordinates sizeOnGameMap, CCoordinates coordinatesOfCentre,
-           CDirections turnedDirection, CGraphic graphic,CCity *city) :
+           CDirections turnedDirection) :
              age(age), name(name), buildCost(buildCost), destroyCost(destroyCost), costPerTick(costPerTick), sizeOnGameMap(sizeOnGameMap), coordinatesOfCentre(coordinatesOfCentre),
-             turnedDirection(turnedDirection), graphic(graphic), city(city)
+             turnedDirection(turnedDirection)
 
 {}
 CStructure::~CStructure()

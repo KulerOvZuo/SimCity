@@ -28,7 +28,7 @@ public:
     CStructure();
     CStructure(int age, QString name, double buildCost,double destroyCost,
                double costPerTick, CCoordinates sizeOnGameMap, CCoordinates coordinatesOfCentre,
-               CDirections turnedDirection, CGraphic graphic,CCity *city);
+               CDirections turnedDirection);
     virtual ~CStructure();
 
     ///implement

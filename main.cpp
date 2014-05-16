@@ -7,6 +7,7 @@
 #include "cutilitiesglobal.h"
 #include "cgreenterrain.h"
 #include "cbuilding.h"
+#include "cpeopleneeds.h"
 
 int main(int argc, char *argv[])
 {
@@ -53,12 +54,47 @@ int main(int argc, char *argv[])
     qDebug()<<(road.getTurnedDirection()).getDirUp()<<(road.getTurnedDirection()).getDirRight();
     qDebug()<<(road.getDirections()).getDirUp()<<(road.getDirections()).getDirRight();
 */
-    CBuilding bui(1000,CUtilitiesGlobal(20,1,1));
+    /*CBuilding bui(1000,CUtilitiesGlobal(20,1,1));
     double x=5;
     bui.setUtilities(bui.getUtilities()+CUtilitiesGlobal(-x,3,1));
 
     qDebug()<<(bui.getUtilities()).getElectricity();
-    w.show();
+    w.show();*/
 
+    //CPeopleNeeds PN(CProducts(3,1,3),CService(),CRecreation(8),3,2);
+    /*CPeopleNeeds PN;
+
+    double life=1;
+    PN.countNewNeeds(life);
+    life=PN.countLifeSatisfation(0,life);
+    PN.countNewNeeds(life);
+    life = PN.countLifeSatisfation(100,life);
+    PN.countNewNeeds(life);
+    life = PN.countLifeSatisfation(1000,life);
+    PN.countNewNeeds(life);
+    //PN=CPeopleNeeds();
+    life =PN.countLifeSatisfation(100,life);
+    PN.countNewNeeds(life);
+    //PN=CPeopleNeeds();
+    life = PN.countLifeSatisfation(100,life);
+    PN.countNewNeeds(life);
+   // PN=CPeopleNeeds();
+    life = PN.countLifeSatisfation(100,life);
+    PN.countNewNeeds(life);
+   // PN=CPeopleNeeds();
+    life = PN.countLifeSatisfation(0,life);
+    PN.countNewNeeds(life);
+    life = PN.countLifeSatisfation(-1000,life);
+    PN.countNewNeeds(life);
+    life = PN.countLifeSatisfation(-1000,life);
+    PN.countNewNeeds(life);
+    life = PN.countLifeSatisfation(0,life);
+    PN.countNewNeeds(life);
+    life = PN.countLifeSatisfation(0,life);
+    PN.countNewNeeds(life);*/
+
+
+
+    w.show();
     return a.exec();
 }

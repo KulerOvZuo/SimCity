@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     cstructureforpeople.cpp \
     cgreenterrain.cpp \
     cbuilding.cpp \
-    cutilitiesglobal.cpp
+    cutilitiesglobal.cpp \
+    cpeopleneeds.cpp
 
 HEADERS  += mainwindow.h \
     cstructure.h \
@@ -38,6 +39,7 @@ HEADERS  += mainwindow.h \
     cstructureforpeople.h \
     cgreenterrain.h \
     cbuilding.h \
-    cutilitiesglobal.h
+    cutilitiesglobal.h \
+    cpeopleneeds.h
 
 FORMS    += mainwindow.ui
