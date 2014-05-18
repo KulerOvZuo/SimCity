@@ -9,6 +9,7 @@ protected:
     double dump;
 public:
     CUtilitiesGlobal();
+    CUtilitiesGlobal(const CUtilitiesGlobal& _U);
     CUtilitiesGlobal(double _electricity,double _water,double _dump);
     CUtilitiesGlobal operator+ (CUtilitiesGlobal _U);
     CUtilitiesGlobal& operator+= (CUtilitiesGlobal const &_U);

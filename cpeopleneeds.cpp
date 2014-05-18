@@ -16,6 +16,71 @@ CPeopleNeeds::CPeopleNeeds(CProducts _prod, CService _serv, CRecreation _rec, do
     disturbanceNeed=_disturb;
     traffic=_traffic;
 }
+CPeopleNeeds::CPeopleNeeds(const CPeopleNeeds& _C)
+{
+    productsNeed = _C.getProductsNeed();
+    serviceNeed=_C.getServiceNeed();
+    recreationNeed = _C.getRecreationNeed();
+    disturbanceNeed = _C.getDisturbance();
+    traffic = _C.getTraffic();
+}
+CPeopleNeeds CPeopleNeeds::operator+ (CPeopleNeeds _C)
+{
+    CProducts _prod(_C.getProductsNeed());
+    CService _serv(_C.getServiceNeed());
+    CRecreation _rec(_C.getRecreationNeed());
+    double _traffic = _C.getTraffic();
+    double _dist = _C.getDisturbance();
+    return CPeopleNeeds(productsNeed+_prod,serviceNeed+_serv,recreationNeed+_rec,disturbanceNeed+_dist,traffic+_traffic);
+}
+CPeopleNeeds& CPeopleNeeds::operator+= (CPeopleNeeds const &_C)
+{
+    CProducts _prod(_C.getProductsNeed());
+    CService _serv(_C.getServiceNeed());
+    CRecreation _rec(_C.getRecreationNeed());
+    double _traffic = _C.getTraffic();
+    double _dist = _C.getDisturbance();
+
+    this->productsNeed += _prod;
+    this->serviceNeed +=_serv;
+    this->recreationNeed +=_rec;
+    this->disturbanceNeed +=_dist;
+    this->traffic +=_traffic;
+    return *this;
+}
+CPeopleNeeds& CPeopleNeeds::operator+= (CProducts const &_C)
+{
+    productsNeed += _C;
+    return *this;
+}
+CPeopleNeeds& CPeopleNeeds::operator+= (CService const &_C)
+{
+    serviceNeed += _C;
+    return *this;
+}
+CPeopleNeeds& CPeopleNeeds::operator+= (CRecreation const &_C)
+{
+    recreationNeed += _C;
+    return *this;
+}
+CPeopleNeeds& CPeopleNeeds::operator=(CPeopleNeeds const &_C)
+{
+    if(this != &_C)
+    {   CProducts _prod(_C.getProductsNeed());
+        CService _serv(_C.getServiceNeed());
+        CRecreation _rec(_C.getRecreationNeed());
+        double _traffic = _C.getTraffic();
+        double _dist = _C.getDisturbance();
+
+        this->productsNeed = _prod;
+        this->serviceNeed =_serv;
+        this->recreationNeed =_rec;
+        this->disturbanceNeed =_dist;
+        this->traffic =_traffic;
+    }
+    return *this;
+}
+
 
 CPeopleNeeds CPeopleNeeds::countNewNeeds(double _lifeSatisfaction)
 {
@@ -90,6 +155,11 @@ void CPeopleNeeds::setTraffic(double _traf)
 { traffic = _traf;}
 void CPeopleNeeds::setDistrurbance(double _dist)
 { disturbanceNeed=_dist;}
+void CPeopleNeeds::addTraffic(double _traf)
+{ traffic +=_traf;}
+void CPeopleNeeds::addDisturbance(double _dist)
+{   disturbanceNeed += _dist;}
+
 
 CProducts CPeopleNeeds::getProductsNeed() const
 {   return productsNeed;}

@@ -3,6 +3,10 @@
 CStructureForPeople::CStructureForPeople() : CStructure(), isConnectedToRoad(false)
 {
 }
+CStructureForPeople::CStructureForPeople(const CStructureForPeople& _S) : CStructure(_S)
+{
+    isConnectedToRoad=_S.getIsConnectedToRoad();
+}
 
 bool CStructureForPeople::checkIfConnectedToRoad()
 { return true;}

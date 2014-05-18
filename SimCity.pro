@@ -25,7 +25,18 @@ SOURCES += main.cpp\
     cgreenterrain.cpp \
     cbuilding.cpp \
     cutilitiesglobal.cpp \
-    cpeopleneeds.cpp
+    cpeopleneeds.cpp \
+    cliving.cpp \
+    cpeople.cpp \
+    clearningpeople.cpp \
+    cpeopleearnings.cpp \
+    cschool.cpp \
+    cworking.cpp \
+    ctaxes.cpp \
+    cproductionbuilding.cpp \
+    cfoodproduction.cpp \
+    cfactory.cpp \
+    cpublicutilitybuilding.cpp
 
 HEADERS  += mainwindow.h \
     cstructure.h \
@@ -40,6 +51,17 @@ HEADERS  += mainwindow.h \
     cgreenterrain.h \
     cbuilding.h \
     cutilitiesglobal.h \
-    cpeopleneeds.h
+    cpeopleneeds.h \
+    cliving.h \
+    cpeople.h \
+    clearningpeople.h \
+    cpeopleearnings.h \
+    cschool.h \
+    cworking.h \
+    ctaxes.h \
+    cproductionbuilding.h \
+    cfoodproduction.h \
+    cfactory.h \
+    cpublicutilitybuilding.h
 
 FORMS    += mainwindow.ui

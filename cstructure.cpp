@@ -15,6 +15,20 @@ CStructure::CStructure(int age, QString name, double buildCost,double destroyCos
              turnedDirection(turnedDirection)
 
 {}
+CStructure::CStructure(const CStructure &_S)
+{
+    age =_S.getAge();
+    name = _S.getName();
+    buildCost = _S.getBuildCost();
+    destroyCost = _S.getDestroyCost();
+    costPerTick = _S.getCostPerTick();
+    sizeOnGameMap = _S.getSizeOnGameMap();
+    coordinatesOfCentre =_S.getCoordinatesOfCentre();
+    turnedDirection = _S.getTurnedDirection();
+
+    graphic = _S.getGraphic();
+    city = _S.getCity();
+}
 CStructure::~CStructure()
 {}
 
@@ -88,3 +102,5 @@ CDirections CStructure::getTurnedDirection() const
 {return turnedDirection;}
 CGraphic CStructure::getGraphic() const
 {return graphic;}
+CCity* CStructure::getCity() const
+{   return city;}

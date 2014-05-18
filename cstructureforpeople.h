@@ -9,6 +9,7 @@ protected:
     bool isConnectedToRoad;
 public:
     CStructureForPeople();
+    CStructureForPeople(const CStructureForPeople& _S);
 
     ///implement
     bool checkIfConnectedToRoad();

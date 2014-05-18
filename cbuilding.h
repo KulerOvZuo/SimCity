@@ -12,6 +12,7 @@ protected:
 
 public:
     CBuilding();
+    CBuilding(const CBuilding& _B);
     CBuilding(double _money, CUtilitiesGlobal _U);
 
     ///implement

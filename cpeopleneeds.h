@@ -71,6 +71,13 @@ public:
     CPeopleNeeds();
     CPeopleNeeds(CProducts _prod, CService _serv, CRecreation _rec,
                  double _disturb, double _traffic);
+    CPeopleNeeds(const CPeopleNeeds& _C);
+    CPeopleNeeds operator+ (CPeopleNeeds _C);
+    CPeopleNeeds& operator+= (CPeopleNeeds const &_C);
+    CPeopleNeeds& operator=(CPeopleNeeds const &_C);
+    CPeopleNeeds& operator+= (CProducts const &_C);
+    CPeopleNeeds& operator+= (CService const &_C);
+    CPeopleNeeds& operator+= (CRecreation const &_C);
 
     CPeopleNeeds countNewNeeds(double _lifeSatisfaction);
     double countLifeSatisfation(double _income);
@@ -82,6 +89,8 @@ public:
     void setRecreationNeed(CRecreation _rec);
     void setTraffic(double _traf);
     void setDistrurbance(double _dist);
+    void addTraffic(double _traf);
+    void addDisturbance(double _dist);
 
     CProducts getProductsNeed() const;
     CService getServiceNeed() const;

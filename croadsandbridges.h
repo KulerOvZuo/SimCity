@@ -12,10 +12,14 @@ protected:
                     //directionDown = 4, directionLeft = 8}; it's simple sum of directions
 public:
     CRoadsAndBridges();
+    CRoadsAndBridges(double _capacity,bool _water,CDirections _dir);
+    CRoadsAndBridges(const CRoadsAndBridges& _R);
+
     bool rotate(Erotation rotateAngle);
     ///implement
     bool checkIfCanBeBuiled();
 
+    void setAllRoadAndBridges(double _capacity,bool _water,CDirections _dir);
     bool setOnWater(bool _water);
     bool setCapacity(double _capacity);
     bool setDirections(CDirections _dir);

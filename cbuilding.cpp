@@ -4,7 +4,11 @@ CBuilding::CBuilding() : CStructureForPeople()
 {
     money = 0;
 }
-
+CBuilding::CBuilding(const CBuilding& _B) : CStructureForPeople(_B)
+{
+    money = _B.getMoney();
+    utilities = _B.getUtilities();
+}
 CBuilding::CBuilding(double _money, CUtilitiesGlobal _U) : CStructureForPeople()
 {
     money = _money;

@@ -6,6 +6,12 @@ CUtilitiesGlobal::CUtilitiesGlobal()
     water=0;
     dump=0;
 }
+CUtilitiesGlobal::CUtilitiesGlobal(const CUtilitiesGlobal& _U)
+{
+    electricity=_U.getElectricity();
+    water=_U.getWater();
+    dump=_U.getDump();
+}
 CUtilitiesGlobal::CUtilitiesGlobal(double _electricity,double _water,double _dump) : electricity(_electricity),water(_water),dump(_dump)
 {}
 CUtilitiesGlobal CUtilitiesGlobal::operator+ (CUtilitiesGlobal _U)
