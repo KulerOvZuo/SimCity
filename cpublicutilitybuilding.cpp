@@ -5,6 +5,12 @@ CPublicUtilityBuilding::CPublicUtilityBuilding(): CWorking()
 }
 CPublicUtilityBuilding::CPublicUtilityBuilding(const CPublicUtilityBuilding& _U) : CWorking(_U)
 {}
+CPublicUtilityBuilding::~CPublicUtilityBuilding()
+{}
+void CPublicUtilityBuilding::setProperUtility(double _utility)
+{ Q_UNUSED(_utility)}
+bool CPublicUtilityBuilding::sendUtilitiesToCity()
+{   return true;}
 
 ///power
 CPowerStation::CPowerStation() : CPublicUtilityBuilding()
@@ -35,3 +41,5 @@ CPublicUtilityBuildingAllInOne::CPublicUtilityBuildingAllInOne(): CPublicUtility
 {}
 CPublicUtilityBuildingAllInOne::CPublicUtilityBuildingAllInOne(const CPublicUtilityBuildingAllInOne& _P): CPublicUtilityBuilding(_P)
 {}
+void CPublicUtilityBuildingAllInOne::setProperUtility(double _utility)
+{ Q_UNUSED(_utility)}

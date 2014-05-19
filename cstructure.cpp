@@ -32,6 +32,10 @@ CStructure::CStructure(const CStructure &_S)
 CStructure::~CStructure()
 {}
 
+bool CStructure::build()
+{   return true;}
+bool CStructure::checkIfCanBeBuiled()
+{   return true;}
 bool CStructure::rotate(Erotation rotateAngle)
 {
     turnedDirection.rotate(rotateAngle);

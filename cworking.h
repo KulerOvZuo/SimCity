@@ -15,12 +15,12 @@ public:
     CWorking(const CWorking& _W, CPeople _need, CPeople _actual);
 
     bool addWorkers(CPeople _P); //if number of people to add is too high
-    double countEfficiency(); ///linear efficiency
-
+    double countPeopleEfficiency(); ///linear efficiency
+    virtual double countBuildingEfficiency(); ///linear efficiency
     CPeople getNeededNumberOfWorkers() const;
     CPeople getActualNumberOfWorkers() const;
-    void setActualNumberOfWorkers(CPeople _P);
-    void setNeededNumberOfWorkers(CPeople _P);
+    bool setActualNumberOfWorkers(CPeople _P);
+    bool setNeededNumberOfWorkers(CPeople _P);
 };
 
 #endif // CWORKING_H

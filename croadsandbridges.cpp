@@ -23,7 +23,8 @@ bool CRoadsAndBridges::rotate(Erotation rotateAngle)
     CStructure::rotate(rotateAngle);
     return directions.rotate(rotateAngle);
 }
-
+bool CRoadsAndBridges::checkIfCanBeBuiled()
+{   return true;}
 void CRoadsAndBridges::setAllRoadAndBridges(double _capacity,bool _water,CDirections _dir)
 {
     capacity = _capacity;

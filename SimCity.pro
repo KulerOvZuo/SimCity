@@ -36,7 +36,9 @@ SOURCES += main.cpp\
     cproductionbuilding.cpp \
     cfoodproduction.cpp \
     cfactory.cpp \
-    cpublicutilitybuilding.cpp
+    cpublicutilitybuilding.cpp \
+    cservicebuilding.cpp \
+    crecreationbuilding.cpp
 
 HEADERS  += mainwindow.h \
     cstructure.h \
@@ -62,6 +64,8 @@ HEADERS  += mainwindow.h \
     cproductionbuilding.h \
     cfoodproduction.h \
     cfactory.h \
-    cpublicutilitybuilding.h
+    cpublicutilitybuilding.h \
+    cservicebuilding.h \
+    crecreationbuilding.h
 
 FORMS    += mainwindow.ui

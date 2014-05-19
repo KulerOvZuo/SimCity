@@ -14,11 +14,12 @@ public:
     CBuilding();
     CBuilding(const CBuilding& _B);
     CBuilding(double _money, CUtilitiesGlobal _U);
+    virtual ~CBuilding();
 
     ///implement
-    bool sendUtilitiesToCity();
-    double countIncome();
-    bool sendTaxes();
+    virtual bool sendUtilitiesToCity();
+    virtual double countIncome();
+    virtual bool sendTaxes();
 
     bool addMoney(double _money);
 

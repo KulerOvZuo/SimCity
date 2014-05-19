@@ -25,7 +25,7 @@ protected:
 public:
     CLiving();
     CLiving(const CLiving& _L);
-    ~CLiving();
+    virtual ~CLiving();
 
     ///implement more metods
     //list

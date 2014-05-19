@@ -10,6 +10,7 @@ protected:
 public:
     CStructureForPeople();
     CStructureForPeople(const CStructureForPeople& _S);
+    virtual ~CStructureForPeople();
 
     ///implement
     bool checkIfConnectedToRoad();

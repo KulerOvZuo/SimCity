@@ -14,7 +14,16 @@ CBuilding::CBuilding(double _money, CUtilitiesGlobal _U) : CStructureForPeople()
     money = _money;
     utilities = _U;
 }
+CBuilding::~CBuilding()
+{}
 
+bool CBuilding::sendUtilitiesToCity()
+{ return true;}
+double CBuilding::countIncome()
+{
+    return 0;}
+bool CBuilding::sendTaxes()
+{ return true;}
 bool CBuilding::addMoney(double _money)
 {
     money +=_money;

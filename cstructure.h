@@ -33,8 +33,8 @@ public:
     virtual ~CStructure();
 
     ///implement
-    bool build();
-    bool checkIfCanBeBuiled();
+    virtual bool build();
+    virtual bool checkIfCanBeBuiled();
     bool destroy();
 
     bool rotate(Erotation  rotateAngle);

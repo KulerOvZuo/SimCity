@@ -61,6 +61,27 @@ CPeople& CPeople::operator= (CPeople const &_P)
     return *this;
 }
 
+
+bool CPeople::restoreIfNotPossitiveNOPeople()
+{
+    bool _good = true;
+    if(leadWorker<0)
+    {   leadWorker=0;
+        _good=false;}
+    if(serviceWorker<0)
+    {   serviceWorker=0;
+        _good=false;}
+    if(lightWorker<0)
+    {   lightWorker=0;
+        _good=false;}
+    if(heavyWorker<0)
+    {   heavyWorker=0;
+        _good=false;}
+    if(lowWorker<0)
+    {   lowWorker=0;
+        _good=false;}
+    return _good;
+}
 void CPeople::addAll(int _lead, int _serv, int _light,int _heavy, int _low)
 {
     leadWorker += _lead;

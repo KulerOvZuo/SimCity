@@ -7,7 +7,8 @@ CStructureForPeople::CStructureForPeople(const CStructureForPeople& _S) : CStruc
 {
     isConnectedToRoad=_S.getIsConnectedToRoad();
 }
-
+CStructureForPeople::~CStructureForPeople()
+{}
 bool CStructureForPeople::checkIfConnectedToRoad()
 { return true;}
 

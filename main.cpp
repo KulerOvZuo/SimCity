@@ -15,6 +15,8 @@
 #include "cworking.h"
 #include "cproductionbuilding.h"
 #include "cpublicutilitybuilding.h"
+#include "cservicebuilding.h"
+#include "crecreationbuilding.h"
 
 int main(int argc, char *argv[])
 {
@@ -141,8 +143,47 @@ int main(int argc, char *argv[])
     B += A.extractEducatedPeople();
     A.optimizeListOfLearningPeople();*/
 
-    CPowerStation A;
-    A.setProperUtility(10);
+    //CPowerStation A;
+    //A.setProperUtility(10);
+
+    //qDebug()<<"0\n";
+    /*CWorking A;
+    A.setAge(10);
+    A.setBuildCost(4);
+    A.setNeededNumberOfWorkers(CPeople(1,3,4,1,1));
+    A.setMoney(6666.66666);
+
+    CWorking B(A);*/
+    bool _if;
+    CRecreationBuilding A;
+    A.addMoney(1231231);
+    _if=A.addWorkers(CPeople(1,3,2,0,2));
+    _if=A.setNeededNumberOfWorkers(CPeople(1,4,2,0,2));
+    _if=A.addWorkers(CPeople(1,3,2,0,2));
+    _if=A.addWorkers(CPeople(0,0,-1,0,0));
+    _if=A.setActualNumberOfWorkers(CPeople(1,4,1,0,1));
+    A.setMaxNOCustomers(10);
+    A.setBaseRecreation(CRecreation(10));
+    _if=A.addWorkers(CPeople(-6,-3,-1,0,-1));
+    _if=A.setActualNumberOfWorkers(CPeople(1,1,1,1,1));
+    _if=A.setActualNumberOfWorkers(CPeople(-3,-1,1,1,1));
+
+    A.setActualRecreation(CRecreation(4));
+    A.countSetRecreationQuality();
+    A.addCustomers(5);
+    _if=A.addWorkers(CPeople(1,3,2,0,2));
+    A.countSetRecreationQuality();
+    CRecreationBuilding B(A);
+    A.addWorkers(CPeople(0,1,0,0,0));
+    A.countSetRecreationQuality();
+    A.addCustomers(5);
+    A.countSetRecreationQuality();
+    A.addCustomers(5);
+    A.countSetRecreationQuality();
+    A.addCustomers(5);
+    A.countSetRecreationQuality();
+    _if=A.addWorkers(CPeople(-1,-3,-1,0,-1));
+    A.countSetRecreationQuality();
 
 
 

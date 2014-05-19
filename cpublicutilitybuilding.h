@@ -9,9 +9,10 @@ protected:
 public:
     CPublicUtilityBuilding();
     CPublicUtilityBuilding(const CPublicUtilityBuilding& _U);
+    virtual ~CPublicUtilityBuilding();
 
     bool sendUtilitiesToCity();
-    void setProperUtility(double _utility);
+    virtual void setProperUtility(double _utility);
 };
 
 class CPowerStation : public CPublicUtilityBuilding
@@ -51,6 +52,7 @@ public:
     CPublicUtilityBuildingAllInOne();
     CPublicUtilityBuildingAllInOne(const CPublicUtilityBuildingAllInOne& _P);
 
+    void setProperUtility(double _utility);
 };
 
 #endif // CPUBLICUTILITYBUILDING_H

@@ -18,6 +18,7 @@ public:
     CPeople& operator-= (CPeople const &_P);
     CPeople& operator= (CPeople const &_P);
 
+    bool restoreIfNotPossitiveNOPeople();
     void addAll(int _lead, int _serv, int _light,int _heavy, int _low);
     void addLeadWorker(int _number);
     void addServiceWorker(int _number);
