@@ -92,8 +92,13 @@ CPeopleNeeds CPeopleNeeds::countNewNeeds(double _lifeSatisfaction)
     double _disturbance=1+0.4*_lifeSatisfaction;
     double _traffic=2+0.3*_lifeSatisfaction;
 
-    this->setAll(CProducts(_light,_heavy,_food),CService(_serv1),CRecreation(_rec1),_traffic,_disturbance);
     return CPeopleNeeds(CProducts(_light,_heavy,_food),CService(_serv1),CRecreation(_rec1),_traffic,_disturbance);
+}
+CPeopleNeeds CPeopleNeeds::countSetNewNeeds(double _lifeSatisfaction)
+{
+    CPeopleNeeds _N(countNewNeeds(_lifeSatisfaction));
+    (*this) = _N;
+    return _N;
 }
 double CPeopleNeeds::countLifeSatisfation(double _income)
 {
@@ -213,6 +218,20 @@ CProducts& CProducts::operator=(CProducts const &_C)
     return *this;
 }
 
+bool CProducts::restoreIfNotPossitiveNONeeds()
+{
+    bool _good = true;
+    if( food<0)
+    {   food=0;
+        _good=false;}
+    if(heavyIndustry<0)
+    {   heavyIndustry=0;
+        _good = false;}
+    if(lightIndustry<0)
+    {   lightIndustry=0;
+        _good= false;}
+    return _good;
+}
 double CProducts::getLight() const
 {return lightIndustry;}
 double CProducts::getHeavy() const
@@ -261,6 +280,15 @@ CService& CService::operator=(CService const &_C)
         }
     return *this;
 }
+
+bool CService::restoreIfNotPossitiveNONeeds()
+{
+    bool _good = true;
+    if( service1<0)
+    {   service1=0;
+        _good=false;}
+    return _good;
+}
 double CService::getService1() const
 { return service1;}
 void CService::setService1(double _serv)
@@ -292,6 +320,14 @@ CRecreation& CRecreation::operator=(CRecreation const &_C)
     return *this;
 }
 
+bool CRecreation::restoreIfNotPossitiveNONeeds()
+{
+    bool _good = true;
+    if( recreation1<0)
+    {   recreation1=0;
+        _good=false;}
+    return _good;
+}
 double CRecreation::getRecreation1() const
 {   return recreation1;}
 void CRecreation::setRecreation1(double _rec)

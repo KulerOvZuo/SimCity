@@ -38,7 +38,11 @@ SOURCES += main.cpp\
     cfactory.cpp \
     cpublicutilitybuilding.cpp \
     cservicebuilding.cpp \
-    crecreationbuilding.cpp
+    crecreationbuilding.cpp \
+    cshop.cpp \
+    cmarket.cpp \
+    csocietyindicators.cpp \
+    cmapofstructures.cpp
 
 HEADERS  += mainwindow.h \
     cstructure.h \
@@ -66,6 +70,10 @@ HEADERS  += mainwindow.h \
     cfactory.h \
     cpublicutilitybuilding.h \
     cservicebuilding.h \
-    crecreationbuilding.h
+    crecreationbuilding.h \
+    cshop.h \
+    cmarket.h \
+    csocietyindicators.h \
+    cmapofstructures.h
 
 FORMS    += mainwindow.ui

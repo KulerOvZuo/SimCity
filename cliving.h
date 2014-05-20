@@ -28,6 +28,8 @@ public:
     virtual ~CLiving();
 
     ///implement more metods
+    void countBuildingNeeds();
+    double countSetBirthRate();
     //list
     void addNewLearningPeople(CPeople _professions);
     void clearListOfLearningPeople();

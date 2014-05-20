@@ -26,6 +26,12 @@ CLiving::~CLiving()
 {
     learningPeopleList.clear();
 }
+
+double CLiving::countSetBirthRate()
+{   double _birth= -0.5 + lifeSatisfaction*1;
+    birthRate = _birth;
+    return _birth;
+}
 //list
 void CLiving::addNewLearningPeople(CPeople _professions)
 {

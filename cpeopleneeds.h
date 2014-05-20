@@ -18,6 +18,8 @@ public:
     CProducts& operator+= (CProducts const &_C);
     CProducts& operator=(CProducts const &_C);
 
+    bool restoreIfNotPossitiveNONeeds();
+
     double getLight() const;
     double getHeavy() const;
     double getFood() const;
@@ -39,6 +41,8 @@ public:
     CService& operator+= (CService const &_C);
     CService& operator=(CService const &_C);
 
+    bool restoreIfNotPossitiveNONeeds();
+
     double getService1() const;
     void setService1(double _serv);
 };
@@ -54,6 +58,8 @@ public:
     CRecreation operator+ (CRecreation _C);
     CRecreation& operator+= (CRecreation const &_C);
     CRecreation& operator=(CRecreation const &_C);
+
+    bool restoreIfNotPossitiveNONeeds();
 
     double getRecreation1() const;
     void setRecreation1(double _rec);
@@ -80,6 +86,7 @@ public:
     CPeopleNeeds& operator+= (CRecreation const &_C);
 
     CPeopleNeeds countNewNeeds(double _lifeSatisfaction);
+    CPeopleNeeds countSetNewNeeds(double _lifeSatisfaction);
     double countLifeSatisfation(double _income);
     double countLifeSatisfation(double _income, double _lifeSatPast);
 
