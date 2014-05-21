@@ -3,9 +3,9 @@
 
 #include "cutilitiesglobal.h"
 #include "cmarket.h"
-#include "cmapofstructures.h"
 #include "ctaxes.h"
 #include "csocietyindicators.h"
+#include "cmapofstructures.h"
 
 class CCity
 {
@@ -15,6 +15,7 @@ protected:
     CMarket market;
     CTaxes taxes;
     CSocietyIndicators societyIndicators;
+    CMapOfStructures mapOfStructures;
 public:
     CCity();
     CCity(const CCity& _C);

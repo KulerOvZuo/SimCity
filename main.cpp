@@ -17,11 +17,14 @@
 #include "cpublicutilitybuilding.h"
 #include "cservicebuilding.h"
 #include "crecreationbuilding.h"
+#include "csocietyindicators.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
+    QTime time = QTime::currentTime();
+    qsrand((uint)time.msec());
 
     //CStructure structure;
     //CCoordinates C(1,4);
@@ -154,7 +157,7 @@ int main(int argc, char *argv[])
     A.setMoney(6666.66666);
 
     CWorking B(A);*/
-    bool _if;
+    /*bool _if;
     CRecreationBuilding A;
     A.addMoney(1231231);
     _if=A.addWorkers(CPeople(1,3,2,0,2));
@@ -183,12 +186,34 @@ int main(int argc, char *argv[])
     A.addCustomers(5);
     A.countSetRecreationQuality();
     _if=A.addWorkers(CPeople(-1,-3,-1,0,-1));
-    A.countSetRecreationQuality();
+    A.countSetRecreationQuality();*/
 
+    /*CSocietyIndicators A;
+    A.setAllPeople(CPeople(30,30,50,80,100));
+    A.setAllLivingWorkingPeople(CPeople(25,25,45,65,85));
+    A.setAllLivingNotWorkingPeople(CPeople(0,0,0,5,5));
+    A.setAllLearningPeople(CPeople(5,5,5,10,10));
 
+    A.setBasePeopleEarnings(CPeopleEarnings(2000,1800,1600,1400,1000));
+    A.setAllWorkForPeople(CPeople(25,30,50,75,100));
+    A.setChildren(0);
 
+    A.setPeopleEarnings(A.countPeopleEarnings());
+    A.setAllProfessionsToEducate(A.countProffesionsToEducate());*/
 
-    //CRoad B(A);
+    CLiving A;
+    A.setMaxLivingPeople(120);
+    A.setLivingWorkingPeople(CPeople(5,10,15,20,30));
+    A.setLivingNotWorkingPeople(CPeople(0,0,0,5,5));
+    A.setChildren(5);
+    A.setIncome(1000*90);
+    A.setLifeSatisfaction(1);
+    A.setPeopleNeeds(A.countPeopleNeeds());
+    A.setLifeSatisfaction(A.countLifeSatisfaction());
+    A.setPeopleNeeds(A.countPeopleNeeds());
+    A.setLifeSatisfaction(A.countLifeSatisfaction());
+    A.setPeopleNeeds(A.countPeopleNeeds());
+    A.setLifeSatisfaction(A.countLifeSatisfaction());
 
     w.show();
     return a.exec();

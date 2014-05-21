@@ -30,6 +30,8 @@ public:
     ///implement more metods
     void countBuildingNeeds();
     double countSetBirthRate();
+    CPeopleNeeds countPeopleNeeds();
+    double countLifeSatisfaction();
     //list
     void addNewLearningPeople(CPeople _professions);
     void clearListOfLearningPeople();

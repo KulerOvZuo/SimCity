@@ -20,8 +20,108 @@ CSocietyIndicators::CSocietyIndicators(const CSocietyIndicators& _I)
 CSocietyIndicators::~CSocietyIndicators()
 {}
 
+
+int CSocietyIndicators::countNewChildren()
+{
+    //allPeople.getAllPeople()*birthIndicator;
+    return -1;
+}
+int CSocietyIndicators::countNewDeadPeople()
+{
+    return -1;
+}
+CPeopleEarnings CSocietyIndicators::countPeopleEarnings()
+{
+    //value*(1 + 0.2*prof/profAre)
+    CPeopleEarnings _earn(basePeopleEarnings);
+    double ind;
+    if(allPeople.getLeadWorker() >0)
+    {   ind = (double)allWorkForPeople.getLeadWorker()/allPeople.getLeadWorker();
+        if(ind > 2) //1.4
+            ind =2;
+        _earn.addLeadWorkerEarn((double)basePeopleEarnings.getLeadWorkerEarn()*0.2*ind);
+    }
+    if(allPeople.getServiceWorker() >0)
+    {   ind = (double)allWorkForPeople.getServiceWorker()/allPeople.getServiceWorker();
+        if(ind > 2) //1.4
+            ind =2;
+        _earn.addServiceWorkerEarn((double)basePeopleEarnings.getServiceWorkerEarn()*0.2*ind);
+    }
+    if(allPeople.getLightWorker() >0)
+    {   ind = (double)allWorkForPeople.getLightWorker()/allPeople.getLightWorker();
+        if(ind > 2) //1.4
+            ind =2;
+        _earn.addLightWorkerEarn((double)basePeopleEarnings.getLightWorkerEarn()*0.2*ind);
+    }
+    if(allPeople.getHeavyWorker() >0)
+    {   ind = (double)allWorkForPeople.getHeavyWorker()/allPeople.getHeavyWorker();
+        if(ind > 2) //1.4
+            ind =2;
+        _earn.addHeavyWorkerEarn((double)basePeopleEarnings.getHeavyWorkerEarn()*0.2*ind);
+    }
+    if(allPeople.getLowWorker() >0)
+    {   ind = (double)allWorkForPeople.getLowWorker()/allPeople.getLowWorker();
+        if(ind > 2) //1.4
+            ind =2;
+        _earn.addLowWorkerEarn((double)basePeopleEarnings.getLowWorkerEarn()*0.2*ind);
+    }
+    return _earn;
+}
+CPeople CSocietyIndicators::countProffesionsNeed()
+{
+    //workFor - working - notWorking - learning
+    int leadWorkerNeed = allWorkForPeople.getLeadWorker() - allLivingNotWorkingPeople.getLeadWorker() - allLivingWorkingPeople.getLeadWorker() - allLearningPeople.getLeadWorker();
+    int lightWorkerNeed = allWorkForPeople.getLightWorker() - allLivingNotWorkingPeople.getLightWorker() - allLivingWorkingPeople.getLightWorker() - allLearningPeople.getLightWorker();
+    int heavyWorkerNeed = allWorkForPeople.getHeavyWorker() - allLivingNotWorkingPeople.getHeavyWorker() - allLivingWorkingPeople.getHeavyWorker() - allLearningPeople.getHeavyWorker();
+    int lowWorkerNeed = allWorkForPeople.getLowWorker() - allLivingNotWorkingPeople.getLowWorker() - allLivingWorkingPeople.getLowWorker() - allLearningPeople.getLowWorker();
+    int serviceWorkerNeed = allWorkForPeople.getServiceWorker() - allLivingNotWorkingPeople.getServiceWorker() - allLivingWorkingPeople.getServiceWorker() - allLearningPeople.getServiceWorker();
+
+    return CPeople(leadWorkerNeed,serviceWorkerNeed,lightWorkerNeed,heavyWorkerNeed,lowWorkerNeed);
+}
+CPeople CSocietyIndicators::countProffesionsToEducate()
+{
+    CPeople _profNeed(countProffesionsNeed());
+    _profNeed.restoreIfNotPossitiveNOPeople();  // -need is not needed
+    int _allProfNeed = _profNeed.getAllPeople();
+    // children vs need
+    if(_allProfNeed ==0)
+    {
+        CPeople A;
+        int free = children-_allProfNeed;
+        A.randomAdd(free);
+        return A;
+    }
+    double ratio = (double)children/_allProfNeed;
+
+    if(ratio==0)
+    {   return CPeople();}
+    if(ratio==1)
+    {   return CPeople(_profNeed);}
+    if(ratio > 1) // all + random free
+    {
+        CPeople A(_profNeed);
+        int free = children-_allProfNeed;
+        A.randomAdd(free);
+        return A;
+    }
+    if(ratio < 1)
+    {
+        CPeople A;
+        A.addLeadWorker(floor(ratio*_profNeed.getLeadWorker()));
+        A.addServiceWorker(floor(ratio*_profNeed.getServiceWorker()));
+        A.addLightWorker(floor(ratio*_profNeed.getLightWorker()));
+        A.addHeavyWorker(floor(ratio*_profNeed.getHeavyWorker()));
+        A.addLowWorker(floor(ratio*_profNeed.getLowWorker()));
+        int free = children - A.getAllPeople(); //see whats left
+        A.randomAdd(free);
+        return A;
+    }
+    return CPeople();
+}
 CPeopleEarnings CSocietyIndicators::getPeopleEarnings() const
 {   return peopleEarnings;}
+CPeopleEarnings CSocietyIndicators::getBasePeopleEarnings() const
+{   return basePeopleEarnings; }
 CPeople CSocietyIndicators::getAllPeople() const
 {   return allPeople;}
 CPeople CSocietyIndicators::getallLivingWorkingPeople() const
@@ -41,6 +141,8 @@ double CSocietyIndicators::getBirthIndicator() const
 
 void CSocietyIndicators::setPeopleEarnings(CPeopleEarnings _earn)
 {   peopleEarnings = _earn; }
+void CSocietyIndicators::setBasePeopleEarnings(CPeopleEarnings _earn)
+{   basePeopleEarnings = _earn;}
 void CSocietyIndicators::setAllPeople(CPeople _people)
 {   allPeople = _people;}
 void CSocietyIndicators::setAllLivingWorkingPeople(CPeople _people)

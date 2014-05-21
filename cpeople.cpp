@@ -82,6 +82,39 @@ bool CPeople::restoreIfNotPossitiveNOPeople()
         _good=false;}
     return _good;
 }
+int CPeople::randBetween(int min, int max)
+{
+    return qrand() % ((max + 1) - min) + min;
+}
+void CPeople::randomAdd(int _free)
+{
+    while(_free > 0)
+    {   switch (randBetween(1,5)) {
+        case 1:
+            addLeadWorker(1);
+            _free--;
+            break;
+        case 2:
+            addServiceWorker(1);
+            _free--;
+            break;
+        case 3:
+            addLightWorker(1);
+            _free--;
+            break;
+        case 4:
+            addHeavyWorker(1);
+            _free--;
+            break;
+        case 5:
+            addLowWorker(1);
+            _free--;
+            break;
+        default:
+            break;
+        }
+    }
+}
 void CPeople::addAll(int _lead, int _serv, int _light,int _heavy, int _low)
 {
     leadWorker += _lead;

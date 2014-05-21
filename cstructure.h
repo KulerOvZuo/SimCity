@@ -4,7 +4,7 @@
 #include <QString>
 #include "ccoordinates.h"
 #include "enumerators.h"
-#include "ccity.h"
+//#include "ccity.h"
 #include "cgraphic.h"
 #include "cdirections.h"
 #include <QDebug>
@@ -22,7 +22,7 @@ protected:
     CDirections turnedDirection;
 
     CGraphic graphic;
-    CCity *city;
+    //CCity* city;
 
 public:
     CStructure();
@@ -48,7 +48,7 @@ public:
     bool setCoordinatesOfCentre(const CCoordinates& _C);
     bool setTurnedDirection(CDirections _dir);
     bool setGraphic(CGraphic _graphic);
-    bool setCity(CCity* _city);
+   // bool setCity(CCity* _city);
 
     int getAge() const;
     QString getName() const;
@@ -59,7 +59,7 @@ public:
     CCoordinates getCoordinatesOfCentre() const;
     CDirections getTurnedDirection() const;
     CGraphic getGraphic() const;
-    CCity* getCity() const;
+   // CCity* getCity() const;
 };
 
 #endif // CSTRUCTURE_H

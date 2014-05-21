@@ -2,6 +2,7 @@
 #define CROADSANDBRIDGES_H
 
 #include "cstructure.h"
+#include "cdirections.h"
 
 class CRoadsAndBridges : public CStructure
 {

@@ -2,7 +2,7 @@
 
 CStructure::CStructure() :
     age(0), name("none"), buildCost(0), destroyCost(0), costPerTick(0), sizeOnGameMap(), coordinatesOfCentre(),
-    turnedDirection(CDirections()), graphic(), city(NULL)
+    turnedDirection(CDirections()), graphic()//, city(NULL)
 {
    /* qDebug()<<age<<name<<buildCost<<destroyCost<<costPerTick<<sizeOnGameMap.getX()<<coordinatesOfCentre.getY()
            <<static_cast<direction>(turnedDirection)<<city;*/
@@ -27,7 +27,7 @@ CStructure::CStructure(const CStructure &_S)
     turnedDirection = _S.getTurnedDirection();
 
     graphic = _S.getGraphic();
-    city = _S.getCity();
+   // city = _S.getCity();
 }
 CStructure::~CStructure()
 {}
@@ -79,13 +79,13 @@ bool CStructure::setTurnedDirection(CDirections _dir)
 bool CStructure::setGraphic(CGraphic _graphic)
 {   graphic = _graphic;
     return true;}
-bool CStructure::setCity(CCity* _city)
+/*bool CStructure::setCity(CCity* _city)
 {   if(_city!=NULL)
     {   city = _city;
         return true;}
     else
         return false;
-}
+}*/
 
 ///getters
 int CStructure::getAge() const
@@ -106,5 +106,5 @@ CDirections CStructure::getTurnedDirection() const
 {return turnedDirection;}
 CGraphic CStructure::getGraphic() const
 {return graphic;}
-CCity* CStructure::getCity() const
-{   return city;}
+/*CCity* CStructure::getCity() const
+{   return city;}*/

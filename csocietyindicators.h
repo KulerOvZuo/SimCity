@@ -3,11 +3,15 @@
 
 #include "clearningpeople.h"
 #include "cpeopleearnings.h"
+#include <qglobal.h>
+#include <QTime>
+#include <cmath>
 
 class CSocietyIndicators
 {
 protected:
     CPeopleEarnings peopleEarnings;
+    CPeopleEarnings basePeopleEarnings;
     CPeople allPeople;
     CPeople allLivingWorkingPeople;
     CPeople allLivingNotWorkingPeople;
@@ -21,6 +25,13 @@ public:
     CSocietyIndicators(const CSocietyIndicators& _I);
     virtual ~CSocietyIndicators();
 
+    ///implement more
+    int countNewChildren();
+    int countNewDeadPeople();
+    CPeopleEarnings countPeopleEarnings();
+    CPeople countProffesionsNeed();
+    CPeople countProffesionsToEducate();
+
     void addPeopleEarnings(CPeopleEarnings _earn);
     void addAllPeople(CPeople _people);
     void addAllWorkForPeople(CPeople _people);
@@ -32,6 +43,7 @@ public:
     void addBirthIndicator(double _birth);
 
     CPeopleEarnings getPeopleEarnings() const;
+    CPeopleEarnings getBasePeopleEarnings() const;
     CPeople getAllPeople() const;
     CPeople getallLivingWorkingPeople() const;
     CPeople getallLivingNotWorkingPeople() const;
@@ -42,6 +54,7 @@ public:
     double getBirthIndicator() const;
 
     void setPeopleEarnings(CPeopleEarnings _earn);
+    void setBasePeopleEarnings(CPeopleEarnings _earn);
     void setAllPeople(CPeople _people);
     void setAllLivingWorkingPeople(CPeople _people);
     void setAllLivingNotWorkingPeople(CPeople _people);

@@ -10,6 +10,7 @@ protected:
 public:
     CTaxes();
     CTaxes(const CTaxes& _T);
+    virtual ~CTaxes();
 
     double getFromProductionInd() const;
     double getFromPeopleInd() const;

@@ -12,7 +12,7 @@ TARGET = SimCity
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
+SOURCES += main.cpp \
         mainwindow.cpp \
     cstructure.cpp \
     ccoordinates.cpp \

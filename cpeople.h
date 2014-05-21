@@ -1,6 +1,9 @@
 #ifndef CPEOPLE_H
 #define CPEOPLE_H
 
+#include <qglobal.h>
+#include <QTime>
+
 class CPeople
 {
 protected:
@@ -9,6 +12,7 @@ protected:
     int lightWorker;
     int heavyWorker;
     int lowWorker;
+    int randBetween(int min, int max);
 public:
     CPeople();
     CPeople(int _lead, int _serv, int _light,int _heavy, int _low);
@@ -19,6 +23,7 @@ public:
     CPeople& operator= (CPeople const &_P);
 
     bool restoreIfNotPossitiveNOPeople();
+    void randomAdd(int _free);
     void addAll(int _lead, int _serv, int _light,int _heavy, int _low);
     void addLeadWorker(int _number);
     void addServiceWorker(int _number);

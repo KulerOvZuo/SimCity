@@ -13,6 +13,8 @@ CTaxes::CTaxes(const CTaxes& _T)
     fromPeopleInd =_T.getFromPeopleInd();
     fromOthersInd =_T.getFromOthersInd();
 }
+CTaxes::~CTaxes()
+{}
 double CTaxes::getFromProductionInd() const
 {   return fromProductionInd;}
 double CTaxes::getFromPeopleInd() const
