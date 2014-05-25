@@ -1,4 +1,5 @@
 #include "cliving.h"
+#include "ccity.h"
 
 CLiving::CLiving() : CBuilding(),schoolConnected(NULL)
 {
@@ -27,6 +28,60 @@ CLiving::~CLiving()
     learningPeopleList.clear();
 }
 
+
+bool CLiving::searchSetForBetterSchool()
+{
+    CSchool* best=NULL;
+    double rangeInd=1;
+    if(schoolConnected != NULL)
+        rangeInd = 1- this->distanceToOther(schoolConnected)/50;
+    if(rangeInd <0.1)
+        rangeInd=0.1;
+    double actual=0;
+    if(schoolConnected != NULL)
+        actual= schoolConnected->getActualEducationIndicator()*rangeInd;
+    double temp;
+    for(int i=0; i<((city->getMapOfStructures())->getAllSchools()).count(); i++)
+    {   rangeInd = 1- this->distanceToOther(city->getMapOfStructures()->getAllSchools().at(i))/50;
+        if(rangeInd <0.1)
+            rangeInd=0.1;
+        temp = (city->getMapOfStructures()->getAllSchools().at(i)->getActualEducationIndicator())*rangeInd;
+        if( temp > 1.1*actual)
+        {   best = dynamic_cast<CSchool*>(((city->getMapOfStructures())->getAllSchools()).at(i));
+            actual = temp;}
+    }
+    if(best != NULL)
+    {   ///need to transfer children
+        int _children=getNumberOfLearningPeople().getAllPeople();
+        if(schoolConnected != NULL)
+        {   schoolConnected->addNOChildren(-_children);
+            schoolConnected->countSetEducationQuality();}
+        schoolConnected = best;
+        if(schoolConnected != NULL)
+        {   schoolConnected->addNOChildren(_children);
+            schoolConnected->countSetEducationQuality();
+            return true;
+        }
+        return false;
+    }
+    return false;
+}
+void CLiving::countSetIncome()
+{
+    income=0;
+    CPeopleEarnings _E = city->getSocietyIndicators()->getPeopleEarnings();
+    income += livingWorkingPeople.getLeadWorker()*_E.getLeadWorkerEarn();
+    income += livingWorkingPeople.getServiceWorker()*_E.getServiceWorkerEarn();
+    income += livingWorkingPeople.getLightWorker()*_E.getLightWorkerEarn();
+    income += livingWorkingPeople.getHeavyWorker()*_E.getHeavyWorkerEarn();
+    income += livingWorkingPeople.getLowWorker()*_E.getLowWorkerEarn();
+}
+double CLiving::giveTaxes(double _tax)
+{
+    double tax = income * _tax/100;
+    income -= tax;
+    return tax;
+}
 double CLiving::countSetBirthRate()
 {   double _birth= -0.5 + lifeSatisfaction*1;
     int _allPeople = livingWorkingPeople.getAllPeople() + livingNotWorkingPeople.getAllPeople();
@@ -122,8 +177,9 @@ void CLiving::optimizeListOfLearningPeople()
         }
     }
 }
-void CLiving::educatePeople(double _educationIndicator)
+void CLiving::educatePeople()
 {
+    double _educationIndicator = schoolConnected->getActualEducationIndicator();
     for(int i=0; i<learningPeopleList.size(); i++)
     {
         learningPeopleList[i].addAllEducation(_educationIndicator);
@@ -137,6 +193,8 @@ CPeople CLiving::extractEducatedPeople()
     {   //extract educated people
         _P += learningPeopleList[i].extractWhoIsEducated();
     }
+    schoolConnected->addNOChildren(-1*_P.getAllPeople());
+    schoolConnected->countSetEducationQuality();
     return _P;
 }
 CPeople CLiving::getNumberOfLearningPeople()

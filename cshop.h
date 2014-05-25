@@ -10,6 +10,7 @@ protected:
     CProducts productsNeedFromPeople;
     CProducts productsGotFromMarket;
     CProducts productsSellPrice;
+    double income;
 public:
     CShop();
     CShop(const  CShop& _S);
@@ -20,14 +21,17 @@ public:
     void sendProductsNeedToMarket();
     bool addProductsNeedFromPeople(CProducts _prod);
     bool addProductsGotFromMarket(CProducts _prod);
+    double giveTaxes(double _tax);
 
     bool setProductsNeedFromPeople(CProducts _prod);
     bool setProductsGotFromMarket(CProducts _prod);
     bool setProductsSellPrice(CProducts _prod);
+    void setIncome(double _inc);
 
     CProducts getProductsNeedFromPeople() const;
     CProducts getProductsGotFromMarket() const;
     CProducts getProductsSellPrice() const;
+    double getIncome() const;
 };
 
 class CSmallShop : public CShop

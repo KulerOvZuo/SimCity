@@ -5,7 +5,7 @@ CCoordinates::CCoordinates()
     x=0;
     y=0;
 }
-CCoordinates::CCoordinates(int _x, int _y)
+CCoordinates::CCoordinates(double _x, double _y)
 {   x=_x;
     y=_y;
 }
@@ -35,18 +35,18 @@ CCoordinates& CCoordinates::operator=(CCoordinates const &_C)
 }
 CCoordinates::~CCoordinates()
 {}
-int CCoordinates::getX() const
+double CCoordinates::getX() const
 {return x;
 }
-int CCoordinates::getY() const
+double CCoordinates::getY() const
 {return y;
 }
-bool CCoordinates::setX(int _x)
+bool CCoordinates::setX(double _x)
 {x=_x; return true;
 }
-bool CCoordinates::setY(int _y)
+bool CCoordinates::setY(double _y)
 {y=_y; return true;
 }
-bool CCoordinates::setCoordinates(int _x, int _y)
+bool CCoordinates::setCoordinates(double _x, double _y)
 {x=_x; y=_y;return true;
 }

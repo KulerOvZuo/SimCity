@@ -6,22 +6,22 @@
 class CCoordinates
 {
 protected:
-    int x;
-    int y;
+    double x;
+    double y;
 public:
     CCoordinates();
-    CCoordinates(int _x, int _y);
+    CCoordinates(double _x, double _y);
     CCoordinates(const CCoordinates& _C);
     CCoordinates operator+ (CCoordinates _C);
     CCoordinates& operator+= (CCoordinates const &_C);
     CCoordinates& operator=(CCoordinates const &_C);
     virtual ~CCoordinates();
 
-    int getX() const;
-    int getY() const;
-    bool setX(int _x);
-    bool setY(int _y);
-    bool setCoordinates(int _x, int _y);
+    double getX() const;
+    double getY() const;
+    bool setX(double _x);
+    bool setY(double _y);
+    bool setCoordinates(double _x, double _y);
 };
 
 #endif // CCOORDINATES_H

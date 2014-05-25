@@ -16,6 +16,11 @@ CRoadTurning::CRoadTurning(const CRoadTurning& _R) : CRoad(_R)
     directions = _R.getDirections();
 }
 
+CRoadStraight::CRoadStraight(): CRoad()
+{}
+CRoadStraight::CRoadStraight(const CRoadStraight &_R) : CRoad(_R)
+{}
+
 CRoadThreeWay::CRoadThreeWay() : CRoad()
 {
     this->setDirections(CDirections(true,true,false,true));

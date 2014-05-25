@@ -7,7 +7,10 @@
 #include "clearningpeople.h"
 #include "cpeopleearnings.h"
 #include "cschool.h"
+#include "cshop.h"
+#include "cservicebuilding.h"
 #include <QVector>
+#include <QList>
 
 class CLiving : public CBuilding
 {
@@ -28,15 +31,21 @@ public:
     virtual ~CLiving();
 
     ///implement more metods
-    void countBuildingNeeds();
+    bool searchSetForBetterSchool();
+    QList<CShop*> searchForShops();
+    bool sendProductsNeedToShops();
+
+    void countSetIncome();
     double countSetBirthRate();
     CPeopleNeeds countPeopleNeeds();
     double countLifeSatisfaction();
+    double giveTaxes(double _tax);
+
     //list
     void addNewLearningPeople(CPeople _professions);
     void clearListOfLearningPeople();
     void optimizeListOfLearningPeople();
-    void educatePeople(double _educationIndicator);
+    void educatePeople();
     CPeople extractEducatedPeople();
     CPeople getNumberOfLearningPeople();
 

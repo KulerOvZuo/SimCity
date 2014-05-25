@@ -6,20 +6,44 @@
 #include "ctaxes.h"
 #include "csocietyindicators.h"
 #include "cmapofstructures.h"
+#include "enumerators.h"
 
 class CCity
 {
 protected:
     CUtilitiesGlobal utilitiesGlobalProduction;
     CUtilitiesGlobal utilitiesGlobalNeed;
-    CMarket market;
-    CTaxes taxes;
-    CSocietyIndicators societyIndicators;
-    CMapOfStructures mapOfStructures;
+    CMarket* market;
+    CTaxes* taxes;
+    CSocietyIndicators* societyIndicators;
+    CMapOfStructures* mapOfStructures;
 public:
     CCity();
     CCity(const CCity& _C);
     virtual ~CCity();
+
+    ///implement
+    void addUtilitiesGlobalNeed();
+    double publicBuildingsKeepCost();
+    double takeTaxes();
+
+    ///getters, not const
+    CUtilitiesGlobal getUtilitiesGlobalProduction();
+    CUtilitiesGlobal getUtilitiesGlobalNeed();
+    CMarket* getMarket();
+    CTaxes* getTaxes();
+    CSocietyIndicators* getSocietyIndicators();
+    CMapOfStructures* getMapOfStructures();
+
+    ///setters
+    void setUtilitiesGlobalProduction(CUtilitiesGlobal _U);
+    void setUtilitiesGlobalNeed(CUtilitiesGlobal _U);
+    void setMarket(CMarket* _M);
+    void setTaxes(CTaxes* _T);
+    void setSocietyIndicators(CSocietyIndicators* _S);
+    void setMapOfStructures(CMapOfStructures* _M);
+
+
 };
 
 #endif // CCITY_H

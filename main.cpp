@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include <QDebug>
 
 #include "cstructure.h"
 #include "croadsandbridges.h"
@@ -18,6 +19,9 @@
 #include "cservicebuilding.h"
 #include "crecreationbuilding.h"
 #include "csocietyindicators.h"
+#include "ccity.h"
+#include "enumerators.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -201,7 +205,7 @@ int main(int argc, char *argv[])
     A.setPeopleEarnings(A.countPeopleEarnings());
     A.setAllProfessionsToEducate(A.countProffesionsToEducate());*/
 
-    CLiving A;
+   /* CLiving A;
     A.setMaxLivingPeople(120);
     A.setLivingWorkingPeople(CPeople(5,10,15,20,30));
     A.setLivingNotWorkingPeople(CPeople(0,0,0,5,5));
@@ -213,7 +217,116 @@ int main(int argc, char *argv[])
     A.setPeopleNeeds(A.countPeopleNeeds());
     A.setLifeSatisfaction(A.countLifeSatisfaction());
     A.setPeopleNeeds(A.countPeopleNeeds());
-    A.setLifeSatisfaction(A.countLifeSatisfaction());
+    A.setLifeSatisfaction(A.countLifeSatisfaction());*/
+
+
+    CCity* city = new CCity;
+    //city->setMapOfStructures(new CMapOfStructures());
+    CCoordinates C;
+    bool f;
+
+    city->getMapOfStructures()->setMapSize(CCoordinates(40,50));
+    city->getMapOfStructures()->setMakeMapOfTakenPlaces();
+    CHouse* House = new CHouse();
+    CShop* shop = new CShop();
+    f=city->getMapOfStructures()->addStructureProperly(House);
+    f=city->getMapOfStructures()->addStructureProperly(shop);
+    (city->getMapOfStructures()->getAllLivings()).at(0)->setCity(city);
+    (city->getMapOfStructures()->getAllLivings()).at(0)->setCoordinatesOfActualLUCorner(CCoordinates(1,4));
+    (city->getMapOfStructures()->getAllLivings()).at(0)->setSizeOnGameMap(CCoordinates(5,-2));
+    C=(city->getMapOfStructures()->getAllLivings()).at(0)->countCoordinatesOfCentre();
+    shop->setCoordinatesOfActualLUCorner(CCoordinates(1,1));
+    shop->setSizeOnGameMap(CCoordinates(3,-1));
+    C=(city->getMapOfStructures()->getAllShops()).at(0)->countCoordinatesOfCentre();
+    (city->getMapOfStructures()->getAllShops()).at(0)->setCity(city);
+
+    f=(city->getMapOfStructures()->getAllShops()).at(0)->checkIfCanBeBuiled();
+    if((city->getMapOfStructures()->getAllLivings()).at(0)->checkIfCanBeBuiled())
+        (city->getMapOfStructures()->getAllLivings()).at(0)->build();
+    f=(city->getMapOfStructures()->getAllShops()).at(0)->checkIfCanBeBuiled();
+    shop->setCoordinatesOfActualLUCorner(CCoordinates(10,0));
+    f=(city->getMapOfStructures()->getAllShops()).at(0)->checkIfCanBeBuiled();
+    shop->rotate(leftRot);
+    f=(city->getMapOfStructures()->getAllShops()).at(0)->checkIfCanBeBuiled();
+
+    CRoadCross* cross = new CRoadCross;
+    CRoadStraight* straight = new CRoadStraight;
+    cross->setSizeOnGameMap(CCoordinates(1,1));
+    straight->setSizeOnGameMap(CCoordinates(1,1));
+    cross->setCity(city);
+    straight->setCity(city);
+    city->getMapOfStructures()->addStructureProperly(cross);
+    city->getMapOfStructures()->addStructureProperly(straight);
+    cross->setCoordinatesOfActualLUCorner(CCoordinates(2,13));
+    if(cross->checkIfCanBeBuiled())
+        cross->build();
+    straight->setCoordinatesOfActualLUCorner(CCoordinates(3,13));
+    if(straight->checkIfCanBeBuiled())
+        straight->build();
+    straight->rotate(rightRot);
+    straight->setCoordinatesOfActualLUCorner(CCoordinates(2,13));
+    if(straight->checkIfCanBeBuiled())
+        straight->build();
+    straight->setCoordinatesOfActualLUCorner(CCoordinates(3,13));
+    if(straight->checkIfCanBeBuiled())
+        straight->build();
+
+    House->addNewLearningPeople(CPeople(1,2,0,5,2));
+    CSchool* school1 = new CSchool;
+    school1->setCity(city);
+    school1->setBaseEducationIndicator(10);
+    city->getMapOfStructures()->addStructureProperly(school1);
+    school1->setSizeOnGameMap(CCoordinates(2,2));
+    school1->setCoordinatesOfActualLUCorner(CCoordinates(10,11));
+    school1->setNeededNumberOfWorkers(CPeople(5,0,0,0,1));
+    school1->addWorkers(CPeople(4,0,0,0,1));
+    school1->setMaxNOChildren(11);
+    school1->setActualNOChildren(6);
+    CSchool* school2 = new CSchool(*school1);
+    city->getMapOfStructures()->addStructureProperly(school2);
+    school2->setCoordinatesOfActualLUCorner(CCoordinates(14,11));
+    school2->setActualNumberOfWorkers(CPeople(5,0,0,0,1));
+    school1->countSetEducationQuality();
+    school2->countSetEducationQuality();
+
+    House->searchSetForBetterSchool();
+    House->educatePeople();
+    House->extractEducatedPeople();
+    school2->addWorkers(CPeople(-1,0,0,0,0));
+    school1->countSetEducationQuality();
+    school2->countSetEducationQuality();
+    House->searchSetForBetterSchool();
+    House->educatePeople();
+    House->extractEducatedPeople();
+    House->searchSetForBetterSchool();
+    House->educatePeople();
+    House->extractEducatedPeople();
+    school1->countSetEducationQuality();
+    school2->countSetEducationQuality();
+    House->educatePeople();
+    House->extractEducatedPeople();
+    school1->countSetEducationQuality();
+    school2->countSetEducationQuality();
+    House->educatePeople();
+    House->extractEducatedPeople();
+    school1->countSetEducationQuality();
+    school2->countSetEducationQuality();
+    House->educatePeople();
+    House->extractEducatedPeople();
+    school1->countSetEducationQuality();
+    school2->countSetEducationQuality();
+    House->optimizeListOfLearningPeople();
+    House->educatePeople();
+    House->extractEducatedPeople();
+    school1->countSetEducationQuality();
+    school2->countSetEducationQuality();
+    House->optimizeListOfLearningPeople();
+
+
+
+
+
+
 
     w.show();
     return a.exec();

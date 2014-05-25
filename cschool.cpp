@@ -19,6 +19,8 @@ CSchool::~CSchool()
 
 double CSchool::countBuildingEfficiency()
 {
+    if(maxNOChildren<=0)
+        return 0;
     double ratio = actualNOChildren/maxNOChildren;
     double multiply;
     if(ratio < 0.8) ///0-0.8 ratio

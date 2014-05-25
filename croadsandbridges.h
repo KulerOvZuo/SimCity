@@ -9,8 +9,7 @@ class CRoadsAndBridges : public CStructure
 protected:
     double capacity;
     bool onWater;
-    CDirections directions; //from enum Edirections {directionUp = 1, directionRight = 2,
-                    //directionDown = 4, directionLeft = 8}; it's simple sum of directions
+    CDirections directions;
 public:
     CRoadsAndBridges();
     CRoadsAndBridges(double _capacity,bool _water,CDirections _dir);
@@ -28,8 +27,6 @@ public:
     double getCapacity() const;
     bool getOnWater() const;
     CDirections getDirections() const;
-
-
 };
 
 #endif // CROADSANDBRIDGES_H

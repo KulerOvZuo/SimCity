@@ -42,6 +42,12 @@ bool CServiceBuilding::addCustomers(int _number)
         return false;}
     return true;
 }
+double CServiceBuilding::giveTaxes(double _tax)
+{
+    double tax = income * _tax/100;
+    income -= tax;
+    return tax;
+}
 
 int CServiceBuilding::getMaxNOCustomers() const
 { return maxNOCustomers;}
@@ -51,6 +57,8 @@ CService CServiceBuilding::getBaseService() const
 { return baseService;}
 CService CServiceBuilding::getActualService() const
 { return actualService;}
+double CServiceBuilding::getIncome() const
+{   return income;}
 
 void CServiceBuilding::setMaxNOCustomers(int _max)
 {   maxNOCustomers = _max;}
@@ -60,7 +68,8 @@ void CServiceBuilding::setBaseService(CService _base)
 {   baseService =_base;}
 void CServiceBuilding::setActualService(CService _actual)
 {   actualService = _actual;}
-
+void CServiceBuilding::setIncome(double _inc)
+{   income =  _inc;}
 
 ///COffice
 COffice::COffice() : CServiceBuilding()
