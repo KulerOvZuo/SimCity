@@ -1,4 +1,5 @@
 #include "cbuilding.h"
+#include "ccity.h"
 
 CBuilding::CBuilding() : CStructureForPeople()
 {
@@ -18,7 +19,9 @@ CBuilding::~CBuilding()
 {}
 
 bool CBuilding::sendUtilitiesToCity()
-{ return true;}
+{
+    city->setUtilitiesGlobalNeed(city->getUtilitiesGlobalNeed()+=utilities);
+    return true;}
 double CBuilding::countIncome()
 {
     return 0;}
@@ -41,3 +44,25 @@ double CBuilding::getMoney() const
 { return money;}
 CUtilitiesGlobal CBuilding::getUtilities() const
 { return utilities;}
+
+
+///class
+CProductsBuildingPointer::CProductsBuildingPointer()
+{}
+CProductsBuildingPointer::CProductsBuildingPointer(const CProductsBuildingPointer& _PB)
+{
+    products = _PB.getProducts();
+    building = _PB.getBuilding();
+}
+CProductsBuildingPointer::~CProductsBuildingPointer()
+{}
+
+CProducts CProductsBuildingPointer::getProducts() const
+{   return products;}
+CBuilding* CProductsBuildingPointer::getBuilding() const
+{  return building;}
+
+void CProductsBuildingPointer::setProducts(CProducts _prod)
+{   products=_prod;}
+void CProductsBuildingPointer::setBuilding(CBuilding* _building)
+{   building =_building;}

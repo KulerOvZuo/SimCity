@@ -201,6 +201,8 @@ CProducts CProducts::operator+ (CProducts _C)
 {
     return CProducts(lightIndustry+_C.getLight(),heavyIndustry+_C.getHeavy(),food+_C.getFood());
 }
+CProducts CProducts::operator- (CProducts _C)
+{   return CProducts(lightIndustry-_C.getLight(),heavyIndustry-_C.getHeavy(),food-_C.getFood());}
 CProducts& CProducts::operator+= (CProducts const &_C)
 {
     this->lightIndustry +=_C.getLight();

@@ -9,6 +9,7 @@ protected:
 public:
     CFoodProduction();
     CFoodProduction(const CFoodProduction& _F);
+    void sellProducts(CProducts _prod);
 };
 
 class CFarm : public CFoodProduction

@@ -23,9 +23,12 @@ public:
     virtual ~CCity();
 
     ///implement
-    void addUtilitiesGlobalNeed();
+    void addUtilitiesGlobalNeed(CUtilitiesGlobal _U);
     double publicBuildingsKeepCost();
     double takeTaxes();
+
+    bool addStructureProperly(CStructure* _S);
+    bool removeStructureProperly(CStructure* _S);
 
     ///getters, not const
     CUtilitiesGlobal getUtilitiesGlobalProduction();

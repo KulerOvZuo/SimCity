@@ -3,18 +3,23 @@
 CCity::CCity()
 {
     market = new CMarket;
+    market->setCity(this);
     taxes = new CTaxes;
     societyIndicators = new CSocietyIndicators;
     mapOfStructures = new CMapOfStructures;
 }
 CCity::CCity(const CCity& _C)
-{}
+{ Q_UNUSED(_C);
+
+}
 CCity::~CCity()
 {}
 
 
-void CCity::addUtilitiesGlobalNeed()
-{}
+void CCity::addUtilitiesGlobalNeed(CUtilitiesGlobal _U)
+{
+    utilitiesGlobalNeed += _U;
+}
 double CCity::publicBuildingsKeepCost()
 {   ///pay for roadsAndBridges, schools, greenterrain, recreation
     double _allKeepCosts=0;
@@ -55,6 +60,18 @@ double CCity::takeTaxes()
         _taxes += mapOfStructures->getAllServiceBuildings().at(i)->giveTaxes(taxes->getFromOthersInd());
     }
     return _taxes;
+}
+
+bool CCity::addStructureProperly(CStructure* _S)
+{   if(mapOfStructures->addStructureProperly(_S))
+    {   _S->setCity(this);
+        return true;}
+    return false;
+}
+bool CCity::removeStructureProperly(CStructure* _S)
+{   if(mapOfStructures->removeStructureProperly(_S))
+        return true;
+    return false;
 }
 ///getters, not const
 CUtilitiesGlobal CCity::getUtilitiesGlobalProduction()

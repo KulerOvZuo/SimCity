@@ -32,14 +32,15 @@ public:
 
     ///implement more metods
     bool searchSetForBetterSchool();
-    QList<CShop*> searchForShops();
-    bool sendProductsNeedToShops();
+    bool searchAndSendNeedsToShops();
+    bool buyProductsFromShop(CProducts _prod, CProducts _price);
 
     void countSetIncome();
     double countSetBirthRate();
     CPeopleNeeds countPeopleNeeds();
     double countLifeSatisfaction();
     double giveTaxes(double _tax);
+    CPeopleNeeds getInfluanceFromOthers();
 
     //list
     void addNewLearningPeople(CPeople _professions);

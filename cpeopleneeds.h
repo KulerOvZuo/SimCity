@@ -15,6 +15,7 @@ public:
     CProducts(double _light, double _heavy, double _food);
     CProducts(const CProducts& _C);
     CProducts operator+ (CProducts _C);
+    CProducts operator- (CProducts _C);
     CProducts& operator+= (CProducts const &_C);
     CProducts& operator=(CProducts const &_C);
 
@@ -106,6 +107,5 @@ public:
     double getTraffic() const;
 
 };
-
 
 #endif // CPEOPLENEEDS_H

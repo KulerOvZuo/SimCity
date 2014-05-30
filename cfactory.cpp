@@ -1,17 +1,32 @@
 #include "cfactory.h"
+#include "ccity.h"
 
-CFactory::CFactory()
+CFactory::CFactory() : CProductionBuilding()
 {
 }
 CFactory::CFactory(const CFactory& _F) : CProductionBuilding(_F)
 {}
-
-CLightFactory::CLightFactory()
+void CFactory::sellProducts(CProducts _prod)
+{ Q_UNUSED(_prod);
+}
+CLightFactory::CLightFactory() : CFactory()
 {}
 CLightFactory::CLightFactory(const CLightFactory& _F) : CFactory(_F)
 {}
+void CLightFactory::sellProducts(CProducts _prod)
+{   _prod.restoreIfNotPossitiveNONeeds();
+    income += (_prod.getLight())*city->getMarket()->getActualProductsCost().getLight();
+    //add/subtract to stacked products difference
+    stackedProducts += actualProductionPerTick - _prod;
+}
 
-CHeavyFactory::CHeavyFactory()
+CHeavyFactory::CHeavyFactory(): CFactory()
 {}
 CHeavyFactory::CHeavyFactory(const CHeavyFactory& _F) : CFactory(_F)
 {}
+void CHeavyFactory::sellProducts(CProducts _prod)
+{   _prod.restoreIfNotPossitiveNONeeds();
+    income += (_prod.getHeavy())*city->getMarket()->getActualProductsCost().getHeavy();
+    //add/subtract to stacked products difference
+    stackedProducts += actualProductionPerTick - _prod;
+}

@@ -23,6 +23,8 @@ bool CMapOfStructures::addStructureProperly(CStructure* _S)
 {
     if(checkIfBuildingExistsOnLists(_S) == true) ///if exists on any list, dont add
         return false;
+    if(dynamic_cast<CStructure*>(_S)==NULL)
+        return false;
     if(dynamic_cast<CRoadsAndBridges*>(_S) !=NULL)
     {   allRoadsAndBridges.append(dynamic_cast<CRoadsAndBridges*>(_S));
         return true;}

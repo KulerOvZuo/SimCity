@@ -3,6 +3,7 @@
 
 #include "cstructureforpeople.h"
 #include "cutilitiesglobal.h"
+#include "cpeopleneeds.h"
 
 class CBuilding : public CStructureForPeople
 {
@@ -29,5 +30,20 @@ public:
     CUtilitiesGlobal getUtilities() const;
 
 };
+class CProductsBuildingPointer
+{
+protected:
+    CProducts products;
+    CBuilding* building;
+public:
+    CProductsBuildingPointer();
+    CProductsBuildingPointer(const CProductsBuildingPointer& _PB);
+    virtual ~CProductsBuildingPointer();
 
+    CProducts getProducts() const;
+    CBuilding* getBuilding() const;
+
+    void setProducts(CProducts _prod);
+    void setBuilding(CBuilding* _building);
+};
 #endif // CBUILDING_H

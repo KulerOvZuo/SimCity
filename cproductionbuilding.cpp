@@ -1,8 +1,10 @@
 #include "cproductionbuilding.h"
 #include "cmarket.h"
+#include "ccity.h"
 
 CProductionBuilding::CProductionBuilding() : CWorking()
 {
+    income=0;
 }
 CProductionBuilding::CProductionBuilding(const CProductionBuilding& _P) : CWorking(_P)
 {
@@ -13,12 +15,12 @@ CProductionBuilding::CProductionBuilding(const CProductionBuilding& _P) : CWorki
     income = _P.getIncome();
 }
 
+bool CProductionBuilding::sendUtilitiesToCity()
+{
+    city->setUtilitiesGlobalProduction(city->getUtilitiesGlobalProduction()+=utilities);
+    return true;}
 void CProductionBuilding::countSetIncome()
-{ /*
-    income=0;
-    income += productsBought.getFood()*
-    income += productsBought.getHeavy()
-    income += productsBought.getLight()*/
+{
 }
 double CProductionBuilding::giveTaxes(double _tax)
 {
@@ -26,6 +28,30 @@ double CProductionBuilding::giveTaxes(double _tax)
     income -= tax;
     return tax;
 }
+bool CProductionBuilding::sendProductionInfoToMarket()
+{
+    bool _good = false;
+    CProductsBuildingPointer* _tick = new CProductsBuildingPointer;
+    _tick->setBuilding(this);
+    CProductsBuildingPointer* _stack = new CProductsBuildingPointer(*_tick);
+    _tick->setProducts(actualProductionPerTick);
+    _stack->setProducts(stackedProducts);
+
+    if(city->getMarket()->addPBToProductsPerTickList(_tick))
+    {   _good = true;
+        _good = city->getMarket()->addPBToStackedProductsAvailableList(_stack);
+    }
+    else
+    {   city->getMarket()->addPBToStackedProductsAvailableList(_stack);
+        _good = false;
+    }
+    return _good;
+}
+void CProductionBuilding::sellProducts(CProducts _prod)
+{   Q_UNUSED(_prod);
+}
+
+
 void CProductionBuilding::setAll(CProducts _stacked,CProducts _maxStacked,CProducts _prod,CProducts _maxProd, double _income)
 {
      stackedProducts = _stacked;
@@ -42,8 +68,6 @@ void CProductionBuilding::setMaxProductionPerTick(CProducts _P)
 {   maxProductionPerTick= _P;}
 void CProductionBuilding::setActualProductionPerTick(CProducts _P)
 {   actualProductionPerTick= _P;}
-void CProductionBuilding::setProductsBought(CProducts _P)
-{   productsBought = _P;}
 void CProductionBuilding::setIncome(double _income)
 {   income=_income;}
 
@@ -55,7 +79,5 @@ CProducts CProductionBuilding::getMaxProductionPerTick() const
 {   return maxProductionPerTick;}
 CProducts CProductionBuilding::getActualProductionPerTick() const
 {   return actualProductionPerTick;}
-CProducts CProductionBuilding::getProductsBought() const
-{   return productsBought;}
 double CProductionBuilding::getIncome() const
 {   return income;}

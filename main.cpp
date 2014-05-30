@@ -322,11 +322,47 @@ int main(int argc, char *argv[])
     school2->countSetEducationQuality();
     House->optimizeListOfLearningPeople();
 
+    CShop* shop1 = new CShop;
+    shop1->setProductsSellPrice(CProducts(8,5,2));
+    shop->setProductsSellPrice(CProducts(8,5,2));
+    shop1->setCity(city);
+    shop1->setSizeOnGameMap(CCoordinates(1,1));
+    city->getMapOfStructures()->addStructureProperly(shop1);
+    CShop* shop2 = new CShop(*shop1);
+    shop1->setCoordinatesOfActualLUCorner(CCoordinates(15,15));
+    shop2->setCoordinatesOfActualLUCorner(CCoordinates(20,15));
+    city->getMapOfStructures()->addStructureProperly(shop2);
+    House->setPeopleNeeds(CPeopleNeeds(CProducts(5,10,30),CService(),CRecreation(),2,2));
+    House->searchAndSendNeedsToShops();
+    CFarm* farm1 = new CFarm;
+    CLightFactory* light = new CLightFactory;
+    CHeavyFactory* heavy = new CHeavyFactory;
+    city->addStructureProperly(farm1);
+    city->addStructureProperly(light);
+    city->addStructureProperly(heavy);
+    farm1->setStackedProducts(CProducts(0,0,5));
+    farm1->setActualProductionPerTick(CProducts(0,0,20));
+    light->setStackedProducts(CProducts(10,0,0));
+    light->setActualProductionPerTick(CProducts(8,0,0));
+        city->addStructureProperly(heavy);
+    heavy->setStackedProducts(CProducts(0,20,0));
+    heavy->setActualProductionPerTick(CProducts(0,15,0));
 
-
-
-
-
+    for(int i=0; i< city->getMapOfStructures()->getAllProductionBuildings().count();i++)
+    {   city->getMapOfStructures()->getAllProductionBuildings().at(i)->sendProductionInfoToMarket();
+    }
+    city->getMapOfStructures()->getAllShops().at(1)->sendProductsNeedToMarket();
+    for(int i=0; i<city->getMapOfStructures()->getAllShops().count(); i++)
+    {   city->getMapOfStructures()->getAllShops().at(i)->sendProductsNeedToMarket();
+    }
+    city->getMarket()->setBaseProductsCost(CProducts(5,2,1));
+    city->getMarket()->countSetActualProductsCost();
+    city->getMarket()->takeAndPayPBForProducts();
+    city->getMarket()->splitAndSendProductsToShops();
+    for(int i=0; i<city->getMapOfStructures()->getAllShops().count(); i++)
+    {   city->getMapOfStructures()->getAllShops().at(i)->countSetProductsSellPrice();
+        city->getMapOfStructures()->getAllShops().at(i)->sendProductsToLivings();
+    }
 
     w.show();
     return a.exec();

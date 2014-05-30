@@ -66,6 +66,60 @@ bool CLiving::searchSetForBetterSchool()
     }
     return false;
 }
+bool CLiving::searchAndSendNeedsToShops()
+{
+    double rangeIndicator =0;
+    double maxDist=0;
+    //get max dist to shops
+    for(int i=0; i<(city->getMapOfStructures()->getAllShops()).count(); i++)
+    {
+        if(maxDist<distanceToOther((city->getMapOfStructures()->getAllShops()).at(i)))
+        {   maxDist=distanceToOther((city->getMapOfStructures()->getAllShops()).at(i));}
+    }
+    if(maxDist==0)
+        maxDist=1;
+    double sum=0;
+    QVector<double> _tempList;
+    _tempList.clear();
+    //get cost indicators at all shops
+    for(int i=0; i<(city->getMapOfStructures()->getAllShops()).count(); i++)
+    {   rangeIndicator=distanceToOther((city->getMapOfStructures()->getAllShops()).at(i))/maxDist;
+        if(rangeIndicator<0.3)
+            rangeIndicator=0.3;
+        double _food=(peopleNeeds.getProductsNeed().getFood())*((city->getMapOfStructures()->getAllShops()).at(i)->getProductsSellPrice().getFood());
+        double _light =(peopleNeeds.getProductsNeed().getLight())*((city->getMapOfStructures()->getAllShops()).at(i)->getProductsSellPrice().getLight());
+        double _heavy= (peopleNeeds.getProductsNeed().getHeavy())*((city->getMapOfStructures()->getAllShops()).at(i)->getProductsSellPrice().getHeavy());
+        double x=((_food+_heavy+_light)*rangeIndicator);
+        if(x<=0)
+            x=100;
+        double _ind = 1/x;
+        _tempList.append(_ind); //the highest _ind the best
+        sum+=_ind;
+    }
+    //decide,split and send to shops needs
+    double sendIndicator;
+    for(int i=0; i<(city->getMapOfStructures()->getAllShops()).count(); i++)
+    {
+        sendIndicator= (_tempList.at(i))/sum; //to the best shop, send max
+        CProducts _prod;
+        _prod.setFood(peopleNeeds.getProductsNeed().getFood()*sendIndicator);
+        _prod.setHeavy(peopleNeeds.getProductsNeed().getHeavy()*sendIndicator);
+        _prod.setLight(peopleNeeds.getProductsNeed().getLight()*sendIndicator);
+        CProductsBuildingPointer* P = new CProductsBuildingPointer;
+        P->setBuilding(this);
+        P->setProducts(_prod);
+        (city->getMapOfStructures()->getAllShops()).at(i)->addLivingToProductsNeeds(P);
+    }
+    peopleNeeds.setProductsNeed(CProducts(0,0,0));
+    return true;
+}
+bool CLiving::buyProductsFromShop(CProducts _prod, CProducts _price)
+{   bool _good =_prod.restoreIfNotPossitiveNONeeds();
+    peopleNeeds.setProductsNeed(peopleNeeds.getProductsNeed()+_prod);
+    income -= (_prod.getLight()*_price.getLight()+_prod.getHeavy()*_price.getHeavy()+_prod.getFood()*_price.getFood());
+    return _good;
+}
+
 void CLiving::countSetIncome()
 {
     income=0;
@@ -195,8 +249,10 @@ CPeople CLiving::extractEducatedPeople()
     }
     schoolConnected->addNOChildren(-1*_P.getAllPeople());
     schoolConnected->countSetEducationQuality();
+    livingNotWorkingPeople += _P;
     return _P;
 }
+
 CPeople CLiving::getNumberOfLearningPeople()
 {
     CPeople _P;

@@ -3,10 +3,12 @@
 
 #include "cworking.h"
 #include "cpeopleneeds.h"
+#include "cliving.h"
 
 class CShop : public CWorking
 {
 protected:
+    QList<CProductsBuildingPointer*> listOfLivingNeeds;
     CProducts productsNeedFromPeople;
     CProducts productsGotFromMarket;
     CProducts productsSellPrice;
@@ -17,17 +19,20 @@ public:
     virtual ~ CShop();
 
     ///implement
-    CProducts countProductsSellPrice();
-    void sendProductsNeedToMarket();
-    bool addProductsNeedFromPeople(CProducts _prod);
-    bool addProductsGotFromMarket(CProducts _prod);
+    CProducts countSetProductsSellPrice();
+    bool sendProductsNeedToMarket();
+    bool buyProductsGotFromMarket(CProducts _prod);
+    bool sendProductsToLivings();
     double giveTaxes(double _tax);
+    void clearListOfLivingNeeds();
+    bool addLivingToProductsNeeds(CProductsBuildingPointer* _living);
 
     bool setProductsNeedFromPeople(CProducts _prod);
     bool setProductsGotFromMarket(CProducts _prod);
     bool setProductsSellPrice(CProducts _prod);
     void setIncome(double _inc);
 
+    QList<CProductsBuildingPointer*> getListOfLivingNeeds();
     CProducts getProductsNeedFromPeople() const;
     CProducts getProductsGotFromMarket() const;
     CProducts getProductsSellPrice() const;
