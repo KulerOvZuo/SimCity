@@ -32,13 +32,6 @@ public:
     CPeople countProffesionsNeed();
     CPeople countProffesionsToEducate();
 
-    void addPeopleEarnings(CPeopleEarnings _earn);
-    void addAllPeople(CPeople _people);
-    void addAllWorkForPeople(CPeople _people);
-    void addAllLivingWorkingPeople(CPeople _people);
-    void addAllLivingNotWorkingPeople(CPeople _people);
-    void addAllLearningPeople(CPeople _people);
-    void addAllProfessionsToEducate(CPeople _people);
     void addChildren(int _children);
     void addBirthIndicator(double _birth);
 

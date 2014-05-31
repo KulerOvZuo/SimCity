@@ -7,6 +7,7 @@ CCity::CCity()
     taxes = new CTaxes;
     societyIndicators = new CSocietyIndicators;
     mapOfStructures = new CMapOfStructures;
+    money =0;
 }
 CCity::CCity(const CCity& _C)
 { Q_UNUSED(_C);
@@ -15,7 +16,9 @@ CCity::CCity(const CCity& _C)
 CCity::~CCity()
 {}
 
-
+void CCity::addMoney(double _money)
+{   money+=_money;
+}
 void CCity::addUtilitiesGlobalNeed(CUtilitiesGlobal _U)
 {
     utilitiesGlobalNeed += _U;
@@ -23,8 +26,10 @@ void CCity::addUtilitiesGlobalNeed(CUtilitiesGlobal _U)
 double CCity::publicBuildingsKeepCost()
 {   ///pay for roadsAndBridges, schools, greenterrain, recreation
     double _allKeepCosts=0;
+    CPeopleEarnings _earn = societyIndicators->getPeopleEarnings();
     for(int i=0; i<mapOfStructures->getAllSchools().count(); i++)
     {   _allKeepCosts += mapOfStructures->getAllSchools().at(i)->getCostPerTick();
+        _allKeepCosts += mapOfStructures->getAllSchools().at(i)->getActualNumberOfWorkers().getDoubleMultiplyIndividualPeopleBy(_earn);
     }
     for(int i=0; i<mapOfStructures->getAllRoadsAndBridges().count(); i++)
     {   _allKeepCosts += mapOfStructures->getAllRoadsAndBridges().at(i)->getCostPerTick();
@@ -34,9 +39,11 @@ double CCity::publicBuildingsKeepCost()
     }
     for(int i=0; i<mapOfStructures->getAllRecreationBuildings().count(); i++)
     {   _allKeepCosts += mapOfStructures->getAllRecreationBuildings().at(i)->getCostPerTick();
+        _allKeepCosts += mapOfStructures->getAllRecreationBuildings().at(i)->getActualNumberOfWorkers().getDoubleMultiplyIndividualPeopleBy(_earn);
     }
     for(int i=0; i<mapOfStructures->getAllPublicUtilityBuildings().count(); i++)
     {   _allKeepCosts += mapOfStructures->getAllPublicUtilityBuildings().at(i)->getCostPerTick();
+        _allKeepCosts += mapOfStructures->getAllPublicUtilityBuildings().at(i)->getActualNumberOfWorkers().getDoubleMultiplyIndividualPeopleBy(_earn);
     }
     return _allKeepCosts;
 }
@@ -59,6 +66,7 @@ double CCity::takeTaxes()
     {
         _taxes += mapOfStructures->getAllServiceBuildings().at(i)->giveTaxes(taxes->getFromOthersInd());
     }
+    money += _taxes;
     return _taxes;
 }
 
@@ -86,6 +94,8 @@ CSocietyIndicators* CCity::getSocietyIndicators()
 {   return societyIndicators;}
 CMapOfStructures* CCity::getMapOfStructures()
 {   return mapOfStructures;}
+double CCity::getMoney()
+{   return money;}
 
 ///setters
 void CCity::setUtilitiesGlobalProduction(CUtilitiesGlobal _U)
@@ -102,3 +112,5 @@ void CCity::setSocietyIndicators(CSocietyIndicators* _S)
 {   societyIndicators=_S;}
 void CCity::setMapOfStructures(CMapOfStructures* _M)
 {   mapOfStructures=_M;}
+void CCity::setMoney(double _money)
+{   money = _money;}

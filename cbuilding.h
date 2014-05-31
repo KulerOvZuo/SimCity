@@ -21,6 +21,7 @@ public:
     virtual bool sendUtilitiesToCity();
     virtual double countIncome();
     virtual bool sendTaxes();
+    virtual void clearTemporary();
 
     bool addMoney(double _money);
 
@@ -44,6 +45,22 @@ public:
     CBuilding* getBuilding() const;
 
     void setProducts(CProducts _prod);
+    void setBuilding(CBuilding* _building);
+};
+class CPeopleNeedsBuildingPointer
+{
+protected:
+    CPeopleNeeds peopleNeeds;
+    CBuilding* building;
+public:
+    CPeopleNeedsBuildingPointer();
+    CPeopleNeedsBuildingPointer(const CPeopleNeedsBuildingPointer& _PB);
+    virtual ~CPeopleNeedsBuildingPointer();
+
+    CPeopleNeeds getPeopleNeeds() const;
+    CBuilding* getBuilding() const;
+
+    void setPeopleNeeds(CPeopleNeeds _peopleNeeds);
     void setBuilding(CBuilding* _building);
 };
 #endif // CBUILDING_H

@@ -15,12 +15,15 @@ CProductionBuilding::CProductionBuilding(const CProductionBuilding& _P) : CWorki
     income = _P.getIncome();
 }
 
-bool CProductionBuilding::sendUtilitiesToCity()
-{
-    city->setUtilitiesGlobalProduction(city->getUtilitiesGlobalProduction()+=utilities);
-    return true;}
 void CProductionBuilding::countSetIncome()
 {
+    CPeopleEarnings _peopleEarn;
+    _peopleEarn = city->getSocietyIndicators()->getPeopleEarnings();
+    income -= (actualNumberOfWorkers.getLeadWorker()*_peopleEarn.getLeadWorkerEarn()+
+            actualNumberOfWorkers.getLightWorker()*_peopleEarn.getLightWorkerEarn()+
+            actualNumberOfWorkers.getServiceWorker()*_peopleEarn.getServiceWorkerEarn()+
+            actualNumberOfWorkers.getHeavyWorker()*_peopleEarn.getHeavyWorkerEarn()+
+            actualNumberOfWorkers.getLowWorker()*_peopleEarn.getLowWorkerEarn());
 }
 double CProductionBuilding::giveTaxes(double _tax)
 {
@@ -50,6 +53,21 @@ bool CProductionBuilding::sendProductionInfoToMarket()
 void CProductionBuilding::sellProducts(CProducts _prod)
 {   Q_UNUSED(_prod);
 }
+double CProductionBuilding::countBuildingEfficiency()
+{
+    double multiply=1;
+    return multiply*countPeopleEfficiency();
+}
+void CProductionBuilding::countSetActualProductionPerTick()
+{
+
+    actualProductionPerTick = CProducts(maxProductionPerTick.getLight()*countBuildingEfficiency(),
+                                        maxProductionPerTick.getHeavy()*countBuildingEfficiency(),
+                                        maxProductionPerTick.getFood()*countBuildingEfficiency());
+}
+void CProductionBuilding::clearTemporary()
+{   money += income;
+    income=0;}
 
 
 void CProductionBuilding::setAll(CProducts _stacked,CProducts _maxStacked,CProducts _prod,CProducts _maxProd, double _income)

@@ -26,6 +26,7 @@ public:
     double giveTaxes(double _tax);
     void clearListOfLivingNeeds();
     bool addLivingToProductsNeeds(CProductsBuildingPointer* _living);
+    void clearTemporary();
 
     bool setProductsNeedFromPeople(CProducts _prod);
     bool setProductsGotFromMarket(CProducts _prod);

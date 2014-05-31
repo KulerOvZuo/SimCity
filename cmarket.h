@@ -23,6 +23,7 @@ public:
     void countSetActualProductsCost();
     void takeAndPayPBForProducts();
     void splitAndSendProductsToShops();
+    void clearTemporary();
 
     //lists
     void clearShopsNeedsList();

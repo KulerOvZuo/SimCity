@@ -1,4 +1,5 @@
 #include "cpublicutilitybuilding.h"
+#include "ccity.h"
 
 CPublicUtilityBuilding::CPublicUtilityBuilding(): CWorking()
 {
@@ -10,7 +11,8 @@ CPublicUtilityBuilding::~CPublicUtilityBuilding()
 void CPublicUtilityBuilding::setProperUtility(double _utility)
 { Q_UNUSED(_utility)}
 bool CPublicUtilityBuilding::sendUtilitiesToCity()
-{   return true;}
+{   city->setUtilitiesGlobalProduction((city->getUtilitiesGlobalProduction()) + utilities);
+    return true;}
 
 ///power
 CPowerStation::CPowerStation() : CPublicUtilityBuilding()

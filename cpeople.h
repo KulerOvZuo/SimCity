@@ -3,6 +3,7 @@
 
 #include <qglobal.h>
 #include <QTime>
+#include "cpeopleearnings.h"
 
 class CPeople
 {
@@ -24,6 +25,8 @@ public:
 
     bool restoreIfNotPossitiveNOPeople();
     void randomAdd(int _free);
+    CPeopleEarnings multiplyIndividualPeopleBy(CPeopleEarnings _multiply);
+    double getDoubleMultiplyIndividualPeopleBy(CPeopleEarnings _multiply);
     void addAll(int _lead, int _serv, int _light,int _heavy, int _low);
     void addLeadWorker(int _number);
     void addServiceWorker(int _number);

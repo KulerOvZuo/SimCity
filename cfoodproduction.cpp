@@ -11,6 +11,8 @@ void CFoodProduction::sellProducts(CProducts _prod)
     income += (_prod.getFood())*(city->getMarket()->getActualProductsCost().getFood());
     //add/subtract to stacked products difference
     stackedProducts += actualProductionPerTick - _prod;
+    if(stackedProducts.getFood() > maxStackedProducts.getFood())
+        stackedProducts.setFood(maxStackedProducts.getFood());
 }
 
 CFarm::CFarm() : CFoodProduction()

@@ -181,7 +181,13 @@ void CMarket::splitAndSendProductsToShops()
         dynamic_cast<CShop*>(shopsNeedsList.at(i)->getBuilding())->buyProductsGotFromMarket(_P);
     }
 }
-
+void CMarket::clearTemporary()
+{   clearShopsNeedsList();
+    clearProductsPerTickAvailableList();
+    clearStackedProductsAvailableList();
+    productsGotFromProduction = CProducts(0,0,0);
+    actualProductsCost= CProducts(0,0,0);
+}
 
 void CMarket::clearShopsNeedsList()
 {  for(int i=0; i<shopsNeedsList.count();i++)

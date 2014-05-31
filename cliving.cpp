@@ -81,7 +81,7 @@ bool CLiving::searchAndSendNeedsToShops()
     double sum=0;
     QVector<double> _tempList;
     _tempList.clear();
-    //get cost indicators at all shops
+    //get indicators at all shops
     for(int i=0; i<(city->getMapOfStructures()->getAllShops()).count(); i++)
     {   rangeIndicator=distanceToOther((city->getMapOfStructures()->getAllShops()).at(i))/maxDist;
         if(rangeIndicator<0.3)
@@ -119,7 +119,56 @@ bool CLiving::buyProductsFromShop(CProducts _prod, CProducts _price)
     income -= (_prod.getLight()*_price.getLight()+_prod.getHeavy()*_price.getHeavy()+_prod.getFood()*_price.getFood());
     return _good;
 }
-
+bool CLiving::takeServiceFromSB(CService _serv, CService _cost)
+{   bool _good = _serv.restoreIfNotPossitiveNONeeds();
+    peopleNeeds.setServiceNeed(peopleNeeds.getServiceNeed()+_serv);
+    income -= (_serv.getService1()*_cost.getService1());
+    return _good;
+}
+bool CLiving::searchForService()
+{
+    double rangeIndicator =0;
+    double maxDist=0;
+    //get max dist to service
+    for(int i=0; i<(city->getMapOfStructures()->getAllServiceBuildings()).count(); i++)
+    {
+        if(maxDist<distanceToOther((city->getMapOfStructures()->getAllServiceBuildings()).at(i)))
+        {   maxDist=distanceToOther((city->getMapOfStructures()->getAllServiceBuildings()).at(i));}
+    }
+    if(maxDist==0)
+        maxDist=1;
+    double sum=0;
+    QVector<double> _tempList;
+    _tempList.clear();
+    //get efficiency indicator of all
+    for(int i=0; i<(city->getMapOfStructures()->getAllServiceBuildings()).count(); i++)
+    {   rangeIndicator=distanceToOther((city->getMapOfStructures()->getAllServiceBuildings()).at(i))/maxDist;
+        if(rangeIndicator<0.3)
+            rangeIndicator=0.3;
+        double _serv = (peopleNeeds.getServiceNeed().getService1())*((city->getMapOfStructures()->getAllServiceBuildings()).at(i))->getActualService().getService1();
+        double _ind = _serv/rangeIndicator;
+        _tempList.append(_ind);
+        sum+=_ind;
+    }
+    //decide to which service building go
+    double sendIndicator;
+    for(int i=0; i<(city->getMapOfStructures()->getAllServiceBuildings()).count(); i++)
+    {   sendIndicator = (_tempList.at(i))/sum;
+        CService _S;
+        _S.setService1((peopleNeeds.getServiceNeed().getService1())*sendIndicator);
+        CPeopleNeedsBuildingPointer* _PN = new CPeopleNeedsBuildingPointer;
+        _PN->setPeopleNeeds(CPeopleNeeds(CProducts(0,0,0),_S,CRecreation(0),0,0));
+        _PN->setBuilding(this);
+        (city->getMapOfStructures()->getAllServiceBuildings()).at(i)->addLivingTolist(_PN);
+        (city->getMapOfStructures()->getAllServiceBuildings()).at(i)->countSetServiceQuality();
+    }
+    peopleNeeds.setServiceNeed(CService(0));
+    return true;
+}
+void CLiving::clearTemporary()
+{   money+=income;
+    income=0;
+}
 void CLiving::countSetIncome()
 {
     income=0;
@@ -141,6 +190,10 @@ double CLiving::countSetBirthRate()
     int _allPeople = livingWorkingPeople.getAllPeople() + livingNotWorkingPeople.getAllPeople();
     birthRate = _birth*_allPeople;
     return _birth;
+}
+void CLiving::sendBirthRateToCity()
+{
+    city->getSocietyIndicators()->addBirthIndicator(birthRate);
 }
 CPeopleNeeds CLiving::countPeopleNeeds()
 {
@@ -165,6 +218,10 @@ CPeopleNeeds CLiving::countPeopleNeeds()
     //for all people in building
     return CPeopleNeeds(CProducts(_light,_heavy,_food),CService(_serv1),CRecreation(_rec1),_traffic,_disturbance);
 }
+void CLiving::countSetLifeSatAndPeopleNeeds()
+{   lifeSatisfaction = countLifeSatisfaction();
+    peopleNeeds = countPeopleNeeds();
+}
 double CLiving::countLifeSatisfaction()
 {
     double _pastLifeSat = lifeSatisfaction;
@@ -186,6 +243,8 @@ double CLiving::countLifeSatisfaction()
         peopleNeeds.setDistrurbance(1);
     if(abs(income)<1)
         income=1;
+    if(_allPeople<=0)
+        _allPeople=1;
     double _rec1= (peopleNeeds.getRecreationNeed()).getRecreation1()/_allPeople;
     if(_rec1<1)
         _rec1=1;
@@ -283,6 +342,17 @@ bool CLiving::setSchool(CSchool* _school)
 }
 void CLiving::setPeopleNeeds(CPeopleNeeds _P)
 {   peopleNeeds = _P;}
+void CLiving::setProductsNeed(CProducts _prod)
+{   peopleNeeds.setProductsNeed(_prod);}
+void CLiving::setServiceNeed(CService _serv)
+{   peopleNeeds.setServiceNeed(_serv);}
+void CLiving::setRecreationNeed(CRecreation _rec)
+{   peopleNeeds.setRecreationNeed(_rec);}
+void CLiving::setTraffic(double _traf)
+{   peopleNeeds.setTraffic(_traf);}
+void CLiving::setDistrurbance(double _dist)
+{   peopleNeeds.setDistrurbance(_dist);}
+
 
 int CLiving::getMaxLivingPeople()const
 { return maxLivingPeople;}
@@ -302,7 +372,7 @@ double CLiving::getLifeSatisfaction()const
 { return lifeSatisfaction;}
 CSchool* CLiving::getSchool()const
 { return schoolConnected;}
-CPeopleNeeds CLiving::getPeopleNeeds()const
+CPeopleNeeds CLiving::getPeopleNeeds() const
 { return peopleNeeds;}
 
 

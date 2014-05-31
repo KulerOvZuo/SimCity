@@ -118,6 +118,13 @@ CPeople CSocietyIndicators::countProffesionsToEducate()
     }
     return CPeople();
 }
+
+void CSocietyIndicators::addChildren(int _children)
+{   children += _children;}
+void CSocietyIndicators::addBirthIndicator(double _birth)
+{   birthIndicator += _birth;}
+
+
 CPeopleEarnings CSocietyIndicators::getPeopleEarnings() const
 {   return peopleEarnings;}
 CPeopleEarnings CSocietyIndicators::getBasePeopleEarnings() const

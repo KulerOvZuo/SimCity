@@ -21,7 +21,13 @@ CProducts CShop::countSetProductsSellPrice()
 {
     double indicator = 1.3;
     CProducts marketPrice = city->getMarket()->getActualProductsCost();
-    productsSellPrice = CProducts(indicator*marketPrice.getLight(),indicator*marketPrice.getHeavy(),indicator*marketPrice.getFood());
+    CProducts allShopsNeed;
+    for(int i=0; i< city->getMarket()->getShopsNeedsList().count();i++)
+    {   allShopsNeed += city->getMarket()->getShopsNeedsList().at(i)->getProducts();}
+
+    productsSellPrice = CProducts((indicator+0.4*productsGotFromMarket.getLight()/allShopsNeed.getLight())*marketPrice.getLight(),
+                                  (indicator+0.4*productsGotFromMarket.getHeavy()/allShopsNeed.getHeavy())*marketPrice.getHeavy(),
+                                  (indicator+0.4*productsGotFromMarket.getFood()/allShopsNeed.getFood())*marketPrice.getFood());
     return productsSellPrice;
 }
 bool CShop::sendProductsNeedToMarket()
@@ -89,6 +95,17 @@ bool CShop::addLivingToProductsNeeds(CProductsBuildingPointer* _living)
     }
     return free;
 }
+void CShop::clearTemporary()
+{   clearListOfLivingNeeds();
+    productsNeedFromPeople = CProducts(0,0,0);
+    productsGotFromMarket = CProducts(0,0,0);
+    productsSellPrice = CProducts(0,0,0);
+    money += income;
+    income =0;
+
+}
+
+
 bool CShop::setProductsNeedFromPeople(CProducts _prod)
 {
     CProducts _temp(productsNeedFromPeople);

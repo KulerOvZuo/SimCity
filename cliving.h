@@ -34,10 +34,15 @@ public:
     bool searchSetForBetterSchool();
     bool searchAndSendNeedsToShops();
     bool buyProductsFromShop(CProducts _prod, CProducts _price);
+    bool takeServiceFromSB(CService _serv, CService _cost);
+    bool searchForService();
+    void clearTemporary();
 
     void countSetIncome();
     double countSetBirthRate();
+    void sendBirthRateToCity();
     CPeopleNeeds countPeopleNeeds();
+    void countSetLifeSatAndPeopleNeeds();
     double countLifeSatisfaction();
     double giveTaxes(double _tax);
     CPeopleNeeds getInfluanceFromOthers();
@@ -58,6 +63,11 @@ public:
     void setLifeSatisfaction( double _lifeSat);
     bool setSchool(CSchool* _school);
     void setPeopleNeeds(CPeopleNeeds _P);
+    void setProductsNeed(CProducts _prod);
+    void setServiceNeed(CService _serv);
+    void setRecreationNeed(CRecreation _rec);
+    void setTraffic(double _traf);
+    void setDistrurbance(double _dist);
 
     int getMaxLivingPeople()const;
     CPeople getLivingWorkingPeople()const;
@@ -68,7 +78,7 @@ public:
     double getIncome()const;
     double getLifeSatisfaction()const;
     CSchool* getSchool()const;
-    CPeopleNeeds getPeopleNeeds()const;
+    CPeopleNeeds getPeopleNeeds() const;
 };
 
 

@@ -17,11 +17,13 @@ public:
     CProductionBuilding(const CProductionBuilding& _P);
 
     ///implement more
-    bool sendUtilitiesToCity();
     void countSetIncome();
     double giveTaxes(double _tax);
     bool sendProductionInfoToMarket();
     virtual void sellProducts(CProducts _prod);
+    double countBuildingEfficiency();
+    void countSetActualProductionPerTick();
+    void clearTemporary();
 
     void setAll(CProducts _stacked,CProducts _maxStacked,CProducts _prod,CProducts _maxProd, double _income);
     void setStackedProducts(CProducts _P);

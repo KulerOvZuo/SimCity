@@ -20,13 +20,15 @@ CBuilding::~CBuilding()
 
 bool CBuilding::sendUtilitiesToCity()
 {
-    city->setUtilitiesGlobalNeed(city->getUtilitiesGlobalNeed()+=utilities);
+    city->addUtilitiesGlobalNeed(utilities);
     return true;}
 double CBuilding::countIncome()
 {
     return 0;}
 bool CBuilding::sendTaxes()
 { return true;}
+void CBuilding::clearTemporary()
+{}
 bool CBuilding::addMoney(double _money)
 {
     money +=_money;
@@ -48,7 +50,9 @@ CUtilitiesGlobal CBuilding::getUtilities() const
 
 ///class
 CProductsBuildingPointer::CProductsBuildingPointer()
-{}
+{
+    building = NULL;
+}
 CProductsBuildingPointer::CProductsBuildingPointer(const CProductsBuildingPointer& _PB)
 {
     products = _PB.getProducts();
@@ -66,3 +70,24 @@ void CProductsBuildingPointer::setProducts(CProducts _prod)
 {   products=_prod;}
 void CProductsBuildingPointer::setBuilding(CBuilding* _building)
 {   building =_building;}
+
+///class
+CPeopleNeedsBuildingPointer::CPeopleNeedsBuildingPointer()
+{building = NULL;}
+CPeopleNeedsBuildingPointer::CPeopleNeedsBuildingPointer(const CPeopleNeedsBuildingPointer& _PB)
+{
+    peopleNeeds = _PB.getPeopleNeeds();
+    building = _PB.getBuilding();
+}
+CPeopleNeedsBuildingPointer::~CPeopleNeedsBuildingPointer()
+{}
+
+CPeopleNeeds CPeopleNeedsBuildingPointer::getPeopleNeeds() const
+{   return peopleNeeds;}
+CBuilding* CPeopleNeedsBuildingPointer::getBuilding() const
+{   return building;}
+
+void CPeopleNeedsBuildingPointer::setPeopleNeeds(CPeopleNeeds _peopleNeeds)
+{   peopleNeeds = _peopleNeeds;}
+void CPeopleNeedsBuildingPointer::setBuilding(CBuilding* _building)
+{   building = _building;}

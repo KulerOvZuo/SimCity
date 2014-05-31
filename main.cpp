@@ -348,21 +348,60 @@ int main(int argc, char *argv[])
     heavy->setStackedProducts(CProducts(0,20,0));
     heavy->setActualProductionPerTick(CProducts(0,15,0));
 
-    for(int i=0; i< city->getMapOfStructures()->getAllProductionBuildings().count();i++)
-    {   city->getMapOfStructures()->getAllProductionBuildings().at(i)->sendProductionInfoToMarket();
+    for(int blaa=0; blaa<4; blaa++)
+    {
+        for(int i=0; i< city->getMapOfStructures()->getAllProductionBuildings().count();i++)
+        {   city->getMapOfStructures()->getAllProductionBuildings().at(i)->sendProductionInfoToMarket();
+        }
+        city->getMapOfStructures()->getAllShops().at(1)->sendProductsNeedToMarket();
+        for(int i=0; i<city->getMapOfStructures()->getAllShops().count(); i++)
+        {   city->getMapOfStructures()->getAllShops().at(i)->sendProductsNeedToMarket();
+        }
+        city->getMarket()->setBaseProductsCost(CProducts(5,2,1));
+        city->getMarket()->countSetActualProductsCost();
+        city->getMarket()->takeAndPayPBForProducts();
+        city->getMarket()->splitAndSendProductsToShops();
+        for(int i=0; i<city->getMapOfStructures()->getAllShops().count(); i++)
+        {   city->getMapOfStructures()->getAllShops().at(i)->countSetProductsSellPrice();
+            city->getMapOfStructures()->getAllShops().at(i)->sendProductsToLivings();
+        }
     }
-    city->getMapOfStructures()->getAllShops().at(1)->sendProductsNeedToMarket();
-    for(int i=0; i<city->getMapOfStructures()->getAllShops().count(); i++)
-    {   city->getMapOfStructures()->getAllShops().at(i)->sendProductsNeedToMarket();
+    CBlocks* blocks = new CBlocks;
+    blocks->setSizeOnGameMap(CCoordinates(1,1));
+    blocks->setCoordinatesOfActualLUCorner(CCoordinates(23,14));
+    blocks->setPeopleNeeds(CPeopleNeeds());
+    blocks->setServiceNeed(CService(40));
+    city->addStructureProperly(blocks);
+    House->setServiceNeed(CService(10));
+    COffice* office1 = new COffice;
+    office1->setSizeOnGameMap(CCoordinates(1,1));
+    office1->setCoordinatesOfActualLUCorner(CCoordinates(18,14));
+    office1->setNeededNumberOfWorkers(CPeople(2,5,3,0,2));
+    office1->setActualNumberOfWorkers(CPeople(1,5,2,0,2));
+    office1->setBaseService(CService(20));
+    office1->setBaseServiceCost(CService(20));
+    COffice* office2 = new COffice(*office1);
+    office2->setCoordinatesOfActualLUCorner(CCoordinates(20,23));
+    office2->setActualNumberOfWorkers(CPeople(2,5,2,0,2));
+    city->addStructureProperly(office1);
+    city->addStructureProperly(office2);
+    blocks->setLivingWorkingPeople(CPeople(1,3,5,7,10));
+
+    office1->countSetServiceQuality();
+    office1->countSetActualServiceCost();
+    office2->countSetServiceQuality();
+    office2->countSetActualServiceCost();
+    for(int i=0; i<3;i++)
+    {   House->searchForService();
+        blocks->searchForService();
+        office1->giveServiceToLivings();
+        office2->giveServiceToLivings();
+        House->countSetLifeSatAndPeopleNeeds();
+        blocks->countSetLifeSatAndPeopleNeeds();
+        office1->clearTemporary();
+        office2->clearTemporary();
     }
-    city->getMarket()->setBaseProductsCost(CProducts(5,2,1));
-    city->getMarket()->countSetActualProductsCost();
-    city->getMarket()->takeAndPayPBForProducts();
-    city->getMarket()->splitAndSendProductsToShops();
-    for(int i=0; i<city->getMapOfStructures()->getAllShops().count(); i++)
-    {   city->getMapOfStructures()->getAllShops().at(i)->countSetProductsSellPrice();
-        city->getMapOfStructures()->getAllShops().at(i)->sendProductsToLivings();
-    }
+
 
     w.show();
     return a.exec();

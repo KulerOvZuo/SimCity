@@ -18,6 +18,8 @@ void CLightFactory::sellProducts(CProducts _prod)
     income += (_prod.getLight())*city->getMarket()->getActualProductsCost().getLight();
     //add/subtract to stacked products difference
     stackedProducts += actualProductionPerTick - _prod;
+    if(stackedProducts.getLight() > maxStackedProducts.getLight())
+        stackedProducts.setLight(maxStackedProducts.getLight());
 }
 
 CHeavyFactory::CHeavyFactory(): CFactory()
@@ -29,4 +31,6 @@ void CHeavyFactory::sellProducts(CProducts _prod)
     income += (_prod.getHeavy())*city->getMarket()->getActualProductsCost().getHeavy();
     //add/subtract to stacked products difference
     stackedProducts += actualProductionPerTick - _prod;
+    if(stackedProducts.getHeavy() > maxStackedProducts.getHeavy())
+        stackedProducts.setHeavy(maxStackedProducts.getHeavy());
 }

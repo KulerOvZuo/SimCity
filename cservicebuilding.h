@@ -3,14 +3,17 @@
 
 #include "cworking.h"
 #include "cpeopleneeds.h"
+#include "cpeopleearnings.h"
 
 class CServiceBuilding  : public CWorking
 {
 protected:
-    int maxNOCustomers;
-    int actualNOCustomers;
+    QVector<CPeopleNeedsBuildingPointer*> listOfLivingNeeds;
+    CService serviceNeedFromPeople;
     CService baseService;
     CService actualService;
+    CService baseServiceCost;
+    CService actualServiceCost;
     double income;
 
 public:
@@ -18,21 +21,28 @@ public:
     CServiceBuilding(const CServiceBuilding& _S);
     virtual ~CServiceBuilding();
 
+    //list
+    bool addLivingTolist(CPeopleNeedsBuildingPointer* _living);
+    void clearListOfLivingNeeds();
+    void clearTemporary();
+
     double countBuildingEfficiency();
     void countSetServiceQuality();
-    bool addCustomers(int _number);
+    bool giveServiceToLivings();
     double giveTaxes(double _tax);
+    void countSetIncome();
+    void countSetActualServiceCost();
 
-    int getMaxNOCustomers() const;
-    int getActualNOCustomers() const;
     CService getBaseService() const;
     CService getActualService() const;
+    CService getBaseServiceCost() const;
+    CService getActualServiceCost() const;
     double getIncome() const;
 
-    void setMaxNOCustomers(int _max);
-    void setActualNOCustomers(int _actual);
     void setBaseService(CService _base);
     void setActualService(CService _actual);
+    void setBaseServiceCost(CService _base);
+    void setActualServiceCost(CService _actual);
     void setIncome(double _inc);
 };
 

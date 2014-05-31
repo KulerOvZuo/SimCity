@@ -17,6 +17,7 @@ protected:
     CTaxes* taxes;
     CSocietyIndicators* societyIndicators;
     CMapOfStructures* mapOfStructures;
+    double money;
 public:
     CCity();
     CCity(const CCity& _C);
@@ -26,6 +27,7 @@ public:
     void addUtilitiesGlobalNeed(CUtilitiesGlobal _U);
     double publicBuildingsKeepCost();
     double takeTaxes();
+    void addMoney(double _money);
 
     bool addStructureProperly(CStructure* _S);
     bool removeStructureProperly(CStructure* _S);
@@ -37,6 +39,7 @@ public:
     CTaxes* getTaxes();
     CSocietyIndicators* getSocietyIndicators();
     CMapOfStructures* getMapOfStructures();
+    double getMoney();
 
     ///setters
     void setUtilitiesGlobalProduction(CUtilitiesGlobal _U);
@@ -45,7 +48,7 @@ public:
     void setTaxes(CTaxes* _T);
     void setSocietyIndicators(CSocietyIndicators* _S);
     void setMapOfStructures(CMapOfStructures* _M);
-
+    void setMoney(double _money);
 
 };
 

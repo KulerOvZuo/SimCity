@@ -115,6 +115,22 @@ void CPeople::randomAdd(int _free)
         }
     }
 }
+CPeopleEarnings CPeople::multiplyIndividualPeopleBy(CPeopleEarnings _multiply)
+{
+    return CPeopleEarnings(_multiply.getLeadWorkerEarn()*leadWorker,
+                           _multiply.getServiceWorkerEarn()*serviceWorker,
+                           _multiply.getLightWorkerEarn()*lightWorker,
+                           _multiply.getHeavyWorkerEarn()*heavyWorker,
+                           _multiply.getLowWorkerEarn()*lowWorker);
+}
+double CPeople::getDoubleMultiplyIndividualPeopleBy(CPeopleEarnings _multiply)
+{
+    double sum=0;
+    CPeopleEarnings _P = multiplyIndividualPeopleBy(_multiply);
+    sum = (_P.getLeadWorkerEarn()+ _P.getServiceWorkerEarn()+_P.getLightWorkerEarn()+
+           _P.getHeavyWorkerEarn()+_P.getLowWorkerEarn());
+    return sum;
+}
 void CPeople::addAll(int _lead, int _serv, int _light,int _heavy, int _low)
 {
     leadWorker += _lead;
