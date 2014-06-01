@@ -9,7 +9,8 @@ CMarket::CMarket()
     clearStackedProductsAvailableList();
 }
 CMarket::CMarket(const CMarket& _M)
-{}
+{   Q_UNUSED(_M);
+}
 CMarket::~CMarket()
 {}
 

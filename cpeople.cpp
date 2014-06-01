@@ -115,6 +115,109 @@ void CPeople::randomAdd(int _free)
         }
     }
 }
+void CPeople::randomSubb(int _free)
+{
+    int counter = _free*4; //using as watchdog
+    while(_free > 0)
+    {   switch (randBetween(1,5)) {
+        case 1:
+            if(leadWorker >0)
+            {   addLeadWorker(-1);
+                _free--;}
+            else
+               counter--;
+            break;
+        case 2:
+            if(serviceWorker>0)
+            {   addServiceWorker(-1);
+                _free--;}
+            else
+               counter--;
+            break;
+        case 3:
+            if(lightWorker>0)
+            {   addLightWorker(-1);
+                _free--;}
+            else
+               counter--;
+            break;
+        case 4:
+            if(heavyWorker >0)
+            {   addHeavyWorker(-1);
+                _free--;}
+            else
+               counter--;
+            break;
+        case 5:
+            if(lowWorker >0)
+            {   addLowWorker(-1);
+                _free--;}
+            else
+               counter--;
+            break;
+        default:
+            break;
+        }
+        if(counter<=0)
+        {   _free =-1;
+            break;}
+    }
+}
+CPeople CPeople::randomExtract(int _free)
+{
+    CPeople _P;
+    int counter = _free*4; //using as watchdog
+    while(_free > 0)
+    {   switch (randBetween(1,5)) {
+        case 1:
+            if(leadWorker >0)
+            {   addLeadWorker(-1);
+                _P.addLeadWorker(1);
+                _free--;}
+            else
+               counter--;
+            break;
+        case 2:
+            if(serviceWorker>0)
+            {   addServiceWorker(-1);
+                _P.addServiceWorker(1);
+                _free--;}
+            else
+               counter--;
+            break;
+        case 3:
+            if(lightWorker>0)
+            {   addLightWorker(-1);
+                _P.addLightWorker(1);
+                _free--;}
+            else
+               counter--;
+            break;
+        case 4:
+            if(heavyWorker >0)
+            {   addHeavyWorker(-1);
+                _P.addHeavyWorker(1);
+                _free--;}
+            else
+               counter--;
+            break;
+        case 5:
+            if(lowWorker >0)
+            {   addLowWorker(-1);
+                _P.addLowWorker(1);
+                _free--;}
+            else
+               counter--;
+            break;
+        default:
+            break;
+        }
+        if(counter<=0)
+        {   _free =-1;
+            break;}
+    }
+    return _P;
+}
 CPeopleEarnings CPeople::multiplyIndividualPeopleBy(CPeopleEarnings _multiply)
 {
     return CPeopleEarnings(_multiply.getLeadWorkerEarn()*leadWorker,

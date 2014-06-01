@@ -1,6 +1,9 @@
 #ifndef ENUMERATORS_H
 #define ENUMERATORS_H
 
+//map
+#define trafficSquare 10
+#define roadTrafficCapacity 10
 
 //satisfaction
 #define foodInd 1
@@ -11,6 +14,15 @@
 #define disturbanceInd 1
 #define trafficInd 1
 #define incomeInd 1
+
+//influance
+#define parkInf 1
+#define lawnInf 0.1
+#define livingInf 0.1
+#define lightInf 0.6
+#define heavyInf 1.3
+#define foodInf 0.8
+#define utilityInf 1.3
 
 //education
 #define minLeadEdu 50

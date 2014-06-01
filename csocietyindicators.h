@@ -26,8 +26,6 @@ public:
     virtual ~CSocietyIndicators();
 
     ///implement more
-    int countNewChildren();
-    int countNewDeadPeople();
     CPeopleEarnings countPeopleEarnings();
     CPeople countProffesionsNeed();
     CPeople countProffesionsToEducate();

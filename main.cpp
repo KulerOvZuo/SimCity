@@ -373,6 +373,13 @@ int main(int argc, char *argv[])
     blocks->setServiceNeed(CService(40));
     city->addStructureProperly(blocks);
     House->setServiceNeed(CService(10));
+    House->setMaxLivingPeople(15);
+    House->addNewLearningPeople(CPeople(1,1,0,0,0));
+    blocks->addNewLearningPeople(CPeople(1,2,4,3,1));
+    blocks->setLivingWorkingPeople(CPeople(2,3,8,10,10));
+    blocks->setMaxLivingPeople(50);
+    House->searchSetForBetterSchool();
+    blocks->searchSetForBetterSchool();
     COffice* office1 = new COffice;
     office1->setSizeOnGameMap(CCoordinates(1,1));
     office1->setCoordinatesOfActualLUCorner(CCoordinates(18,14));
@@ -398,10 +405,15 @@ int main(int argc, char *argv[])
         office2->giveServiceToLivings();
         House->countSetLifeSatAndPeopleNeeds();
         blocks->countSetLifeSatAndPeopleNeeds();
+        House->countSetBirthRate();
+        blocks->countSetBirthRate();
+        House->changeLivingPlace();
+        blocks->changeLivingPlace();
+        House->makeDeadsAndBorns();
+        blocks->makeDeadsAndBorns();
         office1->clearTemporary();
         office2->clearTemporary();
     }
-
 
     w.show();
     return a.exec();

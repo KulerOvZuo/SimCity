@@ -7,6 +7,8 @@ CCity::CCity()
     taxes = new CTaxes;
     societyIndicators = new CSocietyIndicators;
     mapOfStructures = new CMapOfStructures;
+    trafficEngine = new CTrafficEngine;
+    trafficEngine->setCity(this);
     money =0;
 }
 CCity::CCity(const CCity& _C)
@@ -94,6 +96,8 @@ CSocietyIndicators* CCity::getSocietyIndicators()
 {   return societyIndicators;}
 CMapOfStructures* CCity::getMapOfStructures()
 {   return mapOfStructures;}
+CTrafficEngine* CCity::getTrafficEngine()
+{   return trafficEngine;}
 double CCity::getMoney()
 {   return money;}
 
@@ -112,5 +116,7 @@ void CCity::setSocietyIndicators(CSocietyIndicators* _S)
 {   societyIndicators=_S;}
 void CCity::setMapOfStructures(CMapOfStructures* _M)
 {   mapOfStructures=_M;}
+void CCity::setTrafficEngine(CTrafficEngine* _engine)
+{   trafficEngine = _engine;}
 void CCity::setMoney(double _money)
 {   money = _money;}

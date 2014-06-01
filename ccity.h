@@ -7,6 +7,7 @@
 #include "csocietyindicators.h"
 #include "cmapofstructures.h"
 #include "enumerators.h"
+#include "ctrafficengine.h"
 
 class CCity
 {
@@ -17,6 +18,7 @@ protected:
     CTaxes* taxes;
     CSocietyIndicators* societyIndicators;
     CMapOfStructures* mapOfStructures;
+    CTrafficEngine* trafficEngine;
     double money;
 public:
     CCity();
@@ -39,6 +41,7 @@ public:
     CTaxes* getTaxes();
     CSocietyIndicators* getSocietyIndicators();
     CMapOfStructures* getMapOfStructures();
+    CTrafficEngine* getTrafficEngine();
     double getMoney();
 
     ///setters
@@ -48,6 +51,7 @@ public:
     void setTaxes(CTaxes* _T);
     void setSocietyIndicators(CSocietyIndicators* _S);
     void setMapOfStructures(CMapOfStructures* _M);
+    void setTrafficEngine(CTrafficEngine* _engine);
     void setMoney(double _money);
 
 };

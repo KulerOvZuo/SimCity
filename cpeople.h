@@ -13,7 +13,7 @@ protected:
     int lightWorker;
     int heavyWorker;
     int lowWorker;
-    int randBetween(int min, int max);
+
 public:
     CPeople();
     CPeople(int _lead, int _serv, int _light,int _heavy, int _low);
@@ -25,6 +25,9 @@ public:
 
     bool restoreIfNotPossitiveNOPeople();
     void randomAdd(int _free);
+    void randomSubb(int _free);
+    CPeople randomExtract(int _free);
+    int randBetween(int min, int max);
     CPeopleEarnings multiplyIndividualPeopleBy(CPeopleEarnings _multiply);
     double getDoubleMultiplyIndividualPeopleBy(CPeopleEarnings _multiply);
     void addAll(int _lead, int _serv, int _light,int _heavy, int _low);

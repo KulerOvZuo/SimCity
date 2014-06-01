@@ -20,16 +20,6 @@ CSocietyIndicators::CSocietyIndicators(const CSocietyIndicators& _I)
 CSocietyIndicators::~CSocietyIndicators()
 {}
 
-
-int CSocietyIndicators::countNewChildren()
-{
-    //allPeople.getAllPeople()*birthIndicator;
-    return -1;
-}
-int CSocietyIndicators::countNewDeadPeople()
-{
-    return -1;
-}
 CPeopleEarnings CSocietyIndicators::countPeopleEarnings()
 {
     //value*(1 + 0.2*prof/profAre)

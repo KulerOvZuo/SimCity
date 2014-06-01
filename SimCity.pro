@@ -42,7 +42,8 @@ SOURCES += main.cpp \
     cshop.cpp \
     cmarket.cpp \
     csocietyindicators.cpp \
-    cmapofstructures.cpp
+    cmapofstructures.cpp \
+    ctrafficengine.cpp
 
 HEADERS  += mainwindow.h \
     cstructure.h \
@@ -74,6 +75,7 @@ HEADERS  += mainwindow.h \
     cshop.h \
     cmarket.h \
     csocietyindicators.h \
-    cmapofstructures.h
+    cmapofstructures.h \
+    ctrafficengine.h
 
 FORMS    += mainwindow.ui

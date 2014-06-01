@@ -18,7 +18,7 @@ protected:
     int maxLivingPeople;
     CPeople livingWorkingPeople;
     CPeople livingNotWorkingPeople;
-    QList<CLearningPeople> learningPeopleList;
+    QList<CLearningPeople*> learningPeopleList;
     int children;
     double birthRate;
     double income;
@@ -38,6 +38,8 @@ public:
     bool searchForService();
     void clearTemporary();
 
+    void makeDeadsAndBorns();
+    bool changeLivingPlace();
     void countSetIncome();
     double countSetBirthRate();
     void sendBirthRateToCity();
@@ -45,15 +47,18 @@ public:
     void countSetLifeSatAndPeopleNeeds();
     double countLifeSatisfaction();
     double giveTaxes(double _tax);
-    CPeopleNeeds getInfluanceFromOthers();
+    bool countSetInfluanceFromOthers();
+    double getSetTrafficInformation();
 
     //list
     void addNewLearningPeople(CPeople _professions);
+    void addNewLearningPeople(CLearningPeople* _learning);
     void clearListOfLearningPeople();
     void optimizeListOfLearningPeople();
     void educatePeople();
     CPeople extractEducatedPeople();
     CPeople getNumberOfLearningPeople();
+    ///void sendChildrenToSchool();
 
     void setMaxLivingPeople(int _max);
     void setLivingWorkingPeople(CPeople _P);
@@ -69,10 +74,11 @@ public:
     void setTraffic(double _traf);
     void setDistrurbance(double _dist);
 
+    int getAllPeopleLiving() const;
     int getMaxLivingPeople()const;
     CPeople getLivingWorkingPeople()const;
     CPeople getLivingNotWorkingPeople()const;
-    QList<CLearningPeople> getListOfLearningPeople() const;
+    QList<CLearningPeople*> getListOfLearningPeople() const;
     int getChildren()const;
     double getBirthRate() const;
     double getIncome()const;
