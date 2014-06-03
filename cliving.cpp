@@ -233,7 +233,7 @@ bool CLiving::changeLivingPlace()
                                                              learningPeopleList.at(i)->getLightWorkerEdu(),
                                                              learningPeopleList.at(i)->getHeavyWorkerEdu(),
                                                              learningPeopleList.at(i)->getLowWorkerEdu());
-                    bestLiving->addNewLearningPeople(_L);
+                    bestLiving->addLearningPeople(_L);
                     _actualLearning -=learningPeopleList.at(i)->getAllPeople();
                     learningPeopleList.at(i)->setAll(0,0,0,0,0);
                 }
@@ -244,7 +244,7 @@ bool CLiving::changeLivingPlace()
                                                                  learningPeopleList.at(i)->getLightWorkerEdu(),
                                                                  learningPeopleList.at(i)->getHeavyWorkerEdu(),
                                                                  learningPeopleList.at(i)->getLowWorkerEdu());
-                    bestLiving->addNewLearningPeople(_L);
+                    bestLiving->addLearningPeople(_L);
                     break;}
             }
             ///take children from school
@@ -321,6 +321,8 @@ bool CLiving::countSetInfluanceFromOthers()
                 distance = 1-distance/20;
             else
                 distance=0;  }
+        if(city->getMapOfStructures()->getAllLivings().at(i) == this)
+            continue;
         if(dynamic_cast<CHouse*>(city->getMapOfStructures()->getAllLivings().at(i)) != NULL)
         {   peopleNeeds.addDisturbance(-1*distance*livingInf*0.25);}
         else
@@ -365,7 +367,23 @@ double CLiving::getSetTrafficInformation()
 {   peopleNeeds.setTraffic(city->getTrafficEngine()->giveTrafficInfo(countCoordinatesOfCentre()));
     return peopleNeeds.getTraffic();
 }
+void CLiving::sendPeopleInfoToCity()
+{
+    CSocietyIndicators* S = city->getSocietyIndicators();
+    S->setAllLivingWorkingPeople(S->getallLivingWorkingPeople()+livingWorkingPeople);
+    S->setAllLivingNotWorkingPeople(S->getallLivingNotWorkingPeople()+livingNotWorkingPeople);
 
+    CPeople A;
+    for(int i=0; i<learningPeopleList.count(); i++)
+    {   A += *(dynamic_cast<CPeople*>(learningPeopleList.at(i)));}
+    S->setAllLearningPeople(S->getAllLearningPeople()+A);
+
+    A += livingNotWorkingPeople;
+    A += livingWorkingPeople;
+    S->setAllPeople(S->getAllPeople()+A);
+}
+void CLiving::sendChildrenInfoToCity()
+{   city->getSocietyIndicators()->addChildren(children);}
 double CLiving::countSetBirthRate()
 {   double _birth;
     if(lifeSatisfaction <3)
@@ -456,14 +474,162 @@ double CLiving::countLifeSatisfaction()
                          serviceInd*log10(_service)+aInc*incomeInd*log10(abs(income/_allPeople))));
     return (3*_pastLifeSat+lifeSat)/4;
 }
+void CLiving::searchAndGoToWork()
+{
+    //CSocietyIndicators* S = city->getSocietyIndicators();
+    int numOfTries=5;
+    CWorking* _W = NULL;
+    CWorking* best = NULL;
+    double rate =-1;
+    double bestRate=-1;
+
+    ///for all lead
+    for(int l=0; l<livingNotWorkingPeople.getLeadWorker();l++)
+    {   ///search numOfTries times
+        for(int i=0; i<numOfTries; i++)
+        {   _W=city->getMapOfStructures()->getRandomWorkingBuilding();
+            if(_W != NULL)
+            {   CPeople deltaW = _W->getNeededNumberOfWorkers();
+                deltaW -= _W->getActualNumberOfWorkers();
+                if(deltaW.getLeadWorker() >0)
+                {   rate = age;
+                    if(rate > bestRate)
+                    {   bestRate = rate;
+                        best = _W;}
+                }
+            }
+        }
+        ///end of 1 lead
+        if(best != NULL)
+        {   best->addWorkers(CPeople(1,0,0,0,0));
+            livingNotWorkingPeople.addLeadWorker(-1);
+            livingWorkingPeople.addLeadWorker(1);}
+        best = NULL;
+        _W = NULL;
+        bestRate = -1;
+        rate = -1;
+    }
+    ///for all service
+    for(int l=0; l<livingNotWorkingPeople.getServiceWorker();l++)
+    {   ///search numOfTries times
+        for(int i=0; i<numOfTries; i++)
+        {   _W=city->getMapOfStructures()->getRandomWorkingBuilding();
+            if(_W != NULL)
+            {   CPeople deltaW = _W->getNeededNumberOfWorkers();
+                deltaW -= _W->getActualNumberOfWorkers();
+                if(deltaW.getServiceWorker() >0)
+                {   rate = age;
+                    if(rate > bestRate)
+                    {   bestRate = rate;
+                        best = _W;}
+                }
+            }
+        }
+        ///end of 1 Service
+        if(best != NULL)
+        {   best->addWorkers(CPeople(0,1,0,0,0));
+            livingNotWorkingPeople.addServiceWorker(-1);
+            livingWorkingPeople.addServiceWorker(1);}
+        best = NULL;
+        _W = NULL;
+        bestRate = -1;
+        rate = -1;
+    }
+    ///for all Light
+    for(int l=0; l<livingNotWorkingPeople.getLightWorker();l++)
+    {   ///search numOfTries times
+        for(int i=0; i<numOfTries; i++)
+        {   _W=city->getMapOfStructures()->getRandomWorkingBuilding();
+            if(_W != NULL)
+            {   CPeople deltaW = _W->getNeededNumberOfWorkers();
+                deltaW -= _W->getActualNumberOfWorkers();
+                if(deltaW.getLightWorker() >0)
+                {   rate = age;
+                    if(rate > bestRate)
+                    {   bestRate = rate;
+                        best = _W;}
+                }
+            }
+        }
+        ///end of 1 Light
+        if(best != NULL)
+        {   best->addWorkers(CPeople(0,0,1,0,0));
+            livingNotWorkingPeople.addLightWorker(-1);
+            livingWorkingPeople.addLightWorker(1);}
+        best = NULL;
+        _W = NULL;
+        bestRate = -1;
+        rate = -1;
+    }
+    ///for all Heavy
+    for(int l=0; l<livingNotWorkingPeople.getHeavyWorker();l++)
+    {   ///search numOfTries times
+        for(int i=0; i<numOfTries; i++)
+        {   _W=city->getMapOfStructures()->getRandomWorkingBuilding();
+            if(_W != NULL)
+            {   CPeople deltaW = _W->getNeededNumberOfWorkers();
+                deltaW -= _W->getActualNumberOfWorkers();
+                if(deltaW.getHeavyWorker() >0)
+                {   rate = age;
+                    if(rate > bestRate)
+                    {   bestRate = rate;
+                        best = _W;}
+                }
+            }
+        }
+        ///end of 1 Heavy
+        if(best != NULL)
+        {   best->addWorkers(CPeople(0,0,0,1,0));
+            livingNotWorkingPeople.addHeavyWorker(-1);
+            livingWorkingPeople.addHeavyWorker(1);}
+        best = NULL;
+        _W = NULL;
+        bestRate = -1;
+        rate = -1;
+    }
+    ///for all Low
+    for(int l=0; l<livingNotWorkingPeople.getLowWorker();l++)
+    {   ///search numOfTries times
+        for(int i=0; i<numOfTries; i++)
+        {   _W=city->getMapOfStructures()->getRandomWorkingBuilding();
+            if(_W != NULL)
+            {   CPeople deltaW = _W->getNeededNumberOfWorkers();
+                deltaW -= _W->getActualNumberOfWorkers();
+                if(deltaW.getLowWorker() >0)
+                {   rate = age;
+                    if(rate > bestRate)
+                    {   bestRate = rate;
+                        best = _W;}
+                }
+            }
+        }
+        ///end of 1 Low
+        if(best != NULL)
+        {   best->addWorkers(CPeople(0,0,0,0,1));
+            livingNotWorkingPeople.addLowWorker(-1);
+            livingWorkingPeople.addLowWorker(1);}
+        best = NULL;
+        _W = NULL;
+        bestRate = -1;
+        rate = -1;
+    }
+}
 
 //list
+void CLiving::chooseChildrenProfessionsAndAdd()
+{
+    CPeople _temp = city->getSocietyIndicators()->getAllProfessionsToEducate();
+    CPeople _prof = _temp.randomExtract(children);
+    addNewLearningPeople(_prof);
+    children=0;
+    city->getSocietyIndicators()->setAllProfessionsToEducate(_temp);
+}
 void CLiving::addNewLearningPeople(CPeople _professions)
 {
     CLearningPeople* _L = new CLearningPeople(_professions,0,0,0,0,0);
     learningPeopleList.append(_L);
 }
-void CLiving::addNewLearningPeople(CLearningPeople* _learning)
+void CLiving::addLearningPeople(CLearningPeople* _learning)
 {
     learningPeopleList.append(_learning);
 }

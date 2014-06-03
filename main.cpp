@@ -252,15 +252,17 @@ int main(int argc, char *argv[])
     CRoadCross* cross = new CRoadCross;
     CRoadStraight* straight = new CRoadStraight;
     cross->setSizeOnGameMap(CCoordinates(1,1));
+    cross->setCapacity(10);
     straight->setSizeOnGameMap(CCoordinates(1,1));
+    straight->setCapacity(10);
     cross->setCity(city);
     straight->setCity(city);
     city->getMapOfStructures()->addStructureProperly(cross);
     city->getMapOfStructures()->addStructureProperly(straight);
-    cross->setCoordinatesOfActualLUCorner(CCoordinates(2,13));
+    cross->setCoordinatesOfActualLUCorner(CCoordinates(2,8));
     if(cross->checkIfCanBeBuiled())
         cross->build();
-    straight->setCoordinatesOfActualLUCorner(CCoordinates(3,13));
+    straight->setCoordinatesOfActualLUCorner(CCoordinates(3,8));
     if(straight->checkIfCanBeBuiled())
         straight->build();
     straight->rotate(rightRot);
@@ -271,6 +273,7 @@ int main(int argc, char *argv[])
     if(straight->checkIfCanBeBuiled())
         straight->build();
 
+    shop->setNeededNumberOfWorkers(CPeople(0,1,1,5,5));
     House->addNewLearningPeople(CPeople(1,2,0,5,2));
     CSchool* school1 = new CSchool;
     school1->setCity(city);
@@ -282,12 +285,14 @@ int main(int argc, char *argv[])
     school1->addWorkers(CPeople(4,0,0,0,1));
     school1->setMaxNOChildren(11);
     school1->setActualNOChildren(6);
+    school1->setNeededNumberOfWorkers(CPeople(4,3,0,1,2));
     CSchool* school2 = new CSchool(*school1);
     city->getMapOfStructures()->addStructureProperly(school2);
     school2->setCoordinatesOfActualLUCorner(CCoordinates(14,11));
     school2->setActualNumberOfWorkers(CPeople(5,0,0,0,1));
     school1->countSetEducationQuality();
     school2->countSetEducationQuality();
+
 
     House->searchSetForBetterSchool();
     House->educatePeople();
@@ -327,6 +332,7 @@ int main(int argc, char *argv[])
     shop->setProductsSellPrice(CProducts(8,5,2));
     shop1->setCity(city);
     shop1->setSizeOnGameMap(CCoordinates(1,1));
+    shop1->setNeededNumberOfWorkers(CPeople(0,1,1,5,5));
     city->getMapOfStructures()->addStructureProperly(shop1);
     CShop* shop2 = new CShop(*shop1);
     shop1->setCoordinatesOfActualLUCorner(CCoordinates(15,15));
@@ -347,6 +353,10 @@ int main(int argc, char *argv[])
         city->addStructureProperly(heavy);
     heavy->setStackedProducts(CProducts(0,20,0));
     heavy->setActualProductionPerTick(CProducts(0,15,0));
+
+    farm1->setNeededNumberOfWorkers(CPeople(1,1,1,2,7));
+    light->setNeededNumberOfWorkers(CPeople(1,1,7,2,3));
+    heavy->setNeededNumberOfWorkers(CPeople(1,1,1,8,3));
 
     for(int blaa=0; blaa<4; blaa++)
     {
@@ -398,6 +408,7 @@ int main(int argc, char *argv[])
     office1->countSetActualServiceCost();
     office2->countSetServiceQuality();
     office2->countSetActualServiceCost();
+
     for(int i=0; i<3;i++)
     {   House->searchForService();
         blocks->searchForService();
@@ -411,9 +422,17 @@ int main(int argc, char *argv[])
         blocks->changeLivingPlace();
         House->makeDeadsAndBorns();
         blocks->makeDeadsAndBorns();
+        House->searchAndGoToWork();
+        blocks->searchAndGoToWork();
         office1->clearTemporary();
         office2->clearTemporary();
     }
+    city->getTrafficEngine()->createMapOfTraffic();
+    city->getTrafficEngine()->countTraffic();
+    House->countSetInfluanceFromOthers();
+    blocks->countSetInfluanceFromOthers();
+    House->getSetTrafficInformation();
+    blocks->getSetTrafficInformation();
 
     w.show();
     return a.exec();

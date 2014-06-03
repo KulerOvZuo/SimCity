@@ -41,7 +41,7 @@ void CMarket::countSetActualProductsCost()
         if(_foodRatio2 > 10)
             _foodRatio2=10;
     }
-    actualProductsCost.setFood(baseProductsCost.getFood()/log(2.2+_foodRatio1/2+_foodRatio2/10));
+    actualProductsCost.setFood((actualProductsCost.getFood()+(baseProductsCost.getFood()/log(2.2+_foodRatio1/2+_foodRatio2/10)))/2);
 
     //the bigger final ratio is, the cheaper product will be
     double _lightRatio1 = 4; //how many times suppy is bigger than need
@@ -55,7 +55,7 @@ void CMarket::countSetActualProductsCost()
         if(_lightRatio2 > 10)
             _lightRatio2=10;
     }
-    actualProductsCost.setLight(baseProductsCost.getLight()/log(2.2+_lightRatio1/2+_lightRatio2/10));
+    actualProductsCost.setLight((actualProductsCost.getLight()+(baseProductsCost.getLight()/log(2.2+_lightRatio1/2+_lightRatio2/10)))/2);
 
     //the bigger final ratio is, the cheaper product will be
     double _heavyRatio1 = 4; //how many times suppy is bigger than need
@@ -69,7 +69,7 @@ void CMarket::countSetActualProductsCost()
         if(_heavyRatio2 > 10)
             _heavyRatio2=10;
     }
-    actualProductsCost.setHeavy(baseProductsCost.getHeavy()/log(2.2+_heavyRatio1/2+_heavyRatio2/10));
+    actualProductsCost.setHeavy((actualProductsCost.getHeavy()+(baseProductsCost.getHeavy()/log(2.2+_heavyRatio1/2+_heavyRatio2/10)))/2);
 }
 void CMarket::takeAndPayPBForProducts()
 {

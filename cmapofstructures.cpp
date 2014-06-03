@@ -201,7 +201,63 @@ bool CMapOfStructures::checkIfCanBePlaced(CStructure* _S)
 {    return _S->checkIfCanBeBuiled();
 
 }
-
+CWorking* CMapOfStructures::getRandomWorkingBuilding()
+{
+    CPeople A;
+    int a = A.randBetween(0,5);
+    int b;
+    int q=3;
+    while(q>0)
+    {   switch (a) {
+        case 0:
+            if(allSchools.count()>0)
+            {   b = A.randBetween(0,allSchools.count()-1);
+                return allSchools.at(b);}
+            else
+                q--;
+            break;
+        case 1:
+            if(allProductionBuildings.count()>0)
+            {   b = A.randBetween(0,allProductionBuildings.count()-1);
+                return allProductionBuildings.at(b);}
+            else
+                q--;
+            break;
+        case 2:
+            if(allServiceBuildings.count()>0)
+             {   b = A.randBetween(0,allServiceBuildings.count()-1);
+                return allServiceBuildings.at(b);}
+            else
+                q--;
+            break;
+        case 3:
+            if(allShops.count()>0)
+             {   b = A.randBetween(0,allShops.count()-1);
+                return allShops.at(b);}
+            else
+                q--;
+            break;
+        case 4:
+            if(allPublicUtilityBuildings.count()>0)
+            {   b = A.randBetween(0,allPublicUtilityBuildings.count()-1);
+                return allPublicUtilityBuildings.at(b);}
+            else
+                q--;
+            break;
+        case 5:
+            if(allRecreationBuildings.count()>0)
+            {    b = A.randBetween(0,allRecreationBuildings.count()-1);
+                return allRecreationBuildings.at(b);}
+            else
+                q--;
+            break;
+        default:
+                q--;
+            break;
+        }
+    }
+    return NULL;
+}
 ///setters
 void CMapOfStructures::setMapSize(CCoordinates _C)
 {   mapSize = _C;}

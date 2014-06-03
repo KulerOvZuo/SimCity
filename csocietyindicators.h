@@ -24,11 +24,12 @@ public:
     CSocietyIndicators();
     CSocietyIndicators(const CSocietyIndicators& _I);
     virtual ~CSocietyIndicators();
+    void clearTemporary();
 
     ///implement more
-    CPeopleEarnings countPeopleEarnings();
+    CPeopleEarnings countSetPeopleEarnings();
     CPeople countProffesionsNeed();
-    CPeople countProffesionsToEducate();
+    CPeople countSetProffesionsToEducate();
 
     void addChildren(int _children);
     void addBirthIndicator(double _birth);

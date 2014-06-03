@@ -25,9 +25,13 @@ CProducts CShop::countSetProductsSellPrice()
     for(int i=0; i< city->getMarket()->getShopsNeedsList().count();i++)
     {   allShopsNeed += city->getMarket()->getShopsNeedsList().at(i)->getProducts();}
 
-    productsSellPrice = CProducts((indicator+0.4*productsGotFromMarket.getLight()/allShopsNeed.getLight())*marketPrice.getLight(),
+    CProducts P = CProducts((indicator+0.4*productsGotFromMarket.getLight()/allShopsNeed.getLight())*marketPrice.getLight(),
                                   (indicator+0.4*productsGotFromMarket.getHeavy()/allShopsNeed.getHeavy())*marketPrice.getHeavy(),
                                   (indicator+0.4*productsGotFromMarket.getFood()/allShopsNeed.getFood())*marketPrice.getFood());
+
+    productsSellPrice = CProducts((productsSellPrice.getLight()+P.getLight())/2,
+                                  (productsSellPrice.getHeavy()+P.getHeavy())/2,
+                                  (productsSellPrice.getFood()+P.getFood())/2);
     return productsSellPrice;
 }
 bool CShop::sendProductsNeedToMarket()

@@ -20,7 +20,19 @@ CSocietyIndicators::CSocietyIndicators(const CSocietyIndicators& _I)
 CSocietyIndicators::~CSocietyIndicators()
 {}
 
-CPeopleEarnings CSocietyIndicators::countPeopleEarnings()
+void CSocietyIndicators::clearTemporary()
+{
+    CPeople A;
+    allPeople =A;
+    allLivingWorkingPeople =A;
+    allLivingNotWorkingPeople =A;
+    allLearningPeople  =A;
+    allWorkForPeople =A;
+    allProfessionsToEducate  =A;
+    children=0;
+    birthIndicator=0;
+}
+CPeopleEarnings CSocietyIndicators::countSetPeopleEarnings()
 {
     //value*(1 + 0.2*prof/profAre)
     CPeopleEarnings _earn(basePeopleEarnings);
@@ -55,6 +67,13 @@ CPeopleEarnings CSocietyIndicators::countPeopleEarnings()
             ind =2;
         _earn.addLowWorkerEarn((double)basePeopleEarnings.getLowWorkerEarn()*0.2*ind);
     }
+
+    _earn.setLeadWorkerEarn(_earn.getLeadWorkerEarn()/2+peopleEarnings.getLeadWorkerEarn()/2);
+    _earn.setServiceWorkerEarn(_earn.getServiceWorkerEarn()/2+peopleEarnings.getServiceWorkerEarn()/2);
+    _earn.setLightWorkerEarn(_earn.getLightWorkerEarn()/2+peopleEarnings.getLightWorkerEarn()/2);
+    _earn.setHeavyWorkerEarn(_earn.getHeavyWorkerEarn()/2+peopleEarnings.getHeavyWorkerEarn()/2);
+    _earn.setLowWorkerEarn(_earn.getLowWorkerEarn()/2+peopleEarnings.getLowWorkerEarn()/2);
+    peopleEarnings = _earn;
     return _earn;
 }
 CPeople CSocietyIndicators::countProffesionsNeed()
@@ -68,7 +87,7 @@ CPeople CSocietyIndicators::countProffesionsNeed()
 
     return CPeople(leadWorkerNeed,serviceWorkerNeed,lightWorkerNeed,heavyWorkerNeed,lowWorkerNeed);
 }
-CPeople CSocietyIndicators::countProffesionsToEducate()
+CPeople CSocietyIndicators::countSetProffesionsToEducate()
 {
     CPeople _profNeed(countProffesionsNeed());
     _profNeed.restoreIfNotPossitiveNOPeople();  // -need is not needed
@@ -79,6 +98,7 @@ CPeople CSocietyIndicators::countProffesionsToEducate()
         CPeople A;
         int free = children-_allProfNeed;
         A.randomAdd(free);
+        allProfessionsToEducate = A;
         return A;
     }
     double ratio = (double)children/_allProfNeed;
@@ -92,6 +112,7 @@ CPeople CSocietyIndicators::countProffesionsToEducate()
         CPeople A(_profNeed);
         int free = children-_allProfNeed;
         A.randomAdd(free);
+        allProfessionsToEducate = A;
         return A;
     }
     if(ratio < 1)
@@ -104,8 +125,10 @@ CPeople CSocietyIndicators::countProffesionsToEducate()
         A.addLowWorker(floor(ratio*_profNeed.getLowWorker()));
         int free = children - A.getAllPeople(); //see whats left
         A.randomAdd(free);
+        allProfessionsToEducate = A;
         return A;
     }
+    allProfessionsToEducate = CPeople();
     return CPeople();
 }
 

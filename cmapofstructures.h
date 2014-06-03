@@ -41,6 +41,7 @@ public:
     bool removeStructureProperly(CStructure* _S);
     bool checkIfBuildingExistsOnLists(CStructure* _S);
     bool checkIfCanBePlaced(CStructure* _S);
+    CWorking* getRandomWorkingBuilding();
 
     ///setters
     void setMapSize(CCoordinates _C);

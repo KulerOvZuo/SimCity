@@ -29,7 +29,7 @@ double CRecreationBuilding::countBuildingEfficiency()
 }
 void CRecreationBuilding::countSetRecreationQuality()
 {
-    actualRecreation = CRecreation((baseRecreation.getRecreation1())*countBuildingEfficiency());
+    actualRecreation =  CRecreation(((baseRecreation.getRecreation1())*countBuildingEfficiency())/2+actualRecreation.getRecreation1()/2);
 }
 
 CRecreation CRecreationBuilding::getBaseRecreation() const

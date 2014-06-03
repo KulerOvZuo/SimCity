@@ -65,7 +65,7 @@ double CServiceBuilding::countBuildingEfficiency()
 }
 void CServiceBuilding::countSetServiceQuality()
 {
-    actualService = CService((baseService.getService1())*countBuildingEfficiency());
+    actualService = CService(((baseService.getService1())*countBuildingEfficiency()+actualService.getService1())/2);
 }
 bool CServiceBuilding::giveServiceToLivings()
 {   double service1Indicator = actualService.getService1()/serviceNeedFromPeople.getService1();

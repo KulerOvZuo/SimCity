@@ -41,6 +41,8 @@ public:
     void makeDeadsAndBorns();
     bool changeLivingPlace();
     void countSetIncome();
+    void sendPeopleInfoToCity();
+    void sendChildrenInfoToCity();
     double countSetBirthRate();
     void sendBirthRateToCity();
     CPeopleNeeds countPeopleNeeds();
@@ -49,16 +51,17 @@ public:
     double giveTaxes(double _tax);
     bool countSetInfluanceFromOthers();
     double getSetTrafficInformation();
+    void searchAndGoToWork();
 
     //list
+    void chooseChildrenProfessionsAndAdd();
     void addNewLearningPeople(CPeople _professions);
-    void addNewLearningPeople(CLearningPeople* _learning);
+    void addLearningPeople(CLearningPeople* _learning);
     void clearListOfLearningPeople();
     void optimizeListOfLearningPeople();
     void educatePeople();
     CPeople extractEducatedPeople();
     CPeople getNumberOfLearningPeople();
-    ///void sendChildrenToSchool();
 
     void setMaxLivingPeople(int _max);
     void setLivingWorkingPeople(CPeople _P);

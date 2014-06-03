@@ -35,7 +35,7 @@ double CSchool::countBuildingEfficiency()
 }
 void CSchool::countSetEducationQuality()
 {
-    actualEducationIndicator = baseEducationIndicator*countBuildingEfficiency();
+    actualEducationIndicator = (baseEducationIndicator*countBuildingEfficiency()+actualEducationIndicator)/2;
 }
 bool CSchool::addNOChildren(int _number)
 {   actualNOChildren += _number;

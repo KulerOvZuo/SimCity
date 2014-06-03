@@ -1,4 +1,5 @@
 #include "cworking.h"
+#include "ccity.h"
 
 CWorking::CWorking() : CBuilding()
 {
@@ -20,7 +21,12 @@ CWorking::CWorking(const CWorking& _W, CPeople _need, CPeople _actual) : CBuildi
     actualNumberOfWorkers.restoreIfNotPossitiveNOPeople();
 }
 
-
+void CWorking::sendWorkInfoToCity()
+{
+    CPeople A = city->getSocietyIndicators()->getAllWorkForPeople();
+    A += neededNumberOfWorkers;
+    city->getSocietyIndicators()->setAllWorkForPeople(A);
+}
 bool CWorking::addWorkers(CPeople _P)
 {
     actualNumberOfWorkers += _P;

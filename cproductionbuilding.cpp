@@ -61,9 +61,12 @@ double CProductionBuilding::countBuildingEfficiency()
 void CProductionBuilding::countSetActualProductionPerTick()
 {
 
-    actualProductionPerTick = CProducts(maxProductionPerTick.getLight()*countBuildingEfficiency(),
+    CProducts P = CProducts(maxProductionPerTick.getLight()*countBuildingEfficiency(),
                                         maxProductionPerTick.getHeavy()*countBuildingEfficiency(),
                                         maxProductionPerTick.getFood()*countBuildingEfficiency());
+    actualProductionPerTick.setAll((actualProductionPerTick.getLight()+P.getLight())/2,
+                                   (actualProductionPerTick.getHeavy()+P.getHeavy())/2,
+                                   (actualProductionPerTick.getFood()+P.getFood())/2);
 }
 void CProductionBuilding::clearTemporary()
 {   money += income;
