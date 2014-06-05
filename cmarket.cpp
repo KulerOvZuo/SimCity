@@ -102,10 +102,12 @@ void CMarket::takeAndPayPBForProducts()
             continue;
         _P.setFood(productsPerTickAvailableList.at(i)->getProducts().getFood());
         if(_foodQuantity1>0) //all products per tick + all/some of stacked
-        {   _P += CProducts(0,0,(stackedProductsAvailableList.at(i)->getProducts().getFood())*_foodQuantity2/_stackedProd.getFood());
+        {   if(_stackedProd.getFood()>0)
+                _P += CProducts(0,0,(stackedProductsAvailableList.at(i)->getProducts().getFood())*_foodQuantity2/_stackedProd.getFood());
         }
         else    //equal all or only part of prod. per tick
-        {  _P.setFood(_P.getFood()*_shopsProd.getFood()/_tickProd.getFood());
+        {  if(_tickProd.getFood()>0)
+                _P.setFood(_P.getFood()*_shopsProd.getFood()/_tickProd.getFood());
         }
         dynamic_cast<CFoodProduction*>(productsPerTickAvailableList.at(i)->getBuilding())->sellProducts(_P);
         productsGotFromProduction += _P;
@@ -126,10 +128,12 @@ void CMarket::takeAndPayPBForProducts()
         CProducts _P;
         _P.setLight(productsPerTickAvailableList.at(i)->getProducts().getLight());
         if(_lightQuantity1>0) //all products per tick + all/some of stacked
-        {   _P += CProducts((stackedProductsAvailableList.at(i)->getProducts().getLight())*_lightQuantity2/_stackedProd.getLight(),0,0);
+        {   if(_stackedProd.getLight()>0)
+                _P += CProducts((stackedProductsAvailableList.at(i)->getProducts().getLight())*_lightQuantity2/_stackedProd.getLight(),0,0);
         }
         else    //equal all or only part of prod. per tick
-        {  _P.setLight(_P.getLight()*_shopsProd.getLight()/_tickProd.getLight());
+        {  if(_tickProd.getLight()>0)
+            _P.setLight(_P.getLight()*_shopsProd.getLight()/_tickProd.getLight());
         }
         dynamic_cast<CLightFactory*>(productsPerTickAvailableList.at(i)->getBuilding())->sellProducts(_P);
         productsGotFromProduction += _P;
@@ -150,10 +154,12 @@ void CMarket::takeAndPayPBForProducts()
         CProducts _P;
         _P.setHeavy(productsPerTickAvailableList.at(i)->getProducts().getHeavy());
         if(_heavyQuantity1>0) //all products per tick + all/some of stacked
-        {   _P += CProducts(0,(stackedProductsAvailableList.at(i)->getProducts().getHeavy())*_heavyQuantity2/_stackedProd.getHeavy(),0);
+        {   if(_stackedProd.getHeavy()>0)
+                _P += CProducts(0,(stackedProductsAvailableList.at(i)->getProducts().getHeavy())*_heavyQuantity2/_stackedProd.getHeavy(),0);
         }
         else    //equal all or only part of prod. per tick
-        {  _P.setHeavy(_P.getHeavy()*_shopsProd.getHeavy()/_tickProd.getHeavy());
+        {  if(_tickProd.getHeavy()>0)
+            _P.setHeavy(_P.getHeavy()*_shopsProd.getHeavy()/_tickProd.getHeavy());
         }
         dynamic_cast<CHeavyFactory*>(productsPerTickAvailableList.at(i)->getBuilding())->sellProducts(_P);
         productsGotFromProduction += _P;
@@ -187,7 +193,6 @@ void CMarket::clearTemporary()
     clearProductsPerTickAvailableList();
     clearStackedProductsAvailableList();
     productsGotFromProduction = CProducts(0,0,0);
-    actualProductsCost= CProducts(0,0,0);
 }
 
 void CMarket::clearShopsNeedsList()

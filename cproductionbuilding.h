@@ -17,7 +17,7 @@ public:
     CProductionBuilding(const CProductionBuilding& _P);
 
     ///implement more
-    void countSetIncome();
+    void payWorkers();
     double giveTaxes(double _tax);
     bool sendProductionInfoToMarket();
     virtual void sellProducts(CProducts _prod);

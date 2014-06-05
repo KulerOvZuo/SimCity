@@ -82,11 +82,13 @@ bool CServiceBuilding::giveServiceToLivings()
 }
 double CServiceBuilding::giveTaxes(double _tax)
 {
+    if(income <0)
+        return 0;
     double tax = income * _tax/100;
     income -= tax;
     return tax;
 }
-void CServiceBuilding::countSetIncome()
+void CServiceBuilding::payWorkers()
 {
     CPeopleEarnings _peopleEarn;
     _peopleEarn = city->getSocietyIndicators()->getPeopleEarnings();
@@ -94,7 +96,7 @@ void CServiceBuilding::countSetIncome()
         actualNumberOfWorkers.getLightWorker()*_peopleEarn.getLightWorkerEarn()+
         actualNumberOfWorkers.getServiceWorker()*_peopleEarn.getServiceWorkerEarn()+
         actualNumberOfWorkers.getHeavyWorker()*_peopleEarn.getHeavyWorkerEarn()+
-        actualNumberOfWorkers.getLowWorker()*_peopleEarn.getLowWorkerEarn());
+        actualNumberOfWorkers.getLowWorker()*_peopleEarn.getLowWorkerEarn())/2;
 }
 void CServiceBuilding::countSetActualServiceCost()
 {   actualServiceCost=baseServiceCost;

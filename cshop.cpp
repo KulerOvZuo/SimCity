@@ -34,6 +34,17 @@ CProducts CShop::countSetProductsSellPrice()
                                   (productsSellPrice.getFood()+P.getFood())/2);
     return productsSellPrice;
 }
+void CShop::payWorkers()
+{
+    CPeopleEarnings _peopleEarn;
+    _peopleEarn = city->getSocietyIndicators()->getPeopleEarnings();
+    income -= (actualNumberOfWorkers.getLeadWorker()*_peopleEarn.getLeadWorkerEarn()+
+            actualNumberOfWorkers.getLightWorker()*_peopleEarn.getLightWorkerEarn()+
+            actualNumberOfWorkers.getServiceWorker()*_peopleEarn.getServiceWorkerEarn()+
+            actualNumberOfWorkers.getHeavyWorker()*_peopleEarn.getHeavyWorkerEarn()+
+            actualNumberOfWorkers.getLowWorker()*_peopleEarn.getLowWorkerEarn())/2;
+
+}
 bool CShop::sendProductsNeedToMarket()
 {
     CProductsBuildingPointer* _P = new CProductsBuildingPointer;
@@ -75,6 +86,8 @@ bool CShop::sendProductsToLivings()
 }
 double CShop::giveTaxes(double _tax)
 {
+    if(income <0)
+        return 0;
     double tax = income * _tax/100;
     income -= tax;
     return tax;

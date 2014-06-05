@@ -357,7 +357,10 @@ int main(int argc, char *argv[])
     farm1->setNeededNumberOfWorkers(CPeople(1,1,1,2,7));
     light->setNeededNumberOfWorkers(CPeople(1,1,7,2,3));
     heavy->setNeededNumberOfWorkers(CPeople(1,1,1,8,3));
-
+    farm1->setMaxStackedProducts(CProducts(0,0,30));
+    light->setMaxStackedProducts(CProducts(10,0,0));
+    heavy->setMaxStackedProducts(CProducts(0,20,0));
+/*
     for(int blaa=0; blaa<4; blaa++)
     {
         for(int i=0; i< city->getMapOfStructures()->getAllProductionBuildings().count();i++)
@@ -375,7 +378,7 @@ int main(int argc, char *argv[])
         {   city->getMapOfStructures()->getAllShops().at(i)->countSetProductsSellPrice();
             city->getMapOfStructures()->getAllShops().at(i)->sendProductsToLivings();
         }
-    }
+    }*/
     CBlocks* blocks = new CBlocks;
     blocks->setSizeOnGameMap(CCoordinates(1,1));
     blocks->setCoordinatesOfActualLUCorner(CCoordinates(23,14));
@@ -408,8 +411,13 @@ int main(int argc, char *argv[])
     office1->countSetActualServiceCost();
     office2->countSetServiceQuality();
     office2->countSetActualServiceCost();
-
-    for(int i=0; i<3;i++)
+    city->getSocietyIndicators()->setBasePeopleEarnings(CPeopleEarnings(30,20,16,13,10));
+    city->getMarket()->setBaseProductsCost(CProducts(lightCost,heavyCost,foodCost));
+    city->getTrafficEngine()->createMapOfTraffic();
+   // city->getTaxes()->setFromPeopleInd();
+    for(int i=0; i<5;i++)
+        city->makeTick();
+    /*for(int i=0; i<3;i++)
     {   House->searchForService();
         blocks->searchForService();
         office1->giveServiceToLivings();
@@ -426,8 +434,8 @@ int main(int argc, char *argv[])
         blocks->searchAndGoToWork();
         office1->clearTemporary();
         office2->clearTemporary();
-    }
-    city->getTrafficEngine()->createMapOfTraffic();
+    }*/
+
     city->getTrafficEngine()->countTraffic();
     House->countSetInfluanceFromOthers();
     blocks->countSetInfluanceFromOthers();

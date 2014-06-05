@@ -19,6 +19,24 @@ CMapOfStructures::CMapOfStructures(const CMapOfStructures& _M)
 CMapOfStructures::~CMapOfStructures()
 {}
 
+void CMapOfStructures::clearTemporaryForStructures()
+{
+    for(int i=0; i<allLivings.count();i++)
+    {  allLivings.at(i)->clearTemporary(); }
+    for(int i=0; i<allProductionBuildings.count();i++)
+    {  allProductionBuildings.at(i)->clearTemporary(); }
+    for(int i=0; i<allPublicUtilityBuildings.count();i++)
+    {  allPublicUtilityBuildings.at(i)->clearTemporary(); }
+    for(int i=0; i<allServiceBuildings.count();i++)
+    {  allServiceBuildings.at(i)->clearTemporary(); }
+    for(int i=0; i<allSchools.count();i++)
+    {  allSchools.at(i)->clearTemporary(); }
+    for(int i=0; i<allShops.count();i++)
+    {  allShops.at(i)->clearTemporary(); }
+    for(int i=0; i<allRecreationBuildings.count();i++)
+    {  allRecreationBuildings.at(i)->clearTemporary(); }
+}
+
 bool CMapOfStructures::addStructureProperly(CStructure* _S)
 {
     if(checkIfBuildingExistsOnLists(_S) == true) ///if exists on any list, dont add

@@ -15,7 +15,7 @@ CProductionBuilding::CProductionBuilding(const CProductionBuilding& _P) : CWorki
     income = _P.getIncome();
 }
 
-void CProductionBuilding::countSetIncome()
+void CProductionBuilding::payWorkers()
 {
     CPeopleEarnings _peopleEarn;
     _peopleEarn = city->getSocietyIndicators()->getPeopleEarnings();
@@ -23,10 +23,13 @@ void CProductionBuilding::countSetIncome()
             actualNumberOfWorkers.getLightWorker()*_peopleEarn.getLightWorkerEarn()+
             actualNumberOfWorkers.getServiceWorker()*_peopleEarn.getServiceWorkerEarn()+
             actualNumberOfWorkers.getHeavyWorker()*_peopleEarn.getHeavyWorkerEarn()+
-            actualNumberOfWorkers.getLowWorker()*_peopleEarn.getLowWorkerEarn());
+            actualNumberOfWorkers.getLowWorker()*_peopleEarn.getLowWorkerEarn())/2;
+
 }
 double CProductionBuilding::giveTaxes(double _tax)
 {
+    if(income <0)
+        return 0;
     double tax = income * _tax/100;
     income -= tax;
     return tax;

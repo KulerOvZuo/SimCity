@@ -166,7 +166,7 @@ void CPeople::randomSubb(int _free)
 CPeople CPeople::randomExtract(int _free)
 {
     CPeople _P;
-    int counter = _free*4; //using as watchdog
+    int counter = _free*8; //using as watchdog
     while(_free > 0)
     {   switch (randBetween(1,5)) {
         case 1:

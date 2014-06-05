@@ -30,28 +30,28 @@ public:
     CLiving(const CLiving& _L);
     virtual ~CLiving();
 
-    ///implement more metods
     bool searchSetForBetterSchool();
     bool searchAndSendNeedsToShops();
-    bool buyProductsFromShop(CProducts _prod, CProducts _price);
-    bool takeServiceFromSB(CService _serv, CService _cost);
     bool searchForService();
-    void clearTemporary();
-
-    void makeDeadsAndBorns();
-    bool changeLivingPlace();
-    void countSetIncome();
     void sendPeopleInfoToCity();
     void sendChildrenInfoToCity();
+    void makeDeadsAndBorns();
+    bool changeLivingPlace();
     double countSetBirthRate();
     void sendBirthRateToCity();
-    CPeopleNeeds countPeopleNeeds();
     void countSetLifeSatAndPeopleNeeds();
-    double countLifeSatisfaction();
-    double giveTaxes(double _tax);
     bool countSetInfluanceFromOthers();
     double getSetTrafficInformation();
     void searchAndGoToWork();
+    void clearTemporary();
+
+    bool buyProductsFromShop(CProducts _prod, CProducts _price);
+    bool takeServiceFromSB(CService _serv, CService _cost);    
+    void countSetIncome();
+
+    double countLifeSatisfaction();
+    double giveTaxes(double _tax);
+    CPeopleNeeds countPeopleNeeds();
 
     //list
     void chooseChildrenProfessionsAndAdd();

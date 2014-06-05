@@ -91,6 +91,8 @@ CCoordinates CStructure::countCoordinatesOfCentre() const
     return _temp;
 }
 
+void CStructure::addAge(int _age)
+{   age += _age;}
 ///setters
 bool CStructure::setAge(int _age)
 {   age = _age;

@@ -13,6 +13,8 @@ void CFoodProduction::sellProducts(CProducts _prod)
     stackedProducts += actualProductionPerTick - _prod;
     if(stackedProducts.getFood() > maxStackedProducts.getFood())
         stackedProducts.setFood(maxStackedProducts.getFood());
+    if(stackedProducts.getFood() <0)
+        stackedProducts.setFood(0);
 }
 
 CFarm::CFarm() : CFoodProduction()

@@ -13,8 +13,9 @@ public:
     CRecreationBuilding(const CRecreationBuilding& _R);
     virtual ~CRecreationBuilding();
 
-    double countBuildingEfficiency();
     void countSetRecreationQuality();
+
+    double countBuildingEfficiency();
 
     CRecreation getBaseRecreation() const;
     CRecreation getActualRecreation() const;

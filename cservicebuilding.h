@@ -21,17 +21,18 @@ public:
     CServiceBuilding(const CServiceBuilding& _S);
     virtual ~CServiceBuilding();
 
+    void payWorkers();
+    void countSetActualServiceCost();
+    void countSetServiceQuality();
+    bool giveServiceToLivings();
+
     //list
     bool addLivingTolist(CPeopleNeedsBuildingPointer* _living);
     void clearListOfLivingNeeds();
     void clearTemporary();
 
-    double countBuildingEfficiency();
-    void countSetServiceQuality();
-    bool giveServiceToLivings();
-    double giveTaxes(double _tax);
-    void countSetIncome();
-    void countSetActualServiceCost();
+    double countBuildingEfficiency();    
+    double giveTaxes(double _tax);    
 
     CService getBaseService() const;
     CService getActualService() const;

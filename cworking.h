@@ -15,6 +15,7 @@ public:
     CWorking(const CWorking& _W, CPeople _need, CPeople _actual);
 
     void sendWorkInfoToCity();
+
     bool addWorkers(CPeople _P); //if number of people to add is too high
     double countPeopleEfficiency(); ///linear efficiency
     virtual double countBuildingEfficiency(); ///linear efficiency

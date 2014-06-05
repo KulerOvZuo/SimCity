@@ -39,6 +39,7 @@ public:
     virtual bool rotate(Erotation  rotateAngle); //changes turn direction and model turn direction
     CCoordinates countCoordinatesOfCentre() const;
 
+    void addAge(int _age);
     bool setAge(int _age);
     bool setName(QString _name);
     bool setBuildCost(double _cost);

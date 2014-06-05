@@ -28,11 +28,11 @@ public:
 
     ///implement more
     CPeopleEarnings countSetPeopleEarnings();
-    CPeople countProffesionsNeed();
     CPeople countSetProffesionsToEducate();
 
     void addChildren(int _children);
     void addBirthIndicator(double _birth);
+    CPeople countProffesionsNeed();
 
     CPeopleEarnings getPeopleEarnings() const;
     CPeopleEarnings getBasePeopleEarnings() const;

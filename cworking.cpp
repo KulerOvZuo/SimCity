@@ -21,6 +21,7 @@ CWorking::CWorking(const CWorking& _W, CPeople _need, CPeople _actual) : CBuildi
     actualNumberOfWorkers.restoreIfNotPossitiveNOPeople();
 }
 
+
 void CWorking::sendWorkInfoToCity()
 {
     CPeople A = city->getSocietyIndicators()->getAllWorkForPeople();

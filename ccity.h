@@ -20,19 +20,26 @@ protected:
     CMapOfStructures* mapOfStructures;
     CTrafficEngine* trafficEngine;
     double money;
+    double income;
 public:
     CCity();
     CCity(const CCity& _C);
     virtual ~CCity();
 
-    ///implement
-    void addUtilitiesGlobalNeed(CUtilitiesGlobal _U);
+    ///main function
+    void makeTick();
     double publicBuildingsKeepCost();
     double takeTaxes();
-    void addMoney(double _money);
-
     bool addStructureProperly(CStructure* _S);
     bool removeStructureProperly(CStructure* _S);
+
+    QList<CStructure*> updateView;
+    bool checkIfCanBeBuild();
+    bool build();
+    bool destroy();
+
+    void addUtilitiesGlobalNeed(CUtilitiesGlobal _U);
+    void addMoney(double _money);
 
     ///getters, not const
     CUtilitiesGlobal getUtilitiesGlobalProduction();

@@ -272,6 +272,8 @@ void CLiving::countSetIncome()
 }
 double CLiving::giveTaxes(double _tax)
 {
+    if(income <0)
+        return 0;
     double tax = income * _tax/100;
     income -= tax;
     return tax;
@@ -418,7 +420,7 @@ CPeopleNeeds CLiving::countPeopleNeeds()
     double _serv1=0.5+1*lifeSatisfaction;
     _serv1*= _allPeople;
     double _rec1=0.5+1*lifeSatisfaction;
-    _rec1*= _allPeople;
+    //_rec1*= _allPeople;
 
     double _disturbance=1+0.4*lifeSatisfaction;
     double _traffic=2+0.3*lifeSatisfaction;
@@ -621,7 +623,6 @@ void CLiving::chooseChildrenProfessionsAndAdd()
     CPeople _temp = city->getSocietyIndicators()->getAllProfessionsToEducate();
     CPeople _prof = _temp.randomExtract(children);
     addNewLearningPeople(_prof);
-    children=0;
     city->getSocietyIndicators()->setAllProfessionsToEducate(_temp);
 }
 void CLiving::addNewLearningPeople(CPeople _professions)

@@ -15,8 +15,9 @@ public:
     CSchool(const CSchool& _S);
     virtual ~CSchool();
 
-    double countBuildingEfficiency();
     void countSetEducationQuality();
+
+    double countBuildingEfficiency();    
     bool addNOChildren(int _number);
 
     int getMaxNOChildren() const;

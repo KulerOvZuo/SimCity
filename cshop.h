@@ -18,11 +18,12 @@ public:
     CShop(const  CShop& _S);
     virtual ~ CShop();
 
-    ///implement
-    CProducts countSetProductsSellPrice();
     bool sendProductsNeedToMarket();
-    bool buyProductsGotFromMarket(CProducts _prod);
+    CProducts countSetProductsSellPrice();
+    void payWorkers();
     bool sendProductsToLivings();
+
+    bool buyProductsGotFromMarket(CProducts _prod);  
     double giveTaxes(double _tax);
     void clearListOfLivingNeeds();
     bool addLivingToProductsNeeds(CProductsBuildingPointer* _living);

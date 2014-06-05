@@ -37,6 +37,8 @@ public:
     CMapOfStructures(const CMapOfStructures& _M);
     virtual ~CMapOfStructures();
 
+    void clearTemporaryForStructures();
+
     bool addStructureProperly(CStructure* _S);
     bool removeStructureProperly(CStructure* _S);
     bool checkIfBuildingExistsOnLists(CStructure* _S);
@@ -59,18 +61,6 @@ public:
     QVector<CSchool*> getAllSchools() const;
     QVector<CShop*> getAllShops() const;
     QVector<CRecreationBuilding*> getAllRecreationBuildings() const;
-
-
-
-    /*QVector<CRoadsAndBridges*> setAllRoads()  ;
-    QVector<CGreenTerrain*> setAllGreenTerrains()  ;
-    QVector<CLiving*> setAllLivings()  ;
-    QVector<CProductionBuilding*> setAllProductionBuildings()  ;
-    QVector<CPublicUtilityBuilding*> setAllPublicUtilityBuildings()  ;
-    QVector<CService*> setAllServiceBuildings()  ;
-    QVector<CSchool*> setAllSchools()  ;
-    QVector<CShop*> setAllShops()  ;
-    QVector<CRecreation*> setAllRecreations()  ;*/
 };
 
 #endif // CMAPOFSTRUCTURES_H
