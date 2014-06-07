@@ -15,15 +15,15 @@ CTaxes::CTaxes(const CTaxes& _T)
 }
 CTaxes::~CTaxes()
 {}
-double CTaxes::getFromProductionInd() const
+int CTaxes::getFromProductionInd() const
 {   return fromProductionInd;}
-double CTaxes::getFromPeopleInd() const
+int CTaxes::getFromPeopleInd() const
 {   return fromPeopleInd;}
-double CTaxes::getFromOthersInd() const
+int CTaxes::getFromOthersInd() const
 {   return fromOthersInd;}
-void CTaxes::setFromProductionInd(double _num)
+void CTaxes::setFromProductionInd(int _num)
 {   fromProductionInd=_num;}
-void CTaxes::setFromPeopleInd(double _num)
+void CTaxes::setFromPeopleInd(int _num)
 {   fromPeopleInd=_num;}
-void CTaxes::setFromOthersInd(double _num)
+void CTaxes::setFromOthersInd(int _num)
 {   fromOthersInd=_num;}

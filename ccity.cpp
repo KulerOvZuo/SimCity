@@ -19,7 +19,12 @@ CCity::CCity(const CCity& _C)
 CCity::~CCity()
 {}
 
-
+void CCity::initializeCity()
+{
+    taxes->setFromPeopleInd(20);
+    taxes->setFromProductionInd(25);
+    taxes->setFromOthersInd(15);
+}
 void CCity::makeTick()
 {
     //[1]clearing temporary
@@ -216,6 +221,8 @@ CTrafficEngine* CCity::getTrafficEngine()
 {   return trafficEngine;}
 double CCity::getMoney()
 {   return money;}
+double CCity::getIncome()
+{   return income;}
 
 ///setters
 void CCity::setUtilitiesGlobalProduction(CUtilitiesGlobal _U)

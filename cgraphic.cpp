@@ -1,7 +1,9 @@
 #include "cgraphic.h"
+#include "cstructure.h"
 
 CGraphic::CGraphic() : image(), size()
 {
+    structure=NULL;
 }
 CGraphic::CGraphic(CCoordinates _size) : size(_size)
 {

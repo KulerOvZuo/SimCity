@@ -5,12 +5,14 @@
 #include "ccoordinates.h"
 
 //Class that stores some part of information about image
+class CStructure;
 class CGraphic
 {
 
 protected:
     QPixmap image;
     CCoordinates size;
+    CStructure* structure;
 
 public:
     CGraphic();

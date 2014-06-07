@@ -4,20 +4,20 @@
 class CTaxes
 {
 protected:
-    double fromProductionInd;
-    double fromPeopleInd;
-    double fromOthersInd;
+    int fromProductionInd;
+    int fromPeopleInd;
+    int fromOthersInd;
 public:
     CTaxes();
     CTaxes(const CTaxes& _T);
     virtual ~CTaxes();
 
-    double getFromProductionInd() const;
-    double getFromPeopleInd() const;
-    double getFromOthersInd() const;
-    void setFromProductionInd(double _num);
-    void setFromPeopleInd(double _num);
-    void setFromOthersInd(double _num);
+    int getFromProductionInd() const;
+    int getFromPeopleInd() const;
+    int getFromOthersInd() const;
+    void setFromProductionInd(int _num);
+    void setFromPeopleInd(int _num);
+    void setFromOthersInd(int _num);
 };
 
 #endif // CTAXES_H

@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT += widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -43,7 +44,9 @@ SOURCES += main.cpp \
     cmarket.cpp \
     csocietyindicators.cpp \
     cmapofstructures.cpp \
-    ctrafficengine.cpp
+    ctrafficengine.cpp \
+    cgraphictaxes.cpp \
+    cgraphicmainview.cpp
 
 HEADERS  += mainwindow.h \
     cstructure.h \
@@ -76,6 +79,11 @@ HEADERS  += mainwindow.h \
     cmarket.h \
     csocietyindicators.h \
     cmapofstructures.h \
-    ctrafficengine.h
+    ctrafficengine.h \
+    cgraphictaxes.h \
+    cgraphicmainview.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    drawing.qrc

@@ -28,6 +28,9 @@ public:
 
     ///main function
     void makeTick();
+    void initializeCity();
+
+
     double publicBuildingsKeepCost();
     double takeTaxes();
     bool addStructureProperly(CStructure* _S);
@@ -50,6 +53,7 @@ public:
     CMapOfStructures* getMapOfStructures();
     CTrafficEngine* getTrafficEngine();
     double getMoney();
+    double getIncome();
 
     ///setters
     void setUtilitiesGlobalProduction(CUtilitiesGlobal _U);
