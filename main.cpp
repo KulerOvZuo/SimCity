@@ -27,7 +27,7 @@ int MainWindow::turnNumber = 1;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
+    MainWindow w(QSize(100,60),QSize(100,100));
     QTime time = QTime::currentTime();
     qsrand((uint)time.msec());
     w.show();

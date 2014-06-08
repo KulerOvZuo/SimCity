@@ -46,7 +46,8 @@ SOURCES += main.cpp \
     cmapofstructures.cpp \
     ctrafficengine.cpp \
     cgraphictaxes.cpp \
-    cgraphicmainview.cpp
+    cgraphicmainview.cpp \
+    cgraphicgametile.cpp
 
 HEADERS  += mainwindow.h \
     cstructure.h \
@@ -81,7 +82,8 @@ HEADERS  += mainwindow.h \
     cmapofstructures.h \
     ctrafficengine.h \
     cgraphictaxes.h \
-    cgraphicmainview.h
+    cgraphicmainview.h \
+    cgraphicgametile.h
 
 FORMS    += mainwindow.ui
 

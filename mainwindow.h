@@ -14,6 +14,7 @@
 #include <QMenu>
 #include <QTimer>
 #include <QCloseEvent>
+#include <QSize>
 #include "ccity.h"
 #include "cgraphictaxes.h"
 #include "cgraphicmainview.h"
@@ -26,10 +27,10 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 protected:
-    void contextMenuEvent(QContextMenuEvent *event);
+    //void contextMenuEvent(QContextMenuEvent *event);
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QSize mapSize, QSize tileSize, QWidget *parent = 0);
     ~MainWindow();
 
 private:
@@ -38,11 +39,14 @@ private:
     void createMenus();
     void createToolBar();
     void connectSignalsSlots();
-    void createMap(int _w, int _h);
+    void createMap();
     void closeEvent(QCloseEvent *);
 
     CCity* city;
     QString playerName;
+    QSize mapSize; //in game squares
+    QSize tileSize; //size of 1 game tile
+
     int tickTime; //ms
     bool autoTick;
     QTimer *tickTimer;
@@ -54,6 +58,7 @@ private:
         QLabel *money;
         QLabel *income;
         QLabel *NOPeople;
+        QLabel *turn;
         QCheckBox *autoTickBox;
         QLabel *tickTimeLabel;
         QSpinBox *tickTimeSpinBox;

@@ -5,11 +5,14 @@
 #include <QPixmap>
 #include <cmath>
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QSize mapSize, QSize tileSize, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->mapSize = QSize(mapSize);
+    this->tileSize = QSize(tileSize);
+
     city = new CCity;
     city->initializeCity();
 
@@ -30,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     createMenus();
     createToolBar();
     connectSignalsSlots();
-    createMap(1600,900);
+    createMap();
 
     mainLayout->addWidget(mainView);
     mainView->show();
@@ -163,6 +166,13 @@ void MainWindow::createToolBar()
     NOPeople->setAlignment(Qt::AlignCenter);
     NOPeople->setFixedWidth(100);
 
+    turn = new QLabel(this);
+    turn->setFixedSize(180,40);
+    turn->setAutoFillBackground(true);
+    turn->setPalette(pal);
+    turn->setStyleSheet("*{qproperty-alignment: AlignCenter; }");
+    turn->setText(tr("Turn number: ")+QString::number(turnNumber));
+
     nextTurnButton = new QPushButton(this);
     nextTurnButton->setText(tr("&Next turn"));
     pal.setColor(QPalette::Button,QColor(230,200,167));
@@ -211,6 +221,7 @@ void MainWindow::createToolBar()
     mainToolBar->addWidget(NOPeopleText);
     mainToolBar->addWidget(NOPeople);
     mainToolBar->addSeparator();
+    mainToolBar->addWidget(turn);
     mainToolBar->addWidget(nextTurnButton);
     mainToolBar->addSeparator();
     mainToolBar->addWidget(autoTickBox);
@@ -220,22 +231,22 @@ void MainWindow::createToolBar()
     mainToolBar->setMovable(false);
     this->addToolBar(mainToolBar);
 }
-void MainWindow::createMap(int _w, int _h)
+void MainWindow::createMap()
 {
-    mainView = new CGraphicMainView(_w,_h,this);
+    mainView = new CGraphicMainView(mapSize,tileSize,this);
 }
 
 void MainWindow::connectSignalsSlots()
 {   connect(taxesWidget,SIGNAL(taxesChanged()),this,SLOT(taxesWidgetChanged()));
     connect(taxesWidget,SIGNAL(taxesRead()),this,SLOT(taxesWidgetRead()));
 }
-void MainWindow::contextMenuEvent(QContextMenuEvent *event)
+/*void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
     QMenu menu(this);
     menu.addAction(showInfoAct);
     menu.addAction(destroyAct);
     menu.exec(event->globalPos());
-}
+}*/
 void MainWindow::newGame()
 {}
 void MainWindow::taxes()
@@ -270,6 +281,7 @@ void MainWindow::nextTurn()
     for(int i=0; i<100000000;i++)
     {   int x=1000000;
         x=i*x*x;}
+    turn->setText(tr("Turn number: ")+QString::number(turnNumber));
     emit nextTurnEnded();
 }
 void MainWindow::autoTickChanged()

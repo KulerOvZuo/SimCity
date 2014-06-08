@@ -14,6 +14,11 @@ protected:
     CCoordinates size;
     CStructure* structure;
 
+    QPoint position;
+    QColor color;
+    QPainterPath path;
+    QString toolTip;
+
 public:
     CGraphic();
     CGraphic(CCoordinates _size);
