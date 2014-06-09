@@ -6,10 +6,10 @@
 #include <cmath>
 
 MainWindow::MainWindow(QSize mapSize, QSize tileSize, QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent)
+   // ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+    //ui->setupUi(this);
     this->mapSize = QSize(mapSize);
     this->tileSize = QSize(tileSize);
 
@@ -53,14 +53,14 @@ MainWindow::MainWindow(QSize mapSize, QSize tileSize, QWidget *parent) :
 
     QString message = tr("Welcome in SimCity");
     statusBar()->showMessage(message);
-    setWindowTitle(tr("SimCity"));
-    setMinimumSize(1200,800);
+    setWindowTitle(tr("Si(M)City"));
+    setMinimumSize(tileSize.width()*mapSize.width()+50,tileSize.height()*mapSize.height()+200);
    // this->setWindowState(Qt::WindowFullScreen);
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    //delete ui;
 }
 void MainWindow::closeEvent(QCloseEvent *event)
 {   if(QMessageBox::Yes == QMessageBox::question(this,"Confirm exit",
@@ -135,7 +135,7 @@ void MainWindow::createToolBar()
     money->setPalette(pal);
     money->setAutoFillBackground(true);
     money->setAlignment(Qt::AlignCenter);
-    money->setFixedWidth(100);
+    money->setFixedWidth(140);
 
     QLabel *incomeText = new QLabel(this);
     incomeText->setText(tr("+"));
@@ -146,7 +146,7 @@ void MainWindow::createToolBar()
     income->setPalette(pal);
     income->setAutoFillBackground(true);
     income->setAlignment(Qt::AlignCenter);
-    income->setFixedWidth(100);
+    income->setFixedWidth(140);
 
     QLabel *NOPeopleText = new QLabel(this);
     NOPeopleText->setText(tr("Number of people: "));
@@ -157,10 +157,10 @@ void MainWindow::createToolBar()
     NOPeople->setAutoFillBackground(true);
     NOPeople->setText(QString::number(city->getSocietyIndicators()->getAllPeople().getAllPeople()));
     NOPeople->setAlignment(Qt::AlignCenter);
-    NOPeople->setFixedWidth(100);
+    NOPeople->setFixedWidth(140);
 
     turn = new QLabel(this);
-    turn->setFixedSize(180,40);
+    turn->setFixedSize(200,40);
     turn->setAutoFillBackground(true);
     turn->setPalette(pal);
     turn->setStyleSheet("*{qproperty-alignment: AlignCenter; }");

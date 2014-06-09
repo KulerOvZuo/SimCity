@@ -18,12 +18,13 @@ double CGreenTerrain::getDisturbance() const
 
 CPark::CPark() : CGreenTerrain()
 {
-    disturbance = -10;
+    disturbance = parkInf;
 }
 CPark::CPark(const CPark& _P) : CGreenTerrain(_P)
 {}
 CLawn::CLawn() : CGreenTerrain()
 {
+    disturbance = lawnInf;
 }
 CLawn::CLawn(const CLawn& _L) : CGreenTerrain(_L)
 {}

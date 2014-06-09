@@ -3,7 +3,7 @@
 #include <QPixmap>
 #include <QtCore>
 #include <QCursor>
-#include <mainwindow.h>
+#include "mainwindow.h"
 
 CGraphicMainView::CGraphicMainView(QSize _gameMap, QSize _tileSize,QWidget *parent) :
     QGraphicsView(parent), tileSize(_tileSize),gameMapSize(_gameMap)
@@ -82,7 +82,7 @@ void CGraphicMainView::scaleView(qreal scaleFactor)
         return;
     actualFactor = factor;
     this->scale(scaleFactor,scaleFactor);
-    this->repaint();
+    //this->repaint();
 }
 QSize CGraphicMainView::itemPosition(const QPoint &pos)
 {
@@ -143,7 +143,7 @@ void CGraphicMainView::keyPressEvent(QKeyEvent *event)
             delete movingTile;
             movingTile=NULL;
 
-            scene->update();
+            //scene->update();
         }
         if(curentHoldingStructure!=NULL)
         {   delete curentHoldingStructure;
@@ -204,7 +204,7 @@ void CGraphicMainView::mouseMoveRepaint(QMouseEvent *event)
             QBrush brush;
             brush.setColor(Qt::NoPen);
             this->repaintAreaUnderBuilding(brush,pos,QSize(_x,_y));
-            scene->update();
+           // scene->update();
 
             beforeCursorPoint = cursorPos;
             pos.setWidth(beforeCursorPoint.x()/tileSize.width());

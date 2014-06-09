@@ -4,7 +4,7 @@
 #include <QMoveEvent>
 #include <QtWidgets>
 #include <QObject>
-#include <cgraphicmainview.h>
+#include "cgraphicmainview.h"
 
 CGraphicGameTile::CGraphicGameTile(QSize size, QObject *sender) : QGraphicsObject()
 {
@@ -43,7 +43,7 @@ void CGraphicGameTile::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
-    this->setToolTip(QString("Empty field\nPos(%1,%2)").arg(this->pos().x()/tileSize.width(),1).arg(this->pos().y()/tileSize.height(),1));
+    //this->setToolTip(QString("Empty field\nPos(%1,%2)").arg(this->pos().x()/tileSize.width(),1).arg(this->pos().y()/tileSize.height(),1));
     painter->setPen(QPen(Qt::black,2,Qt::DotLine,Qt::RoundCap,Qt::RoundJoin));
     if(moving==true)
         painter->setOpacity(0.5);
