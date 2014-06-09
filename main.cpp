@@ -27,17 +27,22 @@ int MainWindow::turnNumber = 1;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w(QSize(100,60),QSize(100,100));
+    MainWindow w(QSize(23,12),QSize(50,50));
     QTime time = QTime::currentTime();
     qsrand((uint)time.msec());
     w.show();
 
-    /*CCity* city = new CCity;
+    /*
+    CCity* city = new CCity;
     CCoordinates C;
     bool f;
 
-    city->getMapOfStructures()->setMapSize(CCoordinates(40,50));
+    city->getMapOfStructures()->setMapSize(CCoordinates(23,13));
     city->getMapOfStructures()->setMakeMapOfTakenPlaces();
+    qDebug()<<(city->getMapOfStructures()->getMapOfTakenPlaces())[2][3];*/
+
+
+    /*
     CHouse* House = new CHouse();
     CShop* shop = new CShop();
     f=city->getMapOfStructures()->addStructureProperly(House);

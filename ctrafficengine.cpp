@@ -23,11 +23,11 @@ bool CTrafficEngine::createMapOfTraffic()
         _C.setX(1);
     if(_C.getY()<1)
         _C.setY(1);
-    double **map = new double*[(int)_C.getY()];
-    for(int y=0; y<_C.getY(); y++)
-    {   map[y] = new double[(int)_C.getX()];}
-    for(int y=0; y<_C.getY(); y++)
-    {   for(int x=0; x<_C.getX(); x++)
+    double **map = new double*[(int)_C.getX()];
+    for(int x=0; x<_C.getX(); x++)
+    {   map[x] = new double[(int)_C.getY()];}
+    for(int x=0; x<_C.getX(); x++)
+    {   for(int y=0; y<_C.getY(); y++)
         {   map[x][y] = 0;}
     }
     sizeofSimplifiedMap = _C;

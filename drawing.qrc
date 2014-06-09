@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>Time-For-Lunch-2.jpg</file>
         <file>textureFlip.jpg</file>
+        <file>copy.png</file>
+        <file>house.jpg</file>
     </qresource>
 </RCC>

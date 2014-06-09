@@ -19,11 +19,15 @@ CCity::CCity(const CCity& _C)
 CCity::~CCity()
 {}
 
-void CCity::initializeCity()
-{
+void CCity::initializeCity(QSize mapSize)
+{    
     taxes->setFromPeopleInd(20);
     taxes->setFromProductionInd(25);
     taxes->setFromOthersInd(15);
+    CCoordinates _C = CCoordinates(mapSize.width(),mapSize.height());
+    this->getMapOfStructures()->setMapSize(_C);
+    this->getMapOfStructures()->setMakeMapOfTakenPlaces();
+    trafficEngine->createMapOfTraffic();
 }
 void CCity::makeTick()
 {

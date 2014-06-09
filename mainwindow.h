@@ -38,8 +38,11 @@ private:
     void createActions();
     void createMenus();
     void createToolBar();
+    void createBuildingToolBar();
     void connectSignalsSlots();
     void createMap();
+    void createCity();
+
     void closeEvent(QCloseEvent *);
 
     CCity* city;
@@ -63,6 +66,28 @@ private:
         QLabel *tickTimeLabel;
         QSpinBox *tickTimeSpinBox;
 
+    QToolBar *buildingToolBar;
+        QAction *houseAct;
+        QAction *blocksAct;
+
+        QAction *lawnAct;
+        QAction *parkAct;
+
+        QAction *officeAct;
+        QAction *shopAct;
+        QAction *schoolAct;
+        QAction *cinemaAct;
+
+        QAction *farmAct;
+        QAction *lightFactoryAct;
+        QAction *heavyFactoryAct;
+
+        QAction* publicUtilityBuildingAct;
+
+        QAction *roadStraightAct;
+        QAction *roadCrossAct;
+        QAction* roadTurnAct;
+
     QWidget *mainWidget;
     CGraphicMainView *mainView;
 
@@ -77,13 +102,13 @@ private:
         QAction *trafficAct;
         QAction *peopleStatisticsAct;
         QAction *publicUtilityAct;
-    QMenu *contextMenu;
-        QAction *destroyAct;
-        QAction *showInfoAct;
     QLabel* infoLabel;
+
 
 signals:
     void nextTurnEnded();
+    void newStructure(CStructure);
+    void canBeBuiled(bool);
 
 private slots:
     void newGame();
@@ -103,6 +128,24 @@ private slots:
 
     void taxesWidgetChanged();
     void taxesWidgetRead();
+
+    void canBeBuiledStructure(CStructure *);
+
+    void newHouse();
+    void newBlocks();
+    void newLawn();
+    void newPark();
+    void newOffice();
+    void newShop();
+    void newSchool();
+    void newCinema();
+    void newFarm();
+    void newLightFactory();
+    void newHeavyFactory();
+    void newPublicBuilding();
+    void newRoadStraight();
+    void newRoadCross();
+    void newRoadTurn();
 };
 
 #endif // MAINWINDOW_H

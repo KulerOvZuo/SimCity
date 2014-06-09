@@ -47,16 +47,16 @@ CGraphicTaxes::CGraphicTaxes(QWidget *parent) :
     editFromOthers = new QLineEdit(this);
     editFromOthers->setDisabled(true);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    QHBoxLayout *first = new QHBoxLayout(this);
+    mainLayout = new QVBoxLayout(this);
+    QHBoxLayout *first = new QHBoxLayout();
         first->addWidget(fromProductionIndText);
         first->addWidget(sliderFromProd);
         first->addWidget(editFromProd);
-    QHBoxLayout *second = new QHBoxLayout(this);
+    QHBoxLayout *second = new QHBoxLayout();
         second->addWidget(fromPeopleIndText);
         second->addWidget(sliderFromPeople);
         second->addWidget(editFromPeople);
-    QHBoxLayout *third = new QHBoxLayout(this);
+    QHBoxLayout *third = new QHBoxLayout();
         third->addWidget(fromOthersIndText);
         third->addWidget(sliderFromOthers);
         third->addWidget(editFromOthers);

@@ -45,7 +45,7 @@ public:
     void setProperUtility(double _utility);
 };
 
-class CPublicUtilityBuildingAllInOne : CPublicUtilityBuilding
+class CPublicUtilityBuildingAllInOne : public CPublicUtilityBuilding
 {
 protected:
 public:

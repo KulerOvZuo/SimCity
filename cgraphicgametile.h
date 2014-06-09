@@ -2,6 +2,7 @@
 #define CGRAPHICGAMETILE_H
 
 #include <QGraphicsItem>
+#include <QGraphicsObject>
 #include <QSize>
 #include <QAction>
 #include <QToolTip>
@@ -9,24 +10,32 @@
 #include <QMouseEvent>
 #include <QString>
 
-class CGraphicGameTile : public QGraphicsItem
+class CGraphicGameTile : public QGraphicsObject
 {
-protected:
-    QSize tileSize;
-
+    Q_OBJECT
+private:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+protected:
+    QSize tileSize;
+    QBrush brush;
+    bool moving;
 
 public:
-    CGraphicGameTile(QSize size);
+    CGraphicGameTile(QSize size, QObject *sender = 0);
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     void setTileSize(QSize _size);
-private slots:
+    void setBrush(QBrush brush);
+    void setMoving(bool _mov);
 
+signals:
+    void mouseClicked(QPointF,QGraphicsSceneMouseEvent *);
+private slots:
+    void repaintTile(QBrush,QSize,QSize);  
 };
 
 #endif // CGRAPHICGAMETILE_H

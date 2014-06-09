@@ -283,12 +283,12 @@ bool CMapOfStructures::setMakeMapOfTakenPlaces()
 {
     int y = mapSize.getY();
     int x = mapSize.getX();
-    bool** _mapOfTakenPlaces = new bool*[y];
-    for(int _y=0;_y<y;_y++)
-    {   _mapOfTakenPlaces[_y] = new bool [x];
+    bool** _mapOfTakenPlaces = new bool*[x];
+    for(int _x=0;_x<x;_x++)
+    {   _mapOfTakenPlaces[_x] = new bool [y];
     }
-    for(int _y=0;_y<y;_y++)
-    {   for(int _x=0; _x<x; _x++)
+    for(int _x=0;_x<x;_x++)
+    {   for(int _y=0;_y<y;_y++)
             _mapOfTakenPlaces[_x][_y]=false;
     }
     mapOfTakenPlaces = _mapOfTakenPlaces;

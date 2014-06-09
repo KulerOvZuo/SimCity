@@ -28,8 +28,7 @@ public:
 
     ///main function
     void makeTick();
-    void initializeCity();
-
+    void initializeCity(QSize mapSize);
 
     double publicBuildingsKeepCost();
     double takeTaxes();

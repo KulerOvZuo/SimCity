@@ -45,9 +45,11 @@ bool CStructure::build()
 bool CStructure::checkIfCanBeBuiled() const
 {
     bool** _map = city->getMapOfStructures()->getMapOfTakenPlaces();
+    if(_map==NULL)
+        return false;
     CCoordinates _size = city->getMapOfStructures()->getMapSize();
-    ///starts in coordinates, going y--, x++
-    for(int y=coordinatesOfActualLUCorner.getY(); y>coordinatesOfActualLUCorner.getY()+sizeOnGameMap.getY();y--)
+    ///starts in coordinates, going y++, x++
+    for(int y=coordinatesOfActualLUCorner.getY(); y<coordinatesOfActualLUCorner.getY()+sizeOnGameMap.getY();y++)
     {   ///map sizes
         if(y>=_size.getY())
             return false;
@@ -75,11 +77,11 @@ double CStructure::distanceToOther(CStructure* other) const
 bool CStructure::rotate(Erotation rotateAngle)
 {
     turnedDirection.rotate(rotateAngle);
-    if(turnedDirection.getDirUp()==true || turnedDirection.getDirDown()==true) //basic or reverse
+    if(0)//turnedDirection.getDirUp()==true) //basic or reverse
     {   ///do nothing
         return true;}
     else
-    {   sizeOnGameMap.setCoordinates(sizeOnGameMap.getY()*-1,sizeOnGameMap.getX()*-1); //changes x->-y; y->-x
+    {   sizeOnGameMap.setCoordinates(sizeOnGameMap.getY(),sizeOnGameMap.getX()); //changes x->-y; y->-x
         return true;
     }
    return false;
@@ -117,7 +119,7 @@ bool CStructure::setCostPerTick(double _cost)
 bool CStructure::setSizeOnGameMap(const CCoordinates& _C)
 {
     sizeOnGameMap.setX(abs(_C.getX())); //always x>0;
-    sizeOnGameMap.setY(-1*abs(_C.getY())); //always y<0
+    sizeOnGameMap.setY(abs(_C.getY())); //always y<0
     return true;
 }
 bool CStructure::setCoordinatesOfActualLUCorner(const CCoordinates& _C)

@@ -8,13 +8,21 @@
 #include <QGraphicsScene>
 #include <cmath>
 #include <cstructure.h>
+#include <QTimer>
 #include <QSize>
+#include <QPoint>
 #include <QObject>
-#include "cgraphicgametile.h"
+#include "cgraphicbuildingtile.h"
 
 class CGraphicMainView : public QGraphicsView
 {
-    //Q_OBJECT
+    Q_OBJECT
+private:
+    QPoint beforeCursorPoint;
+    QPixmap* actualPixMap;
+    CGraphicGameTile* movingTile;
+    //QTimer* repaintTimer;
+
 public:
     CGraphicMainView(QSize _gameMap = QSize(100,60), QSize _tileSize = QSize(50,50),QWidget *parent = 0);
     void setTileSize(QSize _size);
@@ -36,9 +44,17 @@ protected:
 #endif
     void scaleView(qreal scaleFactor);
     void mouseMoveEvent(QMouseEvent *event);
+    void keyPressEvent(QKeyEvent *event);
+    QSize itemPosition(const QPoint &pos);
 
-/*signals:
-    void repaintAreaUnderBuilding(QSize _pos, QSize _size);*/
+signals:
+    void repaintAreaUnderBuilding(QBrush,QSize, QSize);
+    void checkIfCanBeBuiled(CStructure *);
+private slots:
+    void newStructureChosen(CStructure);
+    void mouseMoveRepaint(QMouseEvent *);
+    void emptyTileMouseClicked(QPointF,QGraphicsSceneMouseEvent *);
+    void buildStructure(bool);
 };
 
 #endif // CGRAPHICMAINVIEW_H

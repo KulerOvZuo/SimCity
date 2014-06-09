@@ -23,6 +23,7 @@ protected:
     int fromPeopleInd;
     int fromOthersInd;
 
+    QVBoxLayout *mainLayout;
     QLabel *fromProductionIndText;
     QLabel *fromPeopleIndText;
     QLabel *fromOthersIndText;
