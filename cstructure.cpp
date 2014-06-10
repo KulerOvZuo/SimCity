@@ -3,7 +3,7 @@
 
 CStructure::CStructure() :
     age(0), name("none"), buildCost(0), destroyCost(0), costPerTick(0), sizeOnGameMap(), coordinatesOfActualLUCorner(),
-    turnedDirection(CDirections()), graphic(NULL), city(NULL)
+    turnedDirection(CDirections()), city(NULL)
 {
    /* qDebug()<<age<<name<<buildCost<<destroyCost<<costPerTick<<sizeOnGameMap.getX()<<coordinatesOfLUCorner.getY()
            <<static_cast<direction>(turnedDirection)<<city;*/
@@ -26,7 +26,6 @@ CStructure::CStructure(const CStructure &_S)
     sizeOnGameMap = _S.getSizeOnGameMap();
     coordinatesOfActualLUCorner =_S.getCoordinatesOfActualLUCorner();
     turnedDirection = _S.getTurnedDirection();
-    graphic = _S.getGraphic();
     city=_S.getCity();
 }
 CStructure::~CStructure()
@@ -143,9 +142,6 @@ bool CStructure::setTurnedDirection(CDirections _dir)
 {   turnedDirection = _dir;
     return true;
 }
-bool CStructure::setGraphic(CGraphic *_graphic)
-{   graphic = _graphic;
-    return true;}
 bool CStructure::setCity(CCity* _city)
 {   if(_city!=NULL)
     {   city = _city;
@@ -171,7 +167,5 @@ CCoordinates CStructure::getCoordinatesOfActualLUCorner() const
 {return coordinatesOfActualLUCorner;}
 CDirections CStructure::getTurnedDirection() const
 {return turnedDirection;}
-CGraphic* CStructure::getGraphic() const
-{return graphic;}
 CCity* CStructure::getCity() const
 {   return city;}

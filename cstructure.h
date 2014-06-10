@@ -4,7 +4,6 @@
 #include <QString>
 #include "ccoordinates.h"
 #include "enumerators.h"
-#include "cgraphic.h"
 #include "cdirections.h"
 
 class CCity;
@@ -19,7 +18,6 @@ protected:
     CCoordinates sizeOnGameMap; //is being changed during rotation (x>0; y<0)
     CCoordinates coordinatesOfActualLUCorner; //actual left-up corner
     CDirections turnedDirection; //on creating set to UP; used for properly expose and turning model
-    CGraphic* graphic;
     CCity* city;
 
 public:
@@ -32,9 +30,9 @@ public:
 
     ///implement
     virtual bool build();
+    virtual bool destroy();
     virtual bool checkIfCanBeBuiled() const;
     double distanceToOther(CStructure* other) const;
-    bool destroy();
 
     virtual bool rotate(Erotation  rotateAngle); //changes turn direction and model turn direction
     CCoordinates countCoordinatesOfCentre() const;
@@ -48,7 +46,6 @@ public:
     bool setSizeOnGameMap(const CCoordinates& _C);
     bool setCoordinatesOfActualLUCorner(const CCoordinates& _C);
     bool setTurnedDirection(CDirections _dir);
-    bool setGraphic(CGraphic* _graphic);
     bool setCity(CCity* _city);
 
     int getAge() const;
@@ -59,7 +56,6 @@ public:
     CCoordinates getSizeOnGameMap() const;
     CCoordinates getCoordinatesOfActualLUCorner() const;
     CDirections getTurnedDirection() const;
-    CGraphic* getGraphic() const;
     CCity* getCity() const;
 };
 

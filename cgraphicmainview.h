@@ -43,7 +43,7 @@ protected:
 #ifndef QT_NO_WHEELEVENT
     void wheelEvent(QWheelEvent *);
 #endif
-    void scaleView(qreal scaleFactor);
+    void scaleView(qreal scaleFactor, QWheelEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void keyPressEvent(QKeyEvent *event);
 

@@ -47,7 +47,7 @@ bool CLiving::searchSetForBetterSchool()
         if(rangeInd <0.1)
             rangeInd=0.1;
         temp = (city->getMapOfStructures()->getAllSchools().at(i)->getActualEducationIndicator())*rangeInd;
-        if( temp > 1.1*actual)
+        if( temp >= 1.1*actual)
         {   best = dynamic_cast<CSchool*>(((city->getMapOfStructures())->getAllSchools()).at(i));
             actual = temp;}
     }
@@ -207,55 +207,58 @@ bool CLiving::changeLivingPlace()
         movingPercent =0.2;
     if(bestLiving != this && bestLiving != NULL)
     {   int movingPeople = (this->getAllPeopleLiving())*movingPercent;
-        if(bestLiving->getMaxLivingPeople() - bestLiving->getAllPeopleLiving() - movingPeople < 0)
-            return false;
-        //decide who can go
-        int _learning=0;
-        for(int i=0; i < learningPeopleList.count();i++)
-            _learning += learningPeopleList.at(i)->getAllPeople();
-        _learning = _learning*movingPercent;
-        int _working = livingWorkingPeople.getAllPeople()*movingPercent;
-        int _notWorking = livingNotWorkingPeople.getAllPeople()*movingPercent;
-        if(_learning+_working+_notWorking <= movingPeople)
-        {
-            QList<CLearningPeople*> _learningPeopleListMoving;
-            _learningPeopleListMoving.clear();
-            int _actualLearning = _learning;
-            for(int i=0; i<learningPeopleList.count();i++)
-            {   if(learningPeopleList.at(i)->getAllPeople() < _actualLearning)
-                {   CLearningPeople* _L = new CLearningPeople(CPeople(learningPeopleList.at(i)->getLeadWorker(),
-                                                                     learningPeopleList.at(i)->getServiceWorker(),
-                                                                     learningPeopleList.at(i)->getLightWorker(),
-                                                                     learningPeopleList.at(i)->getHeavyWorker(),
-                                                                     learningPeopleList.at(i)->getLowWorker()),
-                                                             learningPeopleList.at(i)->getLeadWorkerEdu(),
-                                                             learningPeopleList.at(i)->getServiceWorkerEdu(),
-                                                             learningPeopleList.at(i)->getLightWorkerEdu(),
-                                                             learningPeopleList.at(i)->getHeavyWorkerEdu(),
-                                                             learningPeopleList.at(i)->getLowWorkerEdu());
-                    bestLiving->addLearningPeople(_L);
-                    _actualLearning -=learningPeopleList.at(i)->getAllPeople();
-                    learningPeopleList.at(i)->setAll(0,0,0,0,0);
-                }
-                else
-                {   CPeople _P = learningPeopleList.at(i)->randomExtract(_actualLearning);
-                    CLearningPeople* _L = new CLearningPeople(_P,learningPeopleList.at(i)->getLeadWorkerEdu(),
+        if(movingPeople !=0)
+        {   if(bestLiving->getMaxLivingPeople() - bestLiving->getAllPeopleLiving() - movingPeople < 0)
+                return false;
+            //decide who can go
+            int _learning=0;
+            for(int i=0; i < learningPeopleList.count();i++)
+                _learning += learningPeopleList.at(i)->getAllPeople();
+            _learning = _learning*movingPercent;
+            int _working = livingWorkingPeople.getAllPeople()*movingPercent;
+            int _notWorking = livingNotWorkingPeople.getAllPeople()*movingPercent;
+            if(_learning+_working+_notWorking <= movingPeople)
+            {
+                QList<CLearningPeople*> _learningPeopleListMoving;
+                _learningPeopleListMoving.clear();
+                int _actualLearning = _learning;
+                for(int i=0; i<learningPeopleList.count();i++)
+                {   if(learningPeopleList.at(i)->getAllPeople() < _actualLearning)
+                    {   CLearningPeople* _L = new CLearningPeople(CPeople(learningPeopleList.at(i)->getLeadWorker(),
+                                                                         learningPeopleList.at(i)->getServiceWorker(),
+                                                                         learningPeopleList.at(i)->getLightWorker(),
+                                                                         learningPeopleList.at(i)->getHeavyWorker(),
+                                                                         learningPeopleList.at(i)->getLowWorker()),
+                                                                 learningPeopleList.at(i)->getLeadWorkerEdu(),
                                                                  learningPeopleList.at(i)->getServiceWorkerEdu(),
                                                                  learningPeopleList.at(i)->getLightWorkerEdu(),
                                                                  learningPeopleList.at(i)->getHeavyWorkerEdu(),
                                                                  learningPeopleList.at(i)->getLowWorkerEdu());
-                    bestLiving->addLearningPeople(_L);
-                    break;}
+                        bestLiving->addLearningPeople(_L);
+                        _actualLearning -=learningPeopleList.at(i)->getAllPeople();
+                        learningPeopleList.at(i)->setAll(0,0,0,0,0);
+                    }
+                    else
+                    {   CPeople _P = learningPeopleList.at(i)->randomExtract(_actualLearning);
+                        CLearningPeople* _L = new CLearningPeople(_P,learningPeopleList.at(i)->getLeadWorkerEdu(),
+                                                                     learningPeopleList.at(i)->getServiceWorkerEdu(),
+                                                                     learningPeopleList.at(i)->getLightWorkerEdu(),
+                                                                     learningPeopleList.at(i)->getHeavyWorkerEdu(),
+                                                                     learningPeopleList.at(i)->getLowWorkerEdu());
+                        bestLiving->addLearningPeople(_L);
+                        break;}
+                }
+                ///take children from school
+                if(schoolConnected!=NULL)
+                {   this->schoolConnected->addNOChildren(-1*_learning);
+                    this->schoolConnected->countSetEducationQuality();}
+                bestLiving->setLivingWorkingPeople(bestLiving->getLivingWorkingPeople()+livingWorkingPeople.randomExtract(_working));
+                bestLiving->setLivingNotWorkingPeople(bestLiving->getLivingNotWorkingPeople()+livingNotWorkingPeople.randomExtract(_notWorking));
+                return true;
             }
-            ///take children from school
-            this->schoolConnected->addNOChildren(-1*_learning);
-            this->schoolConnected->countSetEducationQuality();
-            bestLiving->setLivingWorkingPeople(bestLiving->getLivingWorkingPeople()+livingWorkingPeople.randomExtract(_working));
-            bestLiving->setLivingNotWorkingPeople(bestLiving->getLivingNotWorkingPeople()+livingNotWorkingPeople.randomExtract(_notWorking));
-            return true;
+            else
+                return false;
         }
-        else
-            return false;
     }
     else
         return false;
@@ -653,10 +656,12 @@ void CLiving::optimizeListOfLearningPeople()
 }
 void CLiving::educatePeople()
 {
-    double _educationIndicator = schoolConnected->getActualEducationIndicator();
-    for(int i=0; i<learningPeopleList.size(); i++)
-    {
-        learningPeopleList[i]->addAllEducation(_educationIndicator);
+    if(schoolConnected !=NULL)
+    {   double _educationIndicator = schoolConnected->getActualEducationIndicator();
+        for(int i=0; i<learningPeopleList.size(); i++)
+        {
+            learningPeopleList[i]->addAllEducation(_educationIndicator);
+        }
     }
 }
 
@@ -667,8 +672,9 @@ CPeople CLiving::extractEducatedPeople()
     {   //extract educated people
         _P += learningPeopleList[i]->extractWhoIsEducated();
     }
-    schoolConnected->addNOChildren(-1*_P.getAllPeople());
-    schoolConnected->countSetEducationQuality();
+    if(schoolConnected!=NULL)
+    {   schoolConnected->addNOChildren(-1*_P.getAllPeople());
+        schoolConnected->countSetEducationQuality();}
     livingNotWorkingPeople += _P;
     return _P;
 }

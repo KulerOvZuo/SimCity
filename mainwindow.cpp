@@ -444,10 +444,11 @@ void MainWindow::nextTurn()
 {
    // qDebug()<<"turn: "<<turnNumber;
     turnNumber++;
+    city->makeTick();
     this->update();
-    for(int i=0; i<100000000;i++)
+    /*for(int i=0; i<100000000;i++)
     {   int x=1000000;
-        x=i*x*x;}
+        x=i*x*x;}*/
     turn->setText(tr("Turn number: ")+QString::number(turnNumber));
     emit nextTurnEnded();
 }

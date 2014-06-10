@@ -30,10 +30,11 @@ bool CRoadsAndBridges::checkIfCanBeBuiled()
     {   ///check if can be connected to nearly roads
         int x;
         int y;
+        qDebug()<<"road building checking";
         for(int i=0; i<((city->getMapOfStructures())->getAllRoadsAndBridges()).count(); i++) //find roads next to this place
         {   x=(((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getCoordinatesOfActualLUCorner().getX();
             y=(((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getCoordinatesOfActualLUCorner().getY();
-            if(coordinatesOfActualLUCorner.getX() == x && coordinatesOfActualLUCorner.getY()+1 ==y) //searched on the UP
+            if(coordinatesOfActualLUCorner.getX() == x && coordinatesOfActualLUCorner.getY()-1 ==y) //searched on the UP
             {   ///if this road and other nearly road cant be connected, return false
                 if(directions.getDirUp() != (((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getDirections().getDirDown())
                     return false;
@@ -42,7 +43,7 @@ bool CRoadsAndBridges::checkIfCanBeBuiled()
             {   if(directions.getDirRight() != (((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getDirections().getDirLeft())
                     return false;
             }
-            if(coordinatesOfActualLUCorner.getX() == x && coordinatesOfActualLUCorner.getY()-1 ==y) //searched on the DOWN
+            if(coordinatesOfActualLUCorner.getX() == x && coordinatesOfActualLUCorner.getY()+1 ==y) //searched on the DOWN
             {   if(directions.getDirDown() != (((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getDirections().getDirUp())
                     return false;
             }

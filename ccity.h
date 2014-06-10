@@ -2,6 +2,7 @@
 #define CCITY_H
 
 #include <QObject>
+#include <QSize>
 #include "cutilitiesglobal.h"
 #include "cmarket.h"
 #include "ctaxes.h"
@@ -37,10 +38,7 @@ public:
     bool addStructureProperly(CStructure* _S);
     bool removeStructureProperly(CStructure* _S);
 
-    QList<CStructure*> updateView;
     bool checkIfCanBeBuild();
-    bool build();
-    bool destroy();
 
     void addUtilitiesGlobalNeed(CUtilitiesGlobal _U);
     void addMoney(double _money);

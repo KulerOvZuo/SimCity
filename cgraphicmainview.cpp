@@ -16,13 +16,6 @@ CGraphicMainView::CGraphicMainView(QSize _gameMap, QSize _tileSize,QWidget *pare
     setFocusPolicy(Qt::StrongFocus);
     setFocus();
 
-    /*///[3] repaint timer
-    repaintTimer = new QTimer(this);
-    repaintTimer->setInterval(300);
-    repaintTimer->setSingleShot(true);
-    connect(repaintTimer,SIGNAL(timeout()),this,SLOT());
-    ///[/3]*/
-
     connect(parent,SIGNAL(newStructure(CStructure*)),this,SLOT(newStructureChosen(CStructure*)));
     connect(parent,SIGNAL(canBeBuiled(CStructure*, bool)),this,SLOT(buildStructure(CStructure*,bool)));
     connect(this,SIGNAL(removeStructure(CStructure*)),parent,SLOT(destroy(CStructure*)));
@@ -129,16 +122,22 @@ QPixmap CGraphicMainView::findGraphicForBuilding(CStructure *_S)
 #ifndef QT_NO_WHEELEVENT
 void CGraphicMainView::wheelEvent(QWheelEvent *event)
 {
-    scaleView(pow((double)2,event->delta()/240.0));
+    scaleView(pow((double)2,event->delta()/240.0),event);
 }
 #endif
-void CGraphicMainView::scaleView(qreal scaleFactor)
+void CGraphicMainView::scaleView(qreal scaleFactor, QWheelEvent *event)
 {   qreal factor = this->transform().scale(scaleFactor,scaleFactor).mapRect(QRectF(0,0,1,1)).width();
     if(factor <0.5 || factor >100)
         return;
     actualFactor = factor;
     this->scale(scaleFactor,scaleFactor);
-    this->centerOn(beforeCursorPoint);
+
+    QPoint cursorPos;
+    cursorPos = mapFromParent(event->pos());
+    QPointF pointF = mapToScene(cursorPos);
+    cursorPos.setX(pointF.x());
+    cursorPos.setY(pointF.y());
+    this->centerOn(cursorPos);
     //this->repaint();
 }
 
@@ -175,8 +174,7 @@ void CGraphicMainView::keyPressEvent(QKeyEvent *event)
            // qDebug()<<"x: "<<_x<<"y: "<<_y;
             pos.setWidth(beforeCursorPoint.x()/tileSize.width());
             pos.setHeight(beforeCursorPoint.y()/tileSize.height());
-            //brush.setColor(Qt::darkBlue);
-            brush.setTexture(findGraphicForBuilding(curentHoldingStructure));
+            brush.setColor(Qt::darkBlue);
             brush.setStyle(emptyTileHighlightStyle);
             this->repaintAreaUnderBuilding(brush,pos,QSize(_x,_y));
         }
@@ -254,11 +252,12 @@ void CGraphicMainView::mouseMoveRepaint(QMouseEvent *event)
         QPointF pointF = mapToScene(cursorPos);
         cursorPos.setX(pointF.x());
         cursorPos.setY(pointF.y());
+        qDebug()<<(int)(cursorPos.x()/tileSize.width())<<" "<<(int)(cursorPos.y()/tileSize.height());
         ///[/1]
 
         movingTile->setPos(cursorPos+QPoint(30/actualFactor,30/actualFactor));
 
-        if((abs(beforeCursorPoint.x()-cursorPos.x())*10>tileSize.width()/actualFactor) || (abs(beforeCursorPoint.y()-cursorPos.y())*10>tileSize.height()/actualFactor))
+        if((abs(beforeCursorPoint.x()-cursorPos.x())*20>tileSize.width()/actualFactor) || (abs(beforeCursorPoint.y()-cursorPos.y())*20>tileSize.height()/actualFactor))
         {  // qDebug()<<"size";
             int _x = curentHoldingStructure->getSizeOnGameMap().getX();
             int _y = curentHoldingStructure->getSizeOnGameMap().getY();

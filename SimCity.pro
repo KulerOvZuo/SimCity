@@ -17,7 +17,6 @@ SOURCES += main.cpp \
         mainwindow.cpp \
     cstructure.cpp \
     ccoordinates.cpp \
-    cgraphic.cpp \
     ccity.cpp \
     croadsandbridges.cpp \
     cdirections.cpp \
@@ -54,7 +53,6 @@ HEADERS  += mainwindow.h \
     cstructure.h \
     ccoordinates.h \
     enumerators.h \
-    cgraphic.h \
     ccity.h \
     croadsandbridges.h \
     cdirections.h \

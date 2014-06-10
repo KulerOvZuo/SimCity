@@ -25,6 +25,7 @@ void CGraphicGameTile::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
      //QPointF pos =this->scenePos();
     // emit mouseClicked(pos,event);
     Q_UNUSED(event);
+    qDebug()<<"asdasd";
 }
 void CGraphicGameTile::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {

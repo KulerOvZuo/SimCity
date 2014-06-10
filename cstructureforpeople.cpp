@@ -2,6 +2,7 @@
 
 CStructureForPeople::CStructureForPeople() : CStructure(), isConnectedToRoad(false)
 {
+    isConnectedToRoad = true;
 }
 CStructureForPeople::CStructureForPeople(const CStructureForPeople& _S) : CStructure(_S)
 {

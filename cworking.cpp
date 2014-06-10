@@ -63,6 +63,8 @@ double CWorking::countPeopleEfficiency() ///linear efficiency
     double _M = leadWorkerEff*neededNumberOfWorkers.getLeadWorker()+serviceWorkerEff*neededNumberOfWorkers.getServiceWorker()+
             lightWorkerEff*neededNumberOfWorkers.getLightWorker()+heavyWorkerEff*neededNumberOfWorkers.getHeavyWorker()+
             lowWorkerEff*neededNumberOfWorkers.getLowWorker();
+    if(_L==0 || _M == 0)
+        return 0;
     return _L/_M;
 }
 double CWorking::countBuildingEfficiency()

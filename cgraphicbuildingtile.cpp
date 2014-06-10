@@ -5,7 +5,6 @@
 CGraphicBuildingTile::CGraphicBuildingTile(CStructure* _structure,QSize tileSize, QObject *sender) : CGraphicGameTile(tileSize,sender)
 {
     selected = false;
-    fullyBuilded = false;
     structure=_structure;
     connectAll(sender);
     //setBrush(Qt::black);
@@ -23,12 +22,8 @@ void CGraphicBuildingTile::paint(QPainter *painter, const QStyleOptionGraphicsIt
     //this->setToolTip(QString("Empty field\nPos(%1,%2)").arg(this->pos().x()/tileSize.width(),1).arg(this->pos().y()/tileSize.height(),1));
     if(selected==false)
         painter->setPen(QPen(Qt::green,1,Qt::DotLine,Qt::RoundCap,Qt::RoundJoin));
-    if(fullyBuilded==false)
-    {   painter->setOpacity(0.8);
-        brush.setStyle(Qt::SolidPattern);
-    }
-    else
-        painter->setOpacity(1);
+
+    painter->setOpacity(1);
     painter->setBrush(brush);
     painter->setRenderHint(QPainter::Antialiasing,true);
     QRectF rect(0,0,structure->getSizeOnGameMap().getX()*tileSize.width(),structure->getSizeOnGameMap().getY()*tileSize.height());
@@ -46,7 +41,9 @@ void CGraphicBuildingTile::paint(QPainter *painter, const QStyleOptionGraphicsIt
 }
 
 void CGraphicBuildingTile::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{Q_UNUSED(event);}
+{   Q_UNUSED(event);
+
+}
 void CGraphicBuildingTile::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {Q_UNUSED(event);}
 void CGraphicBuildingTile::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)

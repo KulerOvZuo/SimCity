@@ -20,7 +20,6 @@ private:
 protected:
     CStructure* structure;
     bool selected;
-    bool fullyBuilded;
 
     QAction *showInfoAct;
     QAction *destroyAct;
