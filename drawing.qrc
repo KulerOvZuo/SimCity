@@ -4,5 +4,21 @@
         <file>textureFlip.jpg</file>
         <file>copy.png</file>
         <file>house.jpg</file>
+        <file>blocks.jpg</file>
+        <file>cinema.jpg</file>
+        <file>cross.jpg</file>
+        <file>farm.jpg</file>
+        <file>heavy industry.jpg</file>
+        <file>lawn.jpg</file>
+        <file>light industry.jpg</file>
+        <file>office.jpg</file>
+        <file>park.jpg</file>
+        <file>publicutility.jpg</file>
+        <file>school.jpg</file>
+        <file>service.jpg</file>
+        <file>shop.jpg</file>
+        <file>straight.jpg</file>
+        <file>turning.jpg</file>
+        <file>noimage.jpg</file>
     </qresource>
 </RCC>

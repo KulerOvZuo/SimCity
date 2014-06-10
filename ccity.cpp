@@ -206,6 +206,7 @@ bool CCity::addStructureProperly(CStructure* _S)
 bool CCity::removeStructureProperly(CStructure* _S)
 {   if(mapOfStructures->removeStructureProperly(_S))
         return true;
+    //delete _S;
     return false;
 }
 ///getters, not const

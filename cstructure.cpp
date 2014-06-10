@@ -36,12 +36,25 @@ bool CStructure::build()
 {
     bool** _map = city->getMapOfStructures()->getMapOfTakenPlaces();
     ///starts in coordinates, going y--, x++
-    for(int y=coordinatesOfActualLUCorner.getY(); y>coordinatesOfActualLUCorner.getY()+sizeOnGameMap.getY();y--)
+    for(int y=coordinatesOfActualLUCorner.getY(); y<coordinatesOfActualLUCorner.getY()+sizeOnGameMap.getY();y++)
     {   for(int x=coordinatesOfActualLUCorner.getX(); x<coordinatesOfActualLUCorner.getX()+sizeOnGameMap.getX();x++)
         {   _map[x][y] = true; //take place
+            //qDebug()<<_map[x][y];
         }
     }
     return true;}
+bool CStructure::destroy()
+{
+    bool** _map = city->getMapOfStructures()->getMapOfTakenPlaces();
+    ///starts in coordinates, going y--, x++
+    for(int y=coordinatesOfActualLUCorner.getY(); y<coordinatesOfActualLUCorner.getY()+sizeOnGameMap.getY();y++)
+    {   for(int x=coordinatesOfActualLUCorner.getX(); x<coordinatesOfActualLUCorner.getX()+sizeOnGameMap.getX();x++)
+        {   _map[x][y] = false; //take place
+            //qDebug()<<_map[x][y];
+        }
+    }
+    return true;
+}
 bool CStructure::checkIfCanBeBuiled() const
 {
     bool** _map = city->getMapOfStructures()->getMapOfTakenPlaces();

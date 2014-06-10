@@ -28,6 +28,7 @@ public:
     void setTileSize(QSize _size);
     void setGameMapSize(QSize _size);
     void initializeGameMap();
+    QPixmap findGraphicForBuilding(CStructure *_S);
 
 protected:
     QGraphicsScene* scene;
@@ -45,16 +46,17 @@ protected:
     void scaleView(qreal scaleFactor);
     void mouseMoveEvent(QMouseEvent *event);
     void keyPressEvent(QKeyEvent *event);
-    QSize itemPosition(const QPoint &pos);
 
 signals:
     void repaintAreaUnderBuilding(QBrush,QSize, QSize);
     void checkIfCanBeBuiled(CStructure *);
+    void removeStructure(CStructure*);
 private slots:
-    void newStructureChosen(CStructure);
+    void newStructureChosen(CStructure *);
     void mouseMoveRepaint(QMouseEvent *);
     void emptyTileMouseClicked(QPointF,QGraphicsSceneMouseEvent *);
-    void buildStructure(bool);
+    void buildStructure(CStructure*,bool);
+    void removeTile(CGraphicBuildingTile*,CStructure *);
 };
 
 #endif // CGRAPHICMAINVIEW_H

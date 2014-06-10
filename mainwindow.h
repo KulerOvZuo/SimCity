@@ -27,7 +27,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 protected:
-    //void contextMenuEvent(QContextMenuEvent *event);
+    CStructure* makeNewStructureProperly(CStructure *checking);
 
 public:
     explicit MainWindow(QSize mapSize, QSize tileSize, QWidget *parent = 0);
@@ -107,8 +107,8 @@ private:
 
 signals:
     void nextTurnEnded();
-    void newStructure(CStructure);
-    void canBeBuiled(bool);
+    void newStructure(CStructure *);
+    void canBeBuiled(CStructure *,bool);
 
 private slots:
     void newGame();
@@ -116,7 +116,7 @@ private slots:
     void traffic();
     void peopleStatistics();
     void publicUtility();
-    void destroy();
+    void destroy(CStructure*);
     void showInfo();
     void nextTurn();
 

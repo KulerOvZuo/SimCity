@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QPixmap>
 #include <cmath>
+#include <QSpacerItem>
 
 MainWindow::MainWindow(QSize mapSize, QSize tileSize, QWidget *parent) :
     QMainWindow(parent)
@@ -54,7 +55,8 @@ MainWindow::MainWindow(QSize mapSize, QSize tileSize, QWidget *parent) :
     QString message = tr("Welcome in SimCity");
     statusBar()->showMessage(message);
     setWindowTitle(tr("Si(M)City"));
-    setMinimumSize(tileSize.width()*mapSize.width()+50,tileSize.height()*mapSize.height()+200);
+    setMinimumSize(800,600);
+    //setMinimumSize(tileSize.width()*mapSize.width()+50,tileSize.height()*mapSize.height()+200);
    // this->setWindowState(Qt::WindowFullScreen);
 }
 
@@ -228,87 +230,94 @@ void MainWindow::createBuildingToolBar()
 {
     buildingToolBar = new QToolBar;
 
-    houseAct = new QAction(QIcon("://copy.png"),tr("House"),this);
+    houseAct = new QAction(QIcon(housePixmapSource),tr("House"),this);
     houseAct->setStatusTip(tr("Creates new house"));
     connect(houseAct,SIGNAL(triggered()),this,SLOT(newHouse()));
 
-    blocksAct = new QAction(QIcon("://copy.png"),tr("Blocks"),this);
+    blocksAct = new QAction(QIcon(blocksPixmapSource),tr("Blocks"),this);
     blocksAct->setStatusTip(tr("Creates new blocks"));
     connect(blocksAct,SIGNAL(triggered()),this,SLOT(newBlocks()));
 
-    lawnAct = new QAction(QIcon("://copy.png"),tr("Lawn"),this);
+    lawnAct = new QAction(QIcon(lawnPixmapSource),tr("Lawn"),this);
     lawnAct->setStatusTip(tr("Creates new lawn"));
     connect(lawnAct,SIGNAL(triggered()),this,SLOT(newLawn()));
 
-    parkAct = new QAction(QIcon("://copy.png"),tr("Park"),this);
+    parkAct = new QAction(QIcon(parkPixmapSource),tr("Park"),this);
     parkAct->setStatusTip(tr("Creates new park"));
     connect(parkAct,SIGNAL(triggered()),this,SLOT(newPark()));
 
-    officeAct = new QAction(QIcon("://copy.png"),tr("Office"),this);
+    officeAct = new QAction(QIcon(officePixmapSource),tr("Office"),this);
     officeAct->setStatusTip(tr("Creates new office"));
     connect(officeAct,SIGNAL(triggered()),this,SLOT(newOffice()));
 
-    shopAct = new QAction(QIcon("://copy.png"),tr("Shop"),this);
+    shopAct = new QAction(QIcon(shopPixmapSource),tr("Shop"),this);
     shopAct->setStatusTip(tr("Creates new shop"));
     connect(shopAct,SIGNAL(triggered()),this,SLOT(newShop()));
 
-    schoolAct = new QAction(QIcon("://copy.png"),tr("School"),this);
+    schoolAct = new QAction(QIcon(schoolPixmapSource),tr("School"),this);
     schoolAct->setStatusTip(tr("Creates new school"));
     connect(schoolAct,SIGNAL(triggered()),this,SLOT(newSchool()));
 
-    cinemaAct = new QAction(QIcon("://copy.png"),tr("Cinema"),this);
+    cinemaAct = new QAction(QIcon(cinemaPixmapSource),tr("Cinema"),this);
     cinemaAct->setStatusTip(tr("Creates new cinema"));
     connect(cinemaAct,SIGNAL(triggered()),this,SLOT(newCinema()));
 
-    farmAct = new QAction(QIcon("://copy.png"),tr("Farm"),this);
+    farmAct = new QAction(QIcon(farmPixmapSource),tr("Farm"),this);
     farmAct->setStatusTip(tr("Creates new farm"));
     connect(farmAct,SIGNAL(triggered()),this,SLOT(newFarm()));
 
-    lightFactoryAct = new QAction(QIcon("://copy.png"),tr("Light Industry Factory"),this);
+    lightFactoryAct = new QAction(QIcon(lightPixmapSource),tr("Light Industry Factory"),this);
     lightFactoryAct->setStatusTip(tr("Creates new Light Industry Factory"));
     connect(lightFactoryAct,SIGNAL(triggered()),this,SLOT(newLightFactory()));
 
-    heavyFactoryAct = new QAction(QIcon("://copy.png"),tr("Heavy Industry Factory"),this);
+    heavyFactoryAct = new QAction(QIcon(heavyPixmapSource),tr("Heavy Industry Factory"),this);
     heavyFactoryAct->setStatusTip(tr("Creates new Heavy Industry Factory"));
     connect(heavyFactoryAct,SIGNAL(triggered()),this,SLOT(newHeavyFactory()));
 
-    publicUtilityBuildingAct = new QAction(QIcon("://copy.png"),tr("Public Utility Building"),this);
+    publicUtilityBuildingAct = new QAction(QIcon(publicPixmapSource),tr("Public Utility Building"),this);
     publicUtilityBuildingAct->setStatusTip(tr("Creates new Public Utility Building"));
     connect(publicUtilityBuildingAct,SIGNAL(triggered()),this,SLOT(newPublicBuilding()));
 
-    roadStraightAct = new QAction(QIcon("://copy.png"),tr("Straight Road"),this);
+    roadStraightAct = new QAction(QIcon(straightPixmapSource),tr("Straight Road"),this);
     roadStraightAct->setStatusTip(tr("Creates new Straight Road"));
     connect(roadStraightAct,SIGNAL(triggered()),this,SLOT(newRoadStraight()));
 
-    roadCrossAct = new QAction(QIcon("://copy.png"),tr("Cross Road"),this);
+    roadCrossAct = new QAction(QIcon(crossPixmapSource),tr("Cross Road"),this);
     roadCrossAct->setStatusTip(tr("Creates new Cross Road"));
     connect(roadCrossAct,SIGNAL(triggered()),this,SLOT(newRoadCross()));
 
-    roadTurnAct = new QAction(QIcon("://copy.png"),tr("Turning"),this);
+    roadTurnAct = new QAction(QIcon(turningPixmapSource),tr("Turning"),this);
     roadTurnAct->setStatusTip(tr("Creates new Turning"));
     connect(roadTurnAct,SIGNAL(triggered()),this,SLOT(newRoadTurn()));
 
+    buildingToolBar->addSeparator();
     buildingToolBar->addAction(lawnAct);
     buildingToolBar->addAction(parkAct);
     buildingToolBar->addSeparator();
+    buildingToolBar->addSeparator();
     buildingToolBar->addAction(houseAct);
     buildingToolBar->addAction(blocksAct);
+    buildingToolBar->addSeparator();
     buildingToolBar->addSeparator();
     buildingToolBar->addAction(schoolAct);
     buildingToolBar->addAction(shopAct);
     buildingToolBar->addAction(officeAct);
     buildingToolBar->addAction(cinemaAct);
     buildingToolBar->addSeparator();
+    buildingToolBar->addSeparator();
     buildingToolBar->addAction(farmAct);
     buildingToolBar->addAction(lightFactoryAct);
     buildingToolBar->addAction(heavyFactoryAct);
     buildingToolBar->addSeparator();
+    buildingToolBar->addSeparator();
     buildingToolBar->addAction(publicUtilityBuildingAct);
+    buildingToolBar->addSeparator();
     buildingToolBar->addSeparator();
     buildingToolBar->addAction(roadStraightAct);
     buildingToolBar->addAction(roadCrossAct);
     buildingToolBar->addAction(roadTurnAct);
 
+    buildingToolBar->setIconSize(QSize(60,60));
     buildingToolBar->setMovable(false);
     this->addToolBarBreak();
     this->addToolBar(buildingToolBar);
@@ -347,15 +356,76 @@ void MainWindow::taxesWidgetRead()
 void MainWindow::canBeBuiledStructure(CStructure *structure)
 {
     structure->setCity(city);
-    qDebug()<<"checking...";
+   // qDebug()<<"checking...";
     if(structure->checkIfCanBeBuiled())
     {   ///model build
-        /*CStructure *_newS = new CStructure(*structure);
-        _newS->setCoordinatesOfActualLUCorner(structure->getCoordinatesOfActualLUCorner());
-        _newS->setCity(city);
-        city->addStructureProperly(_newS);*/
-        emit canBeBuiled(true);
+       // qDebug()<<structure->getCoordinatesOfActualLUCorner().getX();
+        //CStructure *_newS = new CBlocks(*(dynamic_cast<CBlocks*>(structure)));
+        CStructure* _newS = makeNewStructureProperly(structure);
+        //qDebug()<<_newS->getCoordinatesOfActualLUCorner().getX();
+        if(_newS!=NULL)
+        {   //_newS->setCity(city);
+           // _newS->setCoordinatesOfActualLUCorner(structure->getCoordinatesOfActualLUCorner());
+            if(_newS->checkIfCanBeBuiled())
+            {
+            //_newS->setCoordinatesOfActualLUCorner(structure->getCoordinatesOfActualLUCorner());
+           // _newS->setCity(city);
+               // qDebug()<<"can be builed?";
+                if(city->addStructureProperly(_newS))
+                {   //qDebug()<<"building added";
+                    _newS->build();
+                    city->addMoney(_newS->getBuildCost());
+                    //qDebug()<<" newS: "<<_newS->getCoordinatesOfActualLUCorner().getX()<<" "<<_newS->getCoordinatesOfActualLUCorner().getY();
+                    statusBar()->showMessage("Builded.");
+                    emit canBeBuiled(_newS,true);}
+                else
+                    statusBar()->showMessage("Cannot be builed.");}
+        }
+        else
+            statusBar()->showMessage("Cannot be builed.");
     }
+    else
+        statusBar()->showMessage("Cannot be builed.");
+}
+CStructure* MainWindow::makeNewStructureProperly(CStructure *checking)
+{
+    CStructure* temp = NULL;
+    if(dynamic_cast<CStructure*>(checking)==NULL)
+        return temp;
+    if(dynamic_cast<CHouse*>(checking)!=NULL)
+    {   temp = new CHouse(*(dynamic_cast<CHouse*>(checking)));
+        return temp;}
+    if(dynamic_cast<CBlocks*>(checking)!=NULL)
+    {  // qDebug()<<"blocks";
+        temp = new CBlocks(*(dynamic_cast<CBlocks*>(checking)));return temp;}
+    if(dynamic_cast<CLawn*>(checking)!=NULL)
+    {   temp = new CLawn(*(dynamic_cast<CLawn*>(checking)));return temp;}
+    if(dynamic_cast<CPark*>(checking)!=NULL)
+    {   temp = new CPark(*(dynamic_cast<CPark*>(checking)));return temp;}
+    if(dynamic_cast<COffice*>(checking)!=NULL)
+    {   temp = new COffice(*(dynamic_cast<COffice*>(checking)));return temp;}
+    if(dynamic_cast<CSmallShop*>(checking)!=NULL)
+    {   temp = new CSmallShop(*(dynamic_cast<CSmallShop*>(checking)));return temp;}
+    if(dynamic_cast<CSchoolAllInOne*>(checking)!=NULL)
+    {   temp = new CSchoolAllInOne(*(dynamic_cast<CSchoolAllInOne*>(checking)));return temp;}
+    if(dynamic_cast<CCinema*>(checking)!=NULL)
+    {   temp = new CCinema(*(dynamic_cast<CCinema*>(checking)));return temp;}
+    if(dynamic_cast<CFarm*>(checking)!=NULL)
+    {   temp = new CFarm(*(dynamic_cast<CFarm*>(checking)));return temp;}
+    if(dynamic_cast<CLightFactory*>(checking)!=NULL)
+    {   temp = new CLightFactory(*(dynamic_cast<CLightFactory*>(checking)));return temp;}
+    if(dynamic_cast<CHeavyFactory*>(checking)!=NULL)
+    {   temp = new CHeavyFactory(*(dynamic_cast<CHeavyFactory*>(checking)));return temp;}
+    if(dynamic_cast<CPublicUtilityBuildingAllInOne*>(checking)!=NULL)
+    {   temp = new CPublicUtilityBuildingAllInOne(*(dynamic_cast<CPublicUtilityBuildingAllInOne*>(checking)));return temp;}
+    if(dynamic_cast<CRoadCross*>(checking)!=NULL)
+    {   temp = new CRoadCross(*(dynamic_cast<CRoadCross*>(checking)));return temp;}
+    if(dynamic_cast<CRoadStraight*>(checking)!=NULL)
+    {   temp = new CRoadStraight(*(dynamic_cast<CRoadStraight*>(checking)));return temp;}
+    if(dynamic_cast<CRoadTurning*>(checking)!=NULL)
+    {   temp = new CRoadTurning(*(dynamic_cast<CRoadTurning*>(checking)));return temp;}
+
+    return temp;
 }
 
 void MainWindow::traffic()
@@ -364,8 +434,10 @@ void MainWindow::peopleStatistics()
 {}
 void MainWindow::publicUtility()
 {}
-void MainWindow::destroy()
-{}
+void MainWindow::destroy(CStructure * _structure)
+{   //qDebug()<<"destroy";
+    _structure->destroy();
+    city->removeStructureProperly(_structure);}
 void MainWindow::showInfo()
 {}
 void MainWindow::nextTurn()
@@ -416,47 +488,47 @@ void MainWindow::nextTurnEnd()
     this->repaint();
 }
 void MainWindow::newHouse()
-{   CHouse house;
+{   CHouse* house = new CHouse;
     emit newStructure(house);}
 void MainWindow::newBlocks()
-{   CBlocks house;
+{   CBlocks * house = new CBlocks;
     emit newStructure(house);}
 void MainWindow::newLawn()
-{   CLawn house;
+{   CLawn * house = new CLawn;
     emit newStructure(house);}
 void MainWindow::newPark()
-{   CPark house;
+{   CPark * house = new CPark;
     emit newStructure(house);}
 void MainWindow::newOffice()
-{   COffice house;
+{   COffice * house = new COffice;
     emit newStructure(house);}
 void MainWindow::newShop()
-{   CSmallShop house;
+{   CSmallShop * house = new CSmallShop;
     emit newStructure(house);}
 void MainWindow::newSchool()
-{   CSchoolAllInOne house;
+{   CSchoolAllInOne * house = new CSchoolAllInOne;
     emit newStructure(house);}
 void MainWindow::newCinema()
-{   CCinema house;
+{   CCinema * house = new CCinema;
     emit newStructure(house);}
 void MainWindow::newFarm()
-{   CFarm house;
+{   CFarm * house = new CFarm;
     emit newStructure(house);}
 void MainWindow::newLightFactory()
-{   CLightFactory house;
+{   CLightFactory * house = new CLightFactory;
     emit newStructure(house);}
 void MainWindow::newHeavyFactory()
-{   CHeavyFactory house;
+{   CHeavyFactory * house = new CHeavyFactory;
     emit newStructure(house);}
 void MainWindow::newPublicBuilding()
-{   CPublicUtilityBuildingAllInOne house;
+{   CPublicUtilityBuildingAllInOne * house = new CPublicUtilityBuildingAllInOne;
     emit newStructure(house);}
 void MainWindow::newRoadStraight()
-{   CRoadStraight house;
+{   CRoadStraight * house = new CRoadStraight;
     emit newStructure(house);}
 void MainWindow::newRoadCross()
-{   CRoadCross house;
+{   CRoadCross * house = new CRoadCross;
     emit newStructure(house);}
 void MainWindow::newRoadTurn()
-{   CRoadTurning house;
+{   CRoadTurning * house = new CRoadTurning;
     emit newStructure(house);}

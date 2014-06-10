@@ -1,6 +1,7 @@
 #ifndef CCITY_H
 #define CCITY_H
 
+#include <QObject>
 #include "cutilitiesglobal.h"
 #include "cmarket.h"
 #include "ctaxes.h"
@@ -9,8 +10,9 @@
 #include "enumerators.h"
 #include "ctrafficengine.h"
 
-class CCity
+class CCity //: public QObject
 {
+   // Q_OBJECT
 protected:
     CUtilitiesGlobal utilitiesGlobalProduction;
     CUtilitiesGlobal utilitiesGlobalNeed;
@@ -64,6 +66,8 @@ public:
     void setTrafficEngine(CTrafficEngine* _engine);
     void setMoney(double _money);
 
+//signals:
+  //  void redraw(CStructure *);
 };
 
 #endif // CCITY_H

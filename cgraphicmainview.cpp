@@ -23,8 +23,9 @@ CGraphicMainView::CGraphicMainView(QSize _gameMap, QSize _tileSize,QWidget *pare
     connect(repaintTimer,SIGNAL(timeout()),this,SLOT());
     ///[/3]*/
 
-    connect(parent,SIGNAL(newStructure(CStructure)),this,SLOT(newStructureChosen(CStructure)));
-    connect(parent,SIGNAL(canBeBuiled(bool)),this,SLOT(buildStructure(bool)));
+    connect(parent,SIGNAL(newStructure(CStructure*)),this,SLOT(newStructureChosen(CStructure*)));
+    connect(parent,SIGNAL(canBeBuiled(CStructure*, bool)),this,SLOT(buildStructure(CStructure*,bool)));
+    connect(this,SIGNAL(removeStructure(CStructure*)),parent,SLOT(destroy(CStructure*)));
 
     int _w = gameMapSize.width()*tileSize.width();
     int _h = gameMapSize.height()*tileSize.height();
@@ -69,7 +70,62 @@ void CGraphicMainView::initializeGameMap()
         }
     scene->update();
 }
-
+QPixmap CGraphicMainView::findGraphicForBuilding(CStructure *_S)
+{
+    //qDebug()<<"picture finding..";
+    if(dynamic_cast<CStructure*>(_S)==NULL)
+    {   return QPixmap(noImagePixmapSource);
+        qDebug()<<"no image";
+    }
+    if(dynamic_cast<CHouse*>(_S) !=NULL)
+    {  // qDebug()<<"house";
+        return QPixmap(housePixmapSource);
+    }
+    if(dynamic_cast<CBlocks*>(_S) !=NULL)
+    {   return QPixmap(blocksPixmapSource);
+    }
+    if(dynamic_cast<CLawn*>(_S) !=NULL)
+    {   return QPixmap(lawnPixmapSource);
+    }
+    if(dynamic_cast<CPark*>(_S) !=NULL)
+    {   return QPixmap(parkPixmapSource);
+    }
+    if(dynamic_cast<COffice*>(_S) !=NULL)
+    {   return QPixmap(officePixmapSource);
+    }
+    if(dynamic_cast<CSmallShop*>(_S) !=NULL)
+    {   return QPixmap(shopPixmapSource);
+    }
+    if(dynamic_cast<CSchoolAllInOne*>(_S) !=NULL)
+    {   return QPixmap(schoolPixmapSource);
+    }
+    if(dynamic_cast<CCinema*>(_S) !=NULL)
+    {   return QPixmap(cinemaPixmapSource);
+    }
+    if(dynamic_cast<CFarm*>(_S) !=NULL)
+    {   return QPixmap(farmPixmapSource);
+    }
+    if(dynamic_cast<CLightFactory*>(_S) !=NULL)
+    {   return QPixmap(lightPixmapSource);
+    }
+    if(dynamic_cast<CHeavyFactory*>(_S) !=NULL)
+    {   return QPixmap(heavyPixmapSource);
+    }
+    if(dynamic_cast<CPublicUtilityBuildingAllInOne*>(_S) !=NULL)
+    {   return QPixmap(publicPixmapSource);
+    }
+    if(dynamic_cast<CRoadStraight*>(_S) !=NULL)
+    {   return QPixmap(straightPixmapSource);
+    }
+    if(dynamic_cast<CRoadCross*>(_S) !=NULL)
+    {   return QPixmap(crossPixmapSource);
+    }
+    if(dynamic_cast<CRoadTurning*>(_S) !=NULL)
+    {   return QPixmap(turningPixmapSource);
+    }
+    qDebug()<<"no image";
+    return QPixmap("://noimage.jpg");
+}
 #ifndef QT_NO_WHEELEVENT
 void CGraphicMainView::wheelEvent(QWheelEvent *event)
 {
@@ -82,13 +138,8 @@ void CGraphicMainView::scaleView(qreal scaleFactor)
         return;
     actualFactor = factor;
     this->scale(scaleFactor,scaleFactor);
+    this->centerOn(beforeCursorPoint);
     //this->repaint();
-}
-QSize CGraphicMainView::itemPosition(const QPoint &pos)
-{
-    Q_UNUSED(pos);
-    scene->items();
-    return QSize();
 }
 
 void CGraphicMainView::mouseMoveEvent(QMouseEvent *event)
@@ -113,14 +164,20 @@ void CGraphicMainView::keyPressEvent(QKeyEvent *event)
             this->repaintAreaUnderBuilding(brush,pos,QSize(_x,_y));
 
             curentHoldingStructure->rotate(rightRot);
+            if(movingTile->rotation() == 90)
+                movingTile->setRotation(0);
+            else
+                movingTile->setRotation(90);
+
             ///drawing new
             _x = curentHoldingStructure->getSizeOnGameMap().getX();
             _y = curentHoldingStructure->getSizeOnGameMap().getY();
            // qDebug()<<"x: "<<_x<<"y: "<<_y;
             pos.setWidth(beforeCursorPoint.x()/tileSize.width());
             pos.setHeight(beforeCursorPoint.y()/tileSize.height());
-            brush.setColor(Qt::darkBlue);
-            brush.setStyle(Qt::SolidPattern);
+            //brush.setColor(Qt::darkBlue);
+            brush.setTexture(findGraphicForBuilding(curentHoldingStructure));
+            brush.setStyle(emptyTileHighlightStyle);
             this->repaintAreaUnderBuilding(brush,pos,QSize(_x,_y));
         }
     }
@@ -151,7 +208,7 @@ void CGraphicMainView::keyPressEvent(QKeyEvent *event)
         setCursor(Qt::ArrowCursor);
     }
 }
-void CGraphicMainView::newStructureChosen(CStructure structure)
+void CGraphicMainView::newStructureChosen(CStructure *structure)
 {
     if(movingTile!=NULL)
     {   delete movingTile;
@@ -159,6 +216,7 @@ void CGraphicMainView::newStructureChosen(CStructure structure)
         int _x = curentHoldingStructure->getSizeOnGameMap().getX();
         int _y = curentHoldingStructure->getSizeOnGameMap().getY();
         //qDebug()<<"repaint";
+
         QSize pos;
         pos.setWidth(beforeCursorPoint.x()/tileSize.width());
         pos.setHeight(beforeCursorPoint.y()/tileSize.height());
@@ -171,27 +229,36 @@ void CGraphicMainView::newStructureChosen(CStructure structure)
     }
 
     structureHolding=true;
-    curentHoldingStructure = new CStructure(structure);
-    ///[erase]
-    curentHoldingStructure->setSizeOnGameMap(CCoordinates(2,1));
-    ///[]
-    movingTile = new CGraphicGameTile(tileSize);
+    curentHoldingStructure = structure;
+    QSize size;
+    size.setWidth(curentHoldingStructure->getSizeOnGameMap().getX()*tileSize.width());
+    size.setHeight(curentHoldingStructure->getSizeOnGameMap().getY()*tileSize.height());
+    movingTile = new CGraphicGameTile(size,this);//CGraphicBuildingTile(curentHoldingStructure,tileSize,this);
+    movingTile->setTransformOriginPoint(QPointF(size.width()/2,size.height()/2));
     movingTile->setMoving(true);
     QBrush brush;
     brush.setColor(Qt::darkBlue);
-    brush.setStyle(Qt::SolidPattern);
+    brush.setStyle(emptyTileHighlightStyle);
     movingTile->setBrush(brush);
+    movingTile->setPixmap(findGraphicForBuilding(curentHoldingStructure));
     scene->addItem(movingTile);
 }
 void CGraphicMainView::mouseMoveRepaint(QMouseEvent *event)
 {
     ///if we are holding structure, change colors of backgroud tiles
-    if(structureHolding)
-    {   QPoint cursorPos;
-        cursorPos = mapFromParent(event->pos());
-        movingTile->setPos(event->pos()-QPoint(1,1));
 
-        if((abs(beforeCursorPoint.x()-cursorPos.x())>tileSize.width()/3) || (abs(beforeCursorPoint.y()-cursorPos.y())>tileSize.height()/3))
+    if(structureHolding)
+    {   ///[1]
+        QPoint cursorPos;
+        cursorPos = mapFromParent(event->pos());
+        QPointF pointF = mapToScene(cursorPos);
+        cursorPos.setX(pointF.x());
+        cursorPos.setY(pointF.y());
+        ///[/1]
+
+        movingTile->setPos(cursorPos+QPoint(30/actualFactor,30/actualFactor));
+
+        if((abs(beforeCursorPoint.x()-cursorPos.x())*10>tileSize.width()/actualFactor) || (abs(beforeCursorPoint.y()-cursorPos.y())*10>tileSize.height()/actualFactor))
         {  // qDebug()<<"size";
             int _x = curentHoldingStructure->getSizeOnGameMap().getX();
             int _y = curentHoldingStructure->getSizeOnGameMap().getY();
@@ -199,7 +266,6 @@ void CGraphicMainView::mouseMoveRepaint(QMouseEvent *event)
             QSize pos;
             pos.setWidth(beforeCursorPoint.x()/tileSize.width());
             pos.setHeight(beforeCursorPoint.y()/tileSize.height());
-            //qDebug()<<beforeCursorPoint.x()<<" "<<beforeCursorPoint.y();
 
             QBrush brush;
             brush.setColor(Qt::NoPen);
@@ -210,27 +276,43 @@ void CGraphicMainView::mouseMoveRepaint(QMouseEvent *event)
             pos.setWidth(beforeCursorPoint.x()/tileSize.width());
             pos.setHeight(beforeCursorPoint.y()/tileSize.height());
             brush.setColor(Qt::darkBlue);
-            brush.setStyle(Qt::SolidPattern);
+            brush.setStyle(emptyTileHighlightStyle);
             this->repaintAreaUnderBuilding(brush,pos,QSize(_x,_y));
         }
         }
 }
 void CGraphicMainView::emptyTileMouseClicked(QPointF pos, QGraphicsSceneMouseEvent *event)
 {
+    Q_UNUSED(event);
     if(structureHolding)
     {  // qDebug()<<"clicked";
-       // qDebug()<<pos.x()<<" "<<pos.y();
+        //qDebug()<<"second: "<<pos.x()<<" "<<pos.y();
         CCoordinates _C = CCoordinates(pos.x()/tileSize.width(),pos.y()/tileSize.height());
         curentHoldingStructure->setCoordinatesOfActualLUCorner(_C);
+       // qDebug()<<"structure coordinates: "<<curentHoldingStructure->getCoordinatesOfActualLUCorner().getX()<<" "<<curentHoldingStructure->getCoordinatesOfActualLUCorner().getY();
         emit checkIfCanBeBuiled(curentHoldingStructure);
     }
 }
-void CGraphicMainView::buildStructure(bool)
+void CGraphicMainView::buildStructure(CStructure *newStructure, bool good)
 {
-    qDebug()<<"building...";
+   // qDebug()<<"drowing...";
     ///graphical build
-    /*QSize size = tileSize;
-    size.setWidth(size.width()*2);
-    CGraphicBuildingTile *newTile = new CGraphicBuildingTile(curentHoldingStructure,size);
-    scene->addItem(newTile);*/
+    if(curentHoldingStructure!=NULL && good == true)
+    {  // qDebug()<<newStructure->getSizeOnGameMap().getX();
+        CGraphicBuildingTile *newTile = new CGraphicBuildingTile(newStructure,tileSize,this);
+       // qDebug()<<"new structure coordinates: "<<newStructure->getCoordinatesOfActualLUCorner().getX()<<" "<<newStructure->getCoordinatesOfActualLUCorner().getY();
+
+        QBrush brush;
+        brush.setColor(Qt::darkBlue);
+        brush.setStyle(emptyTileHighlightStyle);
+        newTile->setBrush(brush);
+        newTile->setPixmap(findGraphicForBuilding(newStructure));
+        scene->addItem(newTile);
+    }
+}
+void CGraphicMainView::removeTile(CGraphicBuildingTile* item, CStructure *_structure)
+{
+    scene->removeItem(item);
+    //qDebug()<<"remove tile";
+    emit removeStructure(_structure);
 }

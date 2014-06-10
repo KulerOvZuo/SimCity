@@ -17,13 +17,15 @@ private:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
 protected:
     QSize tileSize;
     QBrush brush;
     bool moving;
+    QPixmap pixMap;
 
 public:
-    CGraphicGameTile(QSize size, QObject *sender = 0);
+    CGraphicGameTile(QSize tileSize, QObject *sender = 0);
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -31,6 +33,7 @@ public:
     void setTileSize(QSize _size);
     void setBrush(QBrush brush);
     void setMoving(bool _mov);
+    void setPixmap(QPixmap _map);
 
 signals:
     void mouseClicked(QPointF,QGraphicsSceneMouseEvent *);

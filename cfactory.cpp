@@ -10,9 +10,9 @@ void CFactory::sellProducts(CProducts _prod)
 { Q_UNUSED(_prod);
 }
 CLightFactory::CLightFactory() : CFactory()
-{}
+{   sizeOnGameMap = CCoordinates(3,3);}
 CLightFactory::CLightFactory(const CLightFactory& _F) : CFactory(_F)
-{}
+{   sizeOnGameMap = _F.getSizeOnGameMap();}
 void CLightFactory::sellProducts(CProducts _prod)
 {   _prod.restoreIfNotPossitiveNONeeds();
     income += (_prod.getLight())*(city->getMarket()->getActualProductsCost().getLight());
@@ -25,9 +25,9 @@ void CLightFactory::sellProducts(CProducts _prod)
 }
 
 CHeavyFactory::CHeavyFactory(): CFactory()
-{}
+{   sizeOnGameMap = CCoordinates(4,3);}
 CHeavyFactory::CHeavyFactory(const CHeavyFactory& _F) : CFactory(_F)
-{}
+{   sizeOnGameMap = _F.getSizeOnGameMap();}
 void CHeavyFactory::sellProducts(CProducts _prod)
 {   _prod.restoreIfNotPossitiveNONeeds();
     income += (_prod.getHeavy())*city->getMarket()->getActualProductsCost().getHeavy();

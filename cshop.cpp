@@ -167,8 +167,8 @@ double CShop::getIncome() const
 
 ///CSmallShop
 CSmallShop::CSmallShop() : CShop()
-{}
+{   sizeOnGameMap = CCoordinates(3,2);}
 CSmallShop::CSmallShop(const CSmallShop& _S): CShop(_S)
-{}
+{   sizeOnGameMap = _S.getSizeOnGameMap();}
 CSmallShop::~CSmallShop()
 {}

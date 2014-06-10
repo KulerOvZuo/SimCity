@@ -1,6 +1,26 @@
 #ifndef ENUMERATORS_H
 #define ENUMERATORS_H
 
+//graphic
+#define emptyTileHighlightStyle Qt::Dense3Pattern
+
+#define housePixmapSource "://house.jpg"
+#define blocksPixmapSource "://blocks.jpg"
+#define lawnPixmapSource "://lawn.jpg"
+#define parkPixmapSource "://park.jpg"
+#define officePixmapSource "://office.jpg"
+#define shopPixmapSource "://shop.jpg"
+#define schoolPixmapSource "://school.jpg"
+#define cinemaPixmapSource "://cinema.jpg"
+#define farmPixmapSource "://farm.jpg"
+#define lightPixmapSource "://light industry.jpg"
+#define heavyPixmapSource "://heavy industry.jpg"
+#define publicPixmapSource "://publicutility.jpg"
+#define straightPixmapSource "://straight.jpg"
+#define crossPixmapSource "://cross.jpg"
+#define turningPixmapSource "://turning.jpg"
+#define noImagePixmapSource "://noimage.jpg"
+
 //map
 #define trafficSquare 10
 #define roadTrafficCapacity 10

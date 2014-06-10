@@ -18,6 +18,6 @@ void CFoodProduction::sellProducts(CProducts _prod)
 }
 
 CFarm::CFarm() : CFoodProduction()
-{}
+{   sizeOnGameMap = CCoordinates(3,3);}
 CFarm::CFarm(const CFarm& _F) : CFoodProduction(_F)
-{}
+{   sizeOnGameMap = _F.getSizeOnGameMap();}

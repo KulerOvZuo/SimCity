@@ -16,17 +16,24 @@ private:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
-    void connectAll();
+    void connectAll(QObject *sender);
 protected:
     CStructure* structure;
     bool selected;
-    QPixmap pixMap;
+    bool fullyBuilded;
 
     QAction *showInfoAct;
     QAction *destroyAct;
 public:
-    CGraphicBuildingTile(CStructure* _structure, QSize size, QObject *sender = 0);
+    CGraphicBuildingTile(CStructure* _structure, QSize tileSize, QObject *sender = 0);
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+    CStructure* getStructure();
+signals:
+    void destroySignal(CGraphicBuildingTile *);
+    void destroySignal(CGraphicBuildingTile *,CStructure *);
+    void showInfoSignal(CGraphicBuildingTile *);
 private slots:
     void destroy();
     void showInfo();
