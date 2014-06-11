@@ -40,7 +40,7 @@ void CDumpStation::setProperUtility(double _utility)
 
 ///allon1
 CPublicUtilityBuildingAllInOne::CPublicUtilityBuildingAllInOne(): CPublicUtilityBuilding()
-{   sizeOnGameMap = CCoordinates(3,3);}
+{   sizeOnGameMap = CCoordinates(8,5);}
 CPublicUtilityBuildingAllInOne::CPublicUtilityBuildingAllInOne(const CPublicUtilityBuildingAllInOne& _P): CPublicUtilityBuilding(_P)
 {   sizeOnGameMap = _P.getSizeOnGameMap();}
 void CPublicUtilityBuildingAllInOne::setProperUtility(double _utility)

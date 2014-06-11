@@ -10,7 +10,7 @@ void CFactory::sellProducts(CProducts _prod)
 { Q_UNUSED(_prod);
 }
 CLightFactory::CLightFactory() : CFactory()
-{   sizeOnGameMap = CCoordinates(3,3);}
+{   sizeOnGameMap = CCoordinates(4,3);}
 CLightFactory::CLightFactory(const CLightFactory& _F) : CFactory(_F)
 {   sizeOnGameMap = _F.getSizeOnGameMap();}
 void CLightFactory::sellProducts(CProducts _prod)
@@ -25,7 +25,7 @@ void CLightFactory::sellProducts(CProducts _prod)
 }
 
 CHeavyFactory::CHeavyFactory(): CFactory()
-{   sizeOnGameMap = CCoordinates(4,3);}
+{   sizeOnGameMap = CCoordinates(5,4);}
 CHeavyFactory::CHeavyFactory(const CHeavyFactory& _F) : CFactory(_F)
 {   sizeOnGameMap = _F.getSizeOnGameMap();}
 void CHeavyFactory::sellProducts(CProducts _prod)

@@ -1,6 +1,8 @@
 #include "cgraphicbuildingtile.h"
 #include <QSize>
 #include <QMenu>
+#include "croad.h"
+#include "cgreenterrain.h"
 
 CGraphicBuildingTile::CGraphicBuildingTile(CStructure* _structure,QSize tileSize, QObject *sender) : CGraphicGameTile(tileSize,sender)
 {
@@ -20,8 +22,8 @@ void CGraphicBuildingTile::paint(QPainter *painter, const QStyleOptionGraphicsIt
     Q_UNUSED(option);
     Q_UNUSED(widget);
     //this->setToolTip(QString("Empty field\nPos(%1,%2)").arg(this->pos().x()/tileSize.width(),1).arg(this->pos().y()/tileSize.height(),1));
-    if(selected==false)
-        painter->setPen(QPen(Qt::green,1,Qt::DotLine,Qt::RoundCap,Qt::RoundJoin));
+    if(selected==true)
+        painter->setPen(QPen(Qt::green,3,Qt::DotLine,Qt::RoundCap,Qt::RoundJoin));
 
     painter->setOpacity(1);
     painter->setBrush(brush);
@@ -31,12 +33,31 @@ void CGraphicBuildingTile::paint(QPainter *painter, const QStyleOptionGraphicsIt
     QRectF pixMapRectF;
     pixMapRectF =QRectF(0,0,pixMap.size().width(),pixMap.size().height());
     painter->rotate(0);
-    if(structure->getTurnedDirection().getDirUp() == false && structure->getTurnedDirection().getDirDown() == false)
-    {   QPixmap temp(pixMap);
-        painter->translate(rect.height(),0);
+    ///[1]
+    QPixmap temp(pixMap);
+
+    if(structure->getTurnedDirection().getDirRight())
+    {   painter->translate(rect.height(),0);
         painter->rotate(90);
         rect = QRectF(0,-tileSize.height()*(structure->getSizeOnGameMap().getX()-structure->getSizeOnGameMap().getY()),rect.height(),rect.width());
     }
+    if(structure->getTurnedDirection().getDirDown())
+    {   painter->rotate(180);
+        painter->translate(-rect.width(),-rect.height());
+    }
+    if(structure->getTurnedDirection().getDirLeft())
+    {   painter->translate(rect.width(),rect.height());
+        painter->rotate(-90);
+        rect = QRectF(0,-tileSize.height()*(structure->getSizeOnGameMap().getX()-structure->getSizeOnGameMap().getY()),rect.height(),rect.width());
+        painter->translate(0,-rect.width());
+    }
+
+    ///[/1]
+    if(dynamic_cast<CRoad*>(structure)==NULL && dynamic_cast<CLawn*>(structure)==NULL)
+    {   painter->setPen(QPen(QColor(50,110,155),2,Qt::DotLine,Qt::RoundCap,Qt::RoundJoin));
+        painter->drawRect(rect);}
+    QPixmap _lawn = QPixmap(lawnPixmapSource);
+    painter->drawPixmap(rect,_lawn,QRectF(0,0,_lawn.width(),_lawn.height()));
     painter->drawPixmap(rect,pixMap,pixMapRectF);
 }
 

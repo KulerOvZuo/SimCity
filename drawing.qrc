@@ -2,23 +2,22 @@
     <qresource prefix="/">
         <file>Time-For-Lunch-2.jpg</file>
         <file>textureFlip.jpg</file>
-        <file>copy.png</file>
-        <file>house.jpg</file>
-        <file>blocks.jpg</file>
-        <file>cinema.jpg</file>
         <file>cross.jpg</file>
-        <file>farm.jpg</file>
-        <file>heavy industry.jpg</file>
-        <file>lawn.jpg</file>
-        <file>light industry.jpg</file>
-        <file>office.jpg</file>
-        <file>park.jpg</file>
-        <file>publicutility.jpg</file>
-        <file>school.jpg</file>
-        <file>service.jpg</file>
-        <file>shop.jpg</file>
         <file>straight.jpg</file>
         <file>turning.jpg</file>
         <file>noimage.jpg</file>
+        <file>blocks.png</file>
+        <file>cinema.png</file>
+        <file>heavy.png</file>
+        <file>house.png</file>
+        <file>light.png</file>
+        <file>office.png</file>
+        <file>park.jpg</file>
+        <file>public.png</file>
+        <file>School.png</file>
+        <file>shop.png</file>
+        <file>food.png</file>
+        <file>park.png</file>
+        <file>lawn.png</file>
     </qresource>
 </RCC>

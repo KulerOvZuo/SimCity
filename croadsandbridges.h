@@ -16,7 +16,7 @@ public:
     CRoadsAndBridges(const CRoadsAndBridges& _R);
 
     bool rotate(Erotation rotateAngle);
-    bool checkIfCanBeBuiled();
+    virtual bool checkIfCanBeBuiled() const;
 
     void setAllRoadAndBridges(double _capacity,bool _water,CDirections _dir);
     bool setOnWater(bool _water);

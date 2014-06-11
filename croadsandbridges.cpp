@@ -24,30 +24,30 @@ bool CRoadsAndBridges::rotate(Erotation rotateAngle)
     CStructure::rotate(rotateAngle);
     return directions.rotate(rotateAngle);
 }
-bool CRoadsAndBridges::checkIfCanBeBuiled()
+bool CRoadsAndBridges::checkIfCanBeBuiled() const
 {
     if(CStructure::checkIfCanBeBuiled() == true) //place if free
     {   ///check if can be connected to nearly roads
         int x;
         int y;
-        qDebug()<<"road building checking";
+       // qDebug()<<"road building checking";
         for(int i=0; i<((city->getMapOfStructures())->getAllRoadsAndBridges()).count(); i++) //find roads next to this place
         {   x=(((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getCoordinatesOfActualLUCorner().getX();
             y=(((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getCoordinatesOfActualLUCorner().getY();
-            if(coordinatesOfActualLUCorner.getX() == x && coordinatesOfActualLUCorner.getY()-1 ==y) //searched on the UP
+            if(coordinatesOfActualLUCorner.getX() == x && coordinatesOfActualLUCorner.getY() == y+1) //searched on the UP
             {   ///if this road and other nearly road cant be connected, return false
                 if(directions.getDirUp() != (((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getDirections().getDirDown())
                     return false;
             }
-            if(coordinatesOfActualLUCorner.getX()+1 == x && coordinatesOfActualLUCorner.getY() ==y) //searched on the RIGHT
+            if(coordinatesOfActualLUCorner.getX() == x-1 && coordinatesOfActualLUCorner.getY() ==y) //searched on the RIGHT
             {   if(directions.getDirRight() != (((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getDirections().getDirLeft())
                     return false;
             }
-            if(coordinatesOfActualLUCorner.getX() == x && coordinatesOfActualLUCorner.getY()+1 ==y) //searched on the DOWN
+            if(coordinatesOfActualLUCorner.getX() == x && coordinatesOfActualLUCorner.getY() ==y-1) //searched on the DOWN
             {   if(directions.getDirDown() != (((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getDirections().getDirUp())
                     return false;
             }
-            if(coordinatesOfActualLUCorner.getX()-1 == x && coordinatesOfActualLUCorner.getY() ==y) //searched on the LEFT
+            if(coordinatesOfActualLUCorner.getX() == x+1 && coordinatesOfActualLUCorner.getY() ==y) //searched on the LEFT
             {   if(directions.getDirLeft() != (((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getDirections().getDirRight())
                     return false;
             }

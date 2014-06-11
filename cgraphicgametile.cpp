@@ -18,21 +18,20 @@ CGraphicGameTile::CGraphicGameTile(QSize tileSize, QObject *sender) : QGraphicsO
     {   connect(sender,SIGNAL(repaintAreaUnderBuilding(QBrush,QSize,QSize)),this,SLOT(repaintTile(QBrush,QSize,QSize)));
         setParent(sender);}
 }
-
 void CGraphicGameTile::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     //setCursor(Qt::ClosedHandCursor);
      //QPointF pos =this->scenePos();
     // emit mouseClicked(pos,event);
     Q_UNUSED(event);
-    qDebug()<<"asdasd";
 }
 void CGraphicGameTile::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     //Q_UNUSED(event);
     QPointF pos =this->scenePos();
    // qDebug()<<pos.x()<<" "<<pos.y();
-    emit mouseClicked(pos,event);
+    //qDebug()<<"clicked";
+    emit mouseClicked(this,pos,event);
     //setCursor(Qt::ClosedHandCursor);
 }
 void CGraphicGameTile::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
@@ -80,16 +79,18 @@ void CGraphicGameTile::setPixmap(QPixmap _map)
 {   pixMap = _map;}
 void CGraphicGameTile::repaintTile(QBrush brush, QSize pos, QSize size)
 {
-    //qDebug()<<"repaint"<<this->pos().x();
-   // this->scenePos();
+    pos += QSize(-0.1,-0.1);
     if(moving==false)
-    {    if(((this->pos().x()/tileSize.width()) >= pos.width() && (this->pos().x()/tileSize.width()) <(pos+size).width()) )
+    {   if(((this->pos().x()/tileSize.width()) >= pos.width() && (this->pos().x()/tileSize.width()) <(pos+size).width()) )
         { // qDebug()<<"repaintx";
            if((this->pos().y()/tileSize.height()) >= pos.height() && (this->pos().y()/tileSize.height()) < (pos.height()+abs(size.height())))
            {   //qDebug()<<"repaintxy";
                //qDebug()<<"tilex: "<<this->pos().x()/50;
               // qDebug()<<"tiley: "<<this->pos().y()/50;
                this->brush = brush;
-               this->update();}
+               //this->show();
+               this->update();
+           }
         }}
 }
+

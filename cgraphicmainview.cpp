@@ -58,7 +58,7 @@ void CGraphicMainView::initializeGameMap()
         for(int y=0; y<gameMapSize.height();y++)
         {   CGraphicGameTile *newTile = new CGraphicGameTile(tileSize,this);
             newTile->setPos(x*(tileSize.width()),y*(tileSize.height()));
-            connect(newTile,SIGNAL(mouseClicked(QPointF,QGraphicsSceneMouseEvent*)),this,SLOT(emptyTileMouseClicked(QPointF,QGraphicsSceneMouseEvent*)));
+            connect(newTile,SIGNAL(mouseClicked(CGraphicGameTile*,QPointF,QGraphicsSceneMouseEvent*)),this,SLOT(emptyTileMouseClicked(CGraphicGameTile*,QPointF,QGraphicsSceneMouseEvent*)));
             scene->addItem(newTile);
         }
     scene->update();
@@ -163,10 +163,11 @@ void CGraphicMainView::keyPressEvent(QKeyEvent *event)
             this->repaintAreaUnderBuilding(brush,pos,QSize(_x,_y));
 
             curentHoldingStructure->rotate(rightRot);
-            if(movingTile->rotation() == 90)
+            movingTile->setRotation(movingTile->rotation()+90);
+            /*if(movingTile->rotation() == 90)
                 movingTile->setRotation(0);
             else
-                movingTile->setRotation(90);
+                movingTile->setRotation(90);*/
 
             ///drawing new
             _x = curentHoldingStructure->getSizeOnGameMap().getX();
@@ -244,20 +245,19 @@ void CGraphicMainView::newStructureChosen(CStructure *structure)
 void CGraphicMainView::mouseMoveRepaint(QMouseEvent *event)
 {
     ///if we are holding structure, change colors of backgroud tiles
-
     if(structureHolding)
     {   ///[1]
         QPoint cursorPos;
-        cursorPos = mapFromParent(event->pos());
+        cursorPos = event->pos();
         QPointF pointF = mapToScene(cursorPos);
         cursorPos.setX(pointF.x());
         cursorPos.setY(pointF.y());
-        qDebug()<<(int)(cursorPos.x()/tileSize.width())<<" "<<(int)(cursorPos.y()/tileSize.height());
+
         ///[/1]
 
         movingTile->setPos(cursorPos+QPoint(30/actualFactor,30/actualFactor));
-
-        if((abs(beforeCursorPoint.x()-cursorPos.x())*20>tileSize.width()/actualFactor) || (abs(beforeCursorPoint.y()-cursorPos.y())*20>tileSize.height()/actualFactor))
+        //if((abs(beforeCursorPoint.x()-cursorPos.x())*20>tileSize.width()/actualFactor) || (abs(beforeCursorPoint.y()-cursorPos.y())*20>tileSize.height()/actualFactor))
+        if(1)
         {  // qDebug()<<"size";
             int _x = curentHoldingStructure->getSizeOnGameMap().getX();
             int _y = curentHoldingStructure->getSizeOnGameMap().getY();
@@ -278,15 +278,20 @@ void CGraphicMainView::mouseMoveRepaint(QMouseEvent *event)
             brush.setStyle(emptyTileHighlightStyle);
             this->repaintAreaUnderBuilding(brush,pos,QSize(_x,_y));
         }
+
         }
+    this->repaint();
 }
-void CGraphicMainView::emptyTileMouseClicked(QPointF pos, QGraphicsSceneMouseEvent *event)
+void CGraphicMainView::emptyTileMouseClicked(CGraphicGameTile* tileClicked, QPointF pos, QGraphicsSceneMouseEvent *event)
 {
+    Q_UNUSED(pos);
     Q_UNUSED(event);
     if(structureHolding)
     {  // qDebug()<<"clicked";
         //qDebug()<<"second: "<<pos.x()<<" "<<pos.y();
-        CCoordinates _C = CCoordinates(pos.x()/tileSize.width(),pos.y()/tileSize.height());
+        //CCoordinates _C = CCoordinates(pos.x()/tileSize.width(),pos.y()/tileSize.height());
+        CCoordinates _C = CCoordinates(tileClicked->pos().x()/tileSize.width(),tileClicked->pos().y()/tileSize.height());
+        //qDebug()<<"tile clicked pos: "<<tileClicked->pos().x()/tileSize.width()<<" "<<tileClicked->pos().y()/tileSize.height();
         curentHoldingStructure->setCoordinatesOfActualLUCorner(_C);
        // qDebug()<<"structure coordinates: "<<curentHoldingStructure->getCoordinatesOfActualLUCorner().getX()<<" "<<curentHoldingStructure->getCoordinatesOfActualLUCorner().getY();
         emit checkIfCanBeBuiled(curentHoldingStructure);

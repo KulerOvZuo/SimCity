@@ -36,9 +36,9 @@ public:
     void setPixmap(QPixmap _map);
 
 signals:
-    void mouseClicked(QPointF,QGraphicsSceneMouseEvent *);
+    void mouseClicked(CGraphicGameTile*, QPointF, QGraphicsSceneMouseEvent *);
 private slots:
-    void repaintTile(QBrush,QSize,QSize);  
+    void repaintTile(QBrush,QSize,QSize);
 };
 
 #endif // CGRAPHICGAMETILE_H

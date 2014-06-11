@@ -66,7 +66,7 @@ void CSchool::setActualEducationIndicator(double _actual)
 
 ///CSchoolALLin1
 CSchoolAllInOne::CSchoolAllInOne() : CSchool()
-{   sizeOnGameMap = CCoordinates(3,2);}
+{   sizeOnGameMap = CCoordinates(4,3);}
 CSchoolAllInOne::CSchoolAllInOne(const CSchoolAllInOne& _S) : CSchool(_S)
 {   sizeOnGameMap = _S.getSizeOnGameMap();}
 CSchoolAllInOne::~CSchoolAllInOne()

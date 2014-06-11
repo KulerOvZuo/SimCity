@@ -374,7 +374,8 @@ void MainWindow::canBeBuiledStructure(CStructure *structure)
                 if(city->addStructureProperly(_newS))
                 {   //qDebug()<<"building added";
                     _newS->build();
-                    city->addMoney(_newS->getBuildCost());
+                    _newS->setBuildCost(200);
+                    city->addMoney(-_newS->getBuildCost());
                     //qDebug()<<" newS: "<<_newS->getCoordinatesOfActualLUCorner().getX()<<" "<<_newS->getCoordinatesOfActualLUCorner().getY();
                     statusBar()->showMessage("Builded.");
                     emit canBeBuiled(_newS,true);}

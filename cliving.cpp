@@ -753,12 +753,12 @@ CPeopleNeeds CLiving::getPeopleNeeds() const
 
 ///CBLocks
 CBlocks::CBlocks() : CLiving()
-{   sizeOnGameMap = CCoordinates(4,2);}
+{   sizeOnGameMap = CCoordinates(3,4);}
 CBlocks::CBlocks(const CBlocks& _B): CLiving(_B)
 {   sizeOnGameMap = _B.getSizeOnGameMap();}
 
 ///CHouse
 CHouse::CHouse(): CLiving()
-{   sizeOnGameMap = CCoordinates(2,2);}
+{   sizeOnGameMap = CCoordinates(3,2);}
 CHouse::CHouse(const CHouse& _H): CLiving(_H)
 {   sizeOnGameMap = _H.getSizeOnGameMap();}

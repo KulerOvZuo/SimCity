@@ -19,7 +19,7 @@ double CGreenTerrain::getDisturbance() const
 CPark::CPark() : CGreenTerrain()
 {
     disturbance = parkInf;
-    sizeOnGameMap = CCoordinates(4,3);
+    sizeOnGameMap = CCoordinates(4,2);
 }
 CPark::CPark(const CPark& _P) : CGreenTerrain(_P)
 {   sizeOnGameMap = _P.getSizeOnGameMap();}

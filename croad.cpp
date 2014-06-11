@@ -9,7 +9,7 @@ CRoad::CRoad(const CRoad& _R) : CRoadsAndBridges(_R)
 
 CRoadTurning::CRoadTurning() : CRoad()
 {
-    this->setDirections(CDirections(true,true,false,false));
+    this->setDirections(CDirections(false,true,true,false));
     sizeOnGameMap = CCoordinates(1,1);
 }
 CRoadTurning::CRoadTurning(const CRoadTurning& _R) : CRoad(_R)
@@ -29,7 +29,7 @@ CRoadStraight::CRoadStraight(const CRoadStraight &_R) : CRoad(_R)
 
 CRoadThreeWay::CRoadThreeWay() : CRoad()
 {
-    this->setDirections(CDirections(true,true,false,true));
+    this->setDirections(CDirections(false,true,true,true));
     sizeOnGameMap = CCoordinates(1,1);
 }
 CRoadThreeWay::CRoadThreeWay(const CRoadThreeWay& _R): CRoad(_R)

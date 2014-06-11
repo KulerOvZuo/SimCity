@@ -54,7 +54,7 @@ signals:
 private slots:
     void newStructureChosen(CStructure *);
     void mouseMoveRepaint(QMouseEvent *);
-    void emptyTileMouseClicked(QPointF,QGraphicsSceneMouseEvent *);
+    void emptyTileMouseClicked(CGraphicGameTile*,QPointF,QGraphicsSceneMouseEvent *);
     void buildStructure(CStructure*,bool);
     void removeTile(CGraphicBuildingTile*,CStructure *);
 };
