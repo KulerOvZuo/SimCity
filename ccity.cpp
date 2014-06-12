@@ -1,6 +1,6 @@
 #include "ccity.h"
 
-CCity::CCity() : IDisplayingInterface()
+CCity::CCity()
 {
     market = new CMarket;
     market->setCity(this);
@@ -11,9 +11,6 @@ CCity::CCity() : IDisplayingInterface()
     trafficEngine->setCity(this);
     money =0;
     income=0;
-}
-CCity::CCity(const CCity& _C) : IDisplayingInterface()
-{ Q_UNUSED(_C);
 }
 CCity::~CCity()
 {
@@ -178,7 +175,7 @@ void CCity::addUtilitiesGlobalNeed(CUtilitiesGlobal _U)
     utilitiesGlobalNeed += _U;
 }
 double CCity::publicBuildingsKeepCost()
-{   ///pay for roadsAndBridges, schools, greenterrain, recreation
+{   //pay for roadsAndBridges, schools, greenterrain, recreation
     double _allKeepCosts=0;
     CPeopleEarnings _earn = societyIndicators->getPeopleEarnings();
     for(int i=0; i<mapOfStructures->getAllSchools().count(); i++)
@@ -237,7 +234,7 @@ bool CCity::removeStructureProperly(CStructure* _S)
     //delete _S;
     return false;
 }
-///getters, not const
+//getters, not const
 CUtilitiesGlobal CCity::getUtilitiesGlobalProduction()
 {   return utilitiesGlobalProduction;}
 CUtilitiesGlobal CCity::getUtilitiesGlobalNeed()
@@ -257,7 +254,7 @@ double CCity::getMoney()
 double CCity::getIncome()
 {   return income;}
 
-///setters
+//setters
 void CCity::setUtilitiesGlobalProduction(CUtilitiesGlobal _U)
 {
     utilitiesGlobalProduction = _U;

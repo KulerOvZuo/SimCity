@@ -13,7 +13,6 @@
 
 CGraphicBuildingTile::CGraphicBuildingTile(CStructure* _structure,QSize tileSize, QObject *sender) : CGraphicGameTile(tileSize,sender)
 {
-    selected = false;
     structure=_structure;
     connectAll(sender);
     //setBrush(Qt::black);
@@ -29,8 +28,6 @@ void CGraphicBuildingTile::paint(QPainter *painter, const QStyleOptionGraphicsIt
     Q_UNUSED(option);
     Q_UNUSED(widget);
     //this->setToolTip(QString("Empty field\nPos(%1,%2)").arg(this->pos().x()/tileSize.width(),1).arg(this->pos().y()/tileSize.height(),1));
-    if(selected==true)
-        painter->setPen(QPen(Qt::green,3,Qt::DotLine,Qt::RoundCap,Qt::RoundJoin));
 
     painter->setOpacity(1);
     painter->setBrush(brush);
@@ -40,7 +37,7 @@ void CGraphicBuildingTile::paint(QPainter *painter, const QStyleOptionGraphicsIt
     QRectF pixMapRectF;
     pixMapRectF =QRectF(0,0,pixMap.size().width(),pixMap.size().height());
     painter->rotate(0);
-    ///[1]
+    //[1]
     QPixmap temp(pixMap);
 
     if(structure->getTurnedDirection().getDirRight())
@@ -59,7 +56,7 @@ void CGraphicBuildingTile::paint(QPainter *painter, const QStyleOptionGraphicsIt
         painter->translate(0,-rect.width());
     }
 
-    ///[/1]
+    //[/1]
     if(dynamic_cast<CRoad*>(structure)==NULL && dynamic_cast<CLawn*>(structure)==NULL)
     {   painter->setPen(QPen(QColor(50,110,155),2,Qt::DotLine,Qt::RoundCap,Qt::RoundJoin));
         painter->drawRect(rect);}
@@ -68,15 +65,6 @@ void CGraphicBuildingTile::paint(QPainter *painter, const QStyleOptionGraphicsIt
     painter->drawPixmap(rect,pixMap,pixMapRectF);
 }
 
-void CGraphicBuildingTile::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{   Q_UNUSED(event);
-
-}
-void CGraphicBuildingTile::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{Q_UNUSED(event);
-}
-void CGraphicBuildingTile::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{Q_UNUSED(event);}
 void CGraphicBuildingTile::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
     QMenu menu;
@@ -105,7 +93,7 @@ void CGraphicBuildingTile::showInfo()
 {  this->display(structure->infoToDisplay());}
 void CGraphicBuildingTile::display(QList<QString> _toDisplay)
 {
-    QDialog* infoDialog = new QDialog(dynamic_cast<QWidget*>(this->parent()));
+    QDialog* infoDialog = new QDialog;//(dynamic_cast<QWidget*>(this->parent()));
     QVBoxLayout* newLayout = new QVBoxLayout();
     int q=0;
     QScrollArea* scrolArea = new QScrollArea(dynamic_cast<QWidget*>(this->parent()));
@@ -124,9 +112,10 @@ void CGraphicBuildingTile::display(QList<QString> _toDisplay)
     infoDialog->setLayout(newLayout);
     infoDialog->setAutoFillBackground(true);
     infoDialog->setPalette(pal);
-    infoDialog->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::Dialog);
+    infoDialog->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::Dialog);
     scrolArea->setWidget(infoDialog);
-    scrolArea->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::Dialog);
-    scrolArea->setMaximumHeight(400);
+    scrolArea->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::Dialog);
+    scrolArea->setMaximumHeight(infoDialog->size().height()+2);
+    scrolArea->setWindowTitle(QString("Info about"));
     scrolArea->show();
 }

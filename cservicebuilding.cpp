@@ -33,6 +33,11 @@ QList<QString> CServiceBuilding::infoToDisplay()
                 arg(actualServiceCost.getService1(),1,'f',2));
     return info;
 }
+bool CServiceBuilding::setRandomName(int size)
+{  Q_UNUSED(size);
+    CStructure::setRandomName(3);
+return true;}
+
 bool CServiceBuilding::addLivingTolist(CPeopleNeedsBuildingPointer* _living)
 {   bool free = true;
     if(dynamic_cast<CLiving*>(_living->getBuilding()) == NULL)
@@ -66,7 +71,7 @@ double CServiceBuilding::countBuildingEfficiency()
     if(baseService.getService1()>0)
     {   ratio = serviceNeedFromPeople.getService1()/baseService.getService1();}
     double multiply;
-    if(ratio < 0.8) ///0-0.8 ratio
+    if(ratio < 0.8) //0-0.8 ratio
     {   multiply=1;}
     else
     {   if(ratio < 1.5)
@@ -141,7 +146,7 @@ void CServiceBuilding::setActualServiceCost(CService _actual)
 void CServiceBuilding::setIncome(double _inc)
 {   income =  _inc;}
 
-///COffice
+//COffice
 COffice::COffice() : CServiceBuilding()
 {   sizeOnGameMap = CCoordinates(2,3);}
 COffice::COffice(const COffice& _O): CServiceBuilding(_O)

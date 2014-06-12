@@ -6,11 +6,10 @@
 #include "mainwindow.h"
 
 CGraphicMainView::CGraphicMainView(QSize _gameMap, QSize _tileSize,QWidget *parent) :
-    QGraphicsView(parent), tileSize(_tileSize),gameMapSize(_gameMap)
+    QGraphicsView(parent),IDisplayingInterface(), tileSize(_tileSize),gameMapSize(_gameMap)
 {
     curentHoldingStructure = NULL;
     movingTile=NULL;
-    structureSelected=false;
     structureHolding=false;
     beforeCursorPoint=QPoint(0,0);
     setFocusPolicy(Qt::StrongFocus);
@@ -68,7 +67,7 @@ QPixmap CGraphicMainView::findGraphicForBuilding(CStructure *_S)
     //qDebug()<<"picture finding..";
     if(dynamic_cast<CStructure*>(_S)==NULL)
     {   return QPixmap(noImagePixmapSource);
-        qDebug()<<"no image";
+      //  qDebug()<<"no image";
     }
     if(dynamic_cast<CHouse*>(_S) !=NULL)
     {  // qDebug()<<"house";
@@ -150,7 +149,7 @@ void CGraphicMainView::mouseMoveEvent(QMouseEvent *event)
 }
 void CGraphicMainView::keyPressEvent(QKeyEvent *event)
 {
-    ///rotate
+    //rotate
     if(event->key()==Qt::Key_R)
     {   if(curentHoldingStructure!=NULL && structureHolding==true)
         {
@@ -160,7 +159,7 @@ void CGraphicMainView::keyPressEvent(QKeyEvent *event)
             pos.setHeight(beforeCursorPoint.y()/tileSize.height());
             int _x = curentHoldingStructure->getSizeOnGameMap().getX();
             int _y = curentHoldingStructure->getSizeOnGameMap().getY();
-            ///cleaning before
+            //cleaning before
             QBrush brush;
             brush.setColor(Qt::NoPen);
             this->repaintAreaUnderBuilding(brush,pos,QSize(_x,_y));
@@ -172,7 +171,7 @@ void CGraphicMainView::keyPressEvent(QKeyEvent *event)
             else
                 movingTile->setRotation(90);*/
 
-            ///drawing new
+            //drawing new
             _x = curentHoldingStructure->getSizeOnGameMap().getX();
             _y = curentHoldingStructure->getSizeOnGameMap().getY();
            // qDebug()<<"x: "<<_x<<"y: "<<_y;
@@ -183,7 +182,7 @@ void CGraphicMainView::keyPressEvent(QKeyEvent *event)
             this->repaintAreaUnderBuilding(brush,pos,QSize(_x,_y));
         }
     }
-    ///stop handling structure
+    //stop handling structure
     if(event->key()==Qt::Key_Escape)
     {  // qDebug()<<"esc";
         structureHolding=false;
@@ -246,16 +245,16 @@ void CGraphicMainView::newStructureChosen(CStructure *structure)
 }
 void CGraphicMainView::mouseMoveRepaint(QMouseEvent *event)
 {
-    ///if we are holding structure, change colors of backgroud tiles
+    //if we are holding structure, change colors of backgroud tiles
     if(structureHolding)
-    {   ///[1]
+    {   //[1]
         QPoint cursorPos;
         cursorPos = event->pos();
         QPointF pointF = mapToScene(cursorPos);
         cursorPos.setX(pointF.x());
         cursorPos.setY(pointF.y());
 
-        ///[/1]
+        //[/1]
 
         movingTile->setPos(cursorPos+QPoint(10/actualFactor,10/actualFactor));
         movingTile->setZValue(5);
@@ -303,7 +302,7 @@ void CGraphicMainView::emptyTileMouseClicked(CGraphicGameTile* tileClicked, QPoi
 void CGraphicMainView::buildStructure(CStructure *newStructure, bool good)
 {
    // qDebug()<<"drowing...";
-    ///graphical build
+    //graphical build
     if(curentHoldingStructure!=NULL && good == true)
     {  // qDebug()<<newStructure->getSizeOnGameMap().getX();
         CGraphicBuildingTile *newTile = new CGraphicBuildingTile(newStructure,tileSize,this);

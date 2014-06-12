@@ -19,13 +19,13 @@ MainWindow::MainWindow(QString userName,QSize mapSize, QSize tileSize, QWidget *
     createCity();
 
     playerName = userName;
-    ///[1]timer
+    //[1]timer
     autoTick = false;
     tickTime = 5000;
     tickTimer = new QTimer(this);
     tickTimer->setSingleShot(true);
     connect(tickTimer,SIGNAL(timeout()),this,SLOT(autoTickTimeout()));
-    ///[/1]
+    //[/1]
 
     mainWidget = new QWidget(this);
     QHBoxLayout *mainLayout = new QHBoxLayout();
@@ -42,13 +42,13 @@ MainWindow::MainWindow(QString userName,QSize mapSize, QSize tileSize, QWidget *
     mainView->show();
     mainWidget->setLayout(mainLayout);
 
-    ///[2] creating backgroud map
+    //[2] creating backgroud map
     QPixmap bgPix("://Time-For-Lunch-2.jpg");
     QPalette pal(palette());
     pal.setBrush(QPalette::Background,bgPix);
     mainWidget->setAutoFillBackground(true);
     mainWidget->setPalette(pal);
-    ///[/2]
+    //[/2]
 
     this->setCentralWidget(mainWidget);
 
@@ -203,6 +203,7 @@ void MainWindow::createToolBar()
     tickTimeSpinBox->setSingleStep(500);
     connect(tickTimeSpinBox,SIGNAL(valueChanged(int)),this,SLOT(autoTickChangedValue()));
 
+    mainToolBar->addSeparator();
     mainToolBar->addWidget(name);
     mainToolBar->addSeparator();
     mainToolBar->addWidget(moneyText);
@@ -502,7 +503,7 @@ void MainWindow::canBeBuiledStructure(CStructure *structure)
     structure->setCity(city);
    // qDebug()<<"checking...";
     if(structure->checkIfCanBeBuiled())
-    {   ///model build
+    {   //model build
        // qDebug()<<structure->getCoordinatesOfActualLUCorner().getX();
         //CStructure *_newS = new CBlocks(*(dynamic_cast<CBlocks*>(structure)));
         CStructure* _newS = makeNewStructureProperly(structure);
@@ -518,6 +519,7 @@ void MainWindow::canBeBuiledStructure(CStructure *structure)
                 if(city->addStructureProperly(_newS))
                 {   //qDebug()<<"building added";
                     _newS->build();
+                    _newS->setRandomName(0);
                     money->setText(QString::number(city->getMoney())+" $");
                    // this->update();
                     //qDebug()<<" newS: "<<_newS->getCoordinatesOfActualLUCorner().getX()<<" "<<_newS->getCoordinatesOfActualLUCorner().getY();
@@ -583,7 +585,7 @@ void MainWindow::societyStatistics()
     mainLayout->addWidget(mainToolBox);
     int frameStyle = QFrame::Sunken | QFrame::Panel;
 
-    ///[1] people earnings
+    //[1] people earnings
     QLabel *basePeopleEarningsLeadLabel = new QLabel(QString("Base lead worker earning [$]"));
     QSpinBox* basePeopleEarningsLead = new QSpinBox;
     basePeopleEarningsLead->setRange(0,10000);
@@ -619,7 +621,7 @@ void MainWindow::societyStatistics()
     basePeopleEarningsLow->setValue(city->getSocietyIndicators()->getBasePeopleEarnings().getLowWorkerEarn());
     connect(basePeopleEarningsLow,SIGNAL(valueChanged(int)),this,SLOT(basePeopleEarningsChangedLow(int)));
 
-    ///[1.1]
+    //[1.1]
     QLabel *actualPeopleEarningsLeadLabel = new QLabel(QString("Actual lead worker earning [$]"));
     QSpinBox* actualPeopleEarningsLead = new QSpinBox;
     actualPeopleEarningsLead->setRange(0,10000);
@@ -682,8 +684,8 @@ void MainWindow::societyStatistics()
     baseEarningLayout->addWidget(actualPeopleEarningsLow,10,1);
     baseEarningLayout->addItem(new QSpacerItem(0,0,QSizePolicy::Ignored,QSizePolicy::MinimumExpanding),11,0);
     mainToolBox->addItem(page1,QTranslator::tr("People earnings"));
-    ///[/1]
-    ///[2]
+    //[/1]
+    //[2]
     QLabel* livingWorkingLead = new QLabel(QString("Living working lead workers: %1").
                                            arg(city->getSocietyIndicators()->getallLivingWorkingPeople().getLeadWorker(),2));
     livingWorkingLead->setFrameStyle(frameStyle);
@@ -738,8 +740,8 @@ void MainWindow::societyStatistics()
     livingPeople->addItem(new QSpacerItem(0,0,QSizePolicy::Ignored,QSizePolicy::MinimumExpanding),11,0);
     livingPeople->addWidget(unemployment,12,0);
     mainToolBox->addItem(page2,QTranslator::tr("People employment"));
-    ///[/2]
-    ///[3]
+    //[/2]
+    //[3]
     QLabel* allWorkLead = new QLabel(QString("All work for lead workers: %1").
                                            arg(city->getSocietyIndicators()->getAllWorkForPeople().getLeadWorker(),2));
     allWorkLead->setFrameStyle(frameStyle);
@@ -766,7 +768,7 @@ void MainWindow::societyStatistics()
     workForPeople->addWidget(allWorkLow,4,0);
     workForPeople->addItem(new QSpacerItem(0,0,QSizePolicy::Ignored,QSizePolicy::MinimumExpanding),5,0);
     mainToolBox->addItem(page3,QTranslator::tr("All work for people"));
-    ///[/3]
+    //[/3]
     mainToolBox->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::Dialog);
     mainToolBox->show();
 }
@@ -777,7 +779,7 @@ void MainWindow::market()
     mainLayout->addWidget(mainToolBox);
     int frameStyle = QFrame::Sunken | QFrame::Panel;
     Q_UNUSED(frameStyle);
-    ///[1]
+    //[1]
     QLabel *baseProductsCostLabelFood = new QLabel(QString("Base food cost [$]"));
     QSpinBox* baseProductsCostFood = new QSpinBox;
     baseProductsCostFood->setRange(0,10000);
@@ -799,7 +801,7 @@ void MainWindow::market()
     baseProductsCostHeavy->setValue(city->getMarket()->getBaseProductsCost().getHeavy());
     connect(baseProductsCostHeavy,SIGNAL(valueChanged(int)),this,SLOT(baseProductsCostChangedHeavy(int)));
 
-    ///[2]
+    //[2]
     QLabel *actualProductsCostLabelFood = new QLabel(QString("Actual food cost [$]"));
     QSpinBox* actualProductsCostFood = new QSpinBox;
     actualProductsCostFood->setRange(0,10000);
@@ -838,7 +840,7 @@ void MainWindow::market()
     productsCost->addWidget(actualProductsCostHeavy,5,1);
     productsCost->addItem(new QSpacerItem(0,0,QSizePolicy::Ignored,QSizePolicy::MinimumExpanding),6,0);
     mainToolBox->addItem(page1,QTranslator::tr("Products cost"));
-    ///[/3]
+    //[/3]
     mainToolBox->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::Dialog);
     mainToolBox->show();
 }
@@ -873,7 +875,7 @@ void MainWindow::publicUtility()
     utilities->addWidget(neededElectricity,5,0);
     utilities->addItem(new QSpacerItem(0,0,QSizePolicy::Ignored,QSizePolicy::MinimumExpanding),6,0);
     mainToolBox->addItem(page1,QTranslator::tr("Public utilities"));
-    ///[/3]
+    //[/3]
     mainToolBox->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::Dialog);
     mainToolBox->show();
 }

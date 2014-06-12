@@ -45,11 +45,11 @@ public:
     bool checkIfCanBePlaced(CStructure* _S);
     CWorking* getRandomWorkingBuilding();
 
-    ///setters
+    //setters
     void setMapSize(CCoordinates _C);
     bool setMakeMapOfTakenPlaces();
 
-    ///getters
+    //getters
     CCoordinates getMapSize() const;
     bool** getMapOfTakenPlaces() const;
     QVector<CRoadsAndBridges*> getAllRoadsAndBridges() const;

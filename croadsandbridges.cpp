@@ -28,7 +28,7 @@ bool CRoadsAndBridges::rotate(Erotation rotateAngle)
 bool CRoadsAndBridges::checkIfCanBeBuiled() const
 {
     if(CStructure::checkIfCanBeBuiled() == true) //place if free
-    {   ///check if can be connected to nearly roads
+    {   //check if can be connected to nearly roads
         int x;
         int y;
        // qDebug()<<"road building checking";
@@ -36,7 +36,7 @@ bool CRoadsAndBridges::checkIfCanBeBuiled() const
         {   x=(((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getCoordinatesOfActualLUCorner().getX();
             y=(((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getCoordinatesOfActualLUCorner().getY();
             if(coordinatesOfActualLUCorner.getX() == x && coordinatesOfActualLUCorner.getY() == y+1) //searched on the UP
-            {   ///if this road and other nearly road cant be connected, return false
+            {   //if this road and other nearly road cant be connected, return false
                 if(directions.getDirUp() != (((city->getMapOfStructures())->getAllRoadsAndBridges()).at(i))->getDirections().getDirDown())
                     return false;
             }
@@ -66,7 +66,10 @@ QList<QString> CRoadsAndBridges::infoToDisplay()
     info.append(QString("Capacity: %1").arg(capacity,1));
     return info;
 }
-
+bool CRoadsAndBridges::setRandomName(int size)
+{  Q_UNUSED(size);
+    name = QString("Road");
+return true;}
 void CRoadsAndBridges::setAllRoadAndBridges(double _capacity,bool _water,CDirections _dir)
 {
     capacity = _capacity;

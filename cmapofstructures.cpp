@@ -39,7 +39,7 @@ void CMapOfStructures::clearTemporaryForStructures()
 
 bool CMapOfStructures::addStructureProperly(CStructure* _S)
 {
-    if(checkIfBuildingExistsOnLists(_S) == true) ///if exists on any list, dont add
+    if(checkIfBuildingExistsOnLists(_S) == true) //if exists on any list, dont add
         return false;
     if(dynamic_cast<CStructure*>(_S)==NULL)
         return false;
@@ -276,7 +276,7 @@ CWorking* CMapOfStructures::getRandomWorkingBuilding()
     }
     return NULL;
 }
-///setters
+//setters
 void CMapOfStructures::setMapSize(CCoordinates _C)
 {   mapSize = _C;}
 bool CMapOfStructures::setMakeMapOfTakenPlaces()
@@ -295,7 +295,7 @@ bool CMapOfStructures::setMakeMapOfTakenPlaces()
     return true;
 }
 
-///getters
+//getters
 CCoordinates CMapOfStructures::getMapSize() const
 {   return mapSize;}
 bool **CMapOfStructures::getMapOfTakenPlaces() const

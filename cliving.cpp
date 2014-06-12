@@ -72,7 +72,10 @@ QList<QString> CLiving::infoToDisplay()
         info.append(QString("No school connected"));
     return info;
 }
-
+bool CLiving::setRandomName(int size)
+{   Q_UNUSED(size);
+    CStructure::setRandomName(1);
+return true;}
 bool CLiving::searchSetForBetterSchool()
 {
     CSchool* best=NULL;
@@ -95,7 +98,7 @@ bool CLiving::searchSetForBetterSchool()
             actual = temp;}
     }
     if(best != NULL)
-    {   ///need to transfer children
+    {   //need to transfer children
         int _children=getNumberOfLearningPeople().getAllPeople();
         if(schoolConnected != NULL)
         {   schoolConnected->addNOChildren(-_children);
@@ -294,7 +297,7 @@ bool CLiving::changeLivingPlace()
                         bestLiving->addLearningPeople(_L);
                         break;}
                 }
-                ///take children from school
+                //take children from school
                 if(schoolConnected!=NULL)
                 {   this->schoolConnected->addNOChildren(-1*_learning);
                     this->schoolConnected->countSetEducationQuality();}
@@ -328,7 +331,7 @@ double CLiving::giveTaxes(double _tax)
     return tax;
 }
 bool CLiving::countSetInfluanceFromOthers()
-{   ///production
+{   //production
     for(int i=0; i<city->getMapOfStructures()->getAllProductionBuildings().count();i++)
     {   double distance = distanceToOther(city->getMapOfStructures()->getAllProductionBuildings().at(i));
         if(distance<15)
@@ -349,7 +352,7 @@ bool CLiving::countSetInfluanceFromOthers()
             }
         }
     }
-    ///public utility buildings
+    //public utility buildings
     for(int i=0; i<city->getMapOfStructures()->getAllPublicUtilityBuildings().count();i++)
     {   double distance = distanceToOther(city->getMapOfStructures()->getAllPublicUtilityBuildings().at(i));
         if(distance<15)
@@ -362,7 +365,7 @@ bool CLiving::countSetInfluanceFromOthers()
         if(dynamic_cast<CPublicUtilityBuilding*>(city->getMapOfStructures()->getAllPublicUtilityBuildings().at(i)) !=NULL)
             peopleNeeds.addDisturbance(-1*distance*utilityInf);
     }
-    ///other livings
+    //other livings
     for(int i=0; i<city->getMapOfStructures()->getAllLivings().count();i++)
     {   double distance = distanceToOther(city->getMapOfStructures()->getAllLivings().at(i));
         if(distance<10)
@@ -381,7 +384,7 @@ bool CLiving::countSetInfluanceFromOthers()
             {   peopleNeeds.addDisturbance(-1*distance*livingInf);}
         }
     }
-    ///green terrains
+    //green terrains
     for(int i=0; i<city->getMapOfStructures()->getAllGreenTerrains().count();i++)
     {   double distance = distanceToOther(city->getMapOfStructures()->getAllGreenTerrains().at(i));
         if(distance<20)
@@ -398,7 +401,7 @@ bool CLiving::countSetInfluanceFromOthers()
             {    peopleNeeds.addDisturbance(lawnInf*distance);}
         }
     }
-    ///recreation
+    //recreation
     for(int i=0; i<city->getMapOfStructures()->getAllRecreationBuildings().count();i++)
     {   double distance = distanceToOther(city->getMapOfStructures()->getAllRecreationBuildings().at(i));
         if(distance<20)
@@ -534,9 +537,9 @@ void CLiving::searchAndGoToWork()
     double rate =-1;
     double bestRate=-1;
 
-    ///for all lead
+    //for all lead
     for(int l=0; l<livingNotWorkingPeople.getLeadWorker();l++)
-    {   ///search numOfTries times
+    {   //search numOfTries times
         for(int i=0; i<numOfTries; i++)
         {   _W=city->getMapOfStructures()->getRandomWorkingBuilding();
             if(_W != NULL)
@@ -550,7 +553,7 @@ void CLiving::searchAndGoToWork()
                 }
             }
         }
-        ///end of 1 lead
+        //end of 1 lead
         if(best != NULL)
         {   best->addWorkers(CPeople(1,0,0,0,0));
             livingNotWorkingPeople.addLeadWorker(-1);
@@ -560,9 +563,9 @@ void CLiving::searchAndGoToWork()
         bestRate = -1;
         rate = -1;
     }
-    ///for all service
+    //for all service
     for(int l=0; l<livingNotWorkingPeople.getServiceWorker();l++)
-    {   ///search numOfTries times
+    {   //search numOfTries times
         for(int i=0; i<numOfTries; i++)
         {   _W=city->getMapOfStructures()->getRandomWorkingBuilding();
             if(_W != NULL)
@@ -576,7 +579,7 @@ void CLiving::searchAndGoToWork()
                 }
             }
         }
-        ///end of 1 Service
+        //end of 1 Service
         if(best != NULL)
         {   best->addWorkers(CPeople(0,1,0,0,0));
             livingNotWorkingPeople.addServiceWorker(-1);
@@ -586,9 +589,9 @@ void CLiving::searchAndGoToWork()
         bestRate = -1;
         rate = -1;
     }
-    ///for all Light
+    //for all Light
     for(int l=0; l<livingNotWorkingPeople.getLightWorker();l++)
-    {   ///search numOfTries times
+    {   //search numOfTries times
         for(int i=0; i<numOfTries; i++)
         {   _W=city->getMapOfStructures()->getRandomWorkingBuilding();
             if(_W != NULL)
@@ -602,7 +605,7 @@ void CLiving::searchAndGoToWork()
                 }
             }
         }
-        ///end of 1 Light
+        //end of 1 Light
         if(best != NULL)
         {   best->addWorkers(CPeople(0,0,1,0,0));
             livingNotWorkingPeople.addLightWorker(-1);
@@ -612,9 +615,9 @@ void CLiving::searchAndGoToWork()
         bestRate = -1;
         rate = -1;
     }
-    ///for all Heavy
+    //for all Heavy
     for(int l=0; l<livingNotWorkingPeople.getHeavyWorker();l++)
-    {   ///search numOfTries times
+    {   //search numOfTries times
         for(int i=0; i<numOfTries; i++)
         {   _W=city->getMapOfStructures()->getRandomWorkingBuilding();
             if(_W != NULL)
@@ -628,7 +631,7 @@ void CLiving::searchAndGoToWork()
                 }
             }
         }
-        ///end of 1 Heavy
+        //end of 1 Heavy
         if(best != NULL)
         {   best->addWorkers(CPeople(0,0,0,1,0));
             livingNotWorkingPeople.addHeavyWorker(-1);
@@ -638,9 +641,9 @@ void CLiving::searchAndGoToWork()
         bestRate = -1;
         rate = -1;
     }
-    ///for all Low
+    //for all Low
     for(int l=0; l<livingNotWorkingPeople.getLowWorker();l++)
-    {   ///search numOfTries times
+    {   //search numOfTries times
         for(int i=0; i<numOfTries; i++)
         {   _W=city->getMapOfStructures()->getRandomWorkingBuilding();
             if(_W != NULL)
@@ -654,7 +657,7 @@ void CLiving::searchAndGoToWork()
                 }
             }
         }
-        ///end of 1 Low
+        //end of 1 Low
         if(best != NULL)
         {   best->addWorkers(CPeople(0,0,0,0,1));
             livingNotWorkingPeople.addLowWorker(-1);
@@ -797,13 +800,13 @@ CPeopleNeeds CLiving::getPeopleNeeds() const
 { return peopleNeeds;}
 
 
-///CBLocks
+//CBLocks
 CBlocks::CBlocks() : CLiving()
 {   sizeOnGameMap = CCoordinates(3,4);}
 CBlocks::CBlocks(const CBlocks& _B): CLiving(_B)
 {   sizeOnGameMap = _B.getSizeOnGameMap();}
 
-///CHouse
+//CHouse
 CHouse::CHouse(): CLiving()
 {   sizeOnGameMap = CCoordinates(3,2);}
 CHouse::CHouse(const CHouse& _H): CLiving(_H)

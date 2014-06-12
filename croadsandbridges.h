@@ -18,6 +18,7 @@ public:
     bool rotate(Erotation rotateAngle);
     virtual bool checkIfCanBeBuiled() const;
     virtual QList<QString> infoToDisplay();
+    virtual bool setRandomName(int size);
 
     void setAllRoadAndBridges(double _capacity,bool _water,CDirections _dir);
     bool setOnWater(bool _water);

@@ -13,6 +13,7 @@ public:
 
     bool sendUtilitiesToCity();
     virtual void setProperUtility(double _utility);
+    virtual bool setRandomName(int size);
 };
 
 class CPowerStation : public CPublicUtilityBuilding

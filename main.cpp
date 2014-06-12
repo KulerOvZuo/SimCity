@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     CStartingWindow startingWindow;
     startingWindow.show();
 
-    /*
+
     /*
     CHouse* House = new CHouse();
     CShop* shop = new CShop();

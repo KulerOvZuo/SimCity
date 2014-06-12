@@ -14,13 +14,12 @@ CDirections::CDirections(const CDirections& _D)
     dirRight=_D.getDirRight();;
     dirLeft=_D.getDirLeft();
 }
-bool CDirections::setDirections(bool _dirUp, bool _dirRight, bool _dirDown, bool _dirLeft)
+void CDirections::setDirections(bool _dirUp, bool _dirRight, bool _dirDown, bool _dirLeft)
 {
     dirUp=_dirUp;
     dirDown=_dirDown;
     dirRight=_dirRight;
     dirLeft=_dirLeft;
-    return true;
 }
 bool CDirections::rotateRight()
 {   //rotate right - rewrite from left to right

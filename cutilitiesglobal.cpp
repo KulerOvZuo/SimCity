@@ -32,17 +32,14 @@ CUtilitiesGlobal& CUtilitiesGlobal::operator-= (CUtilitiesGlobal const &_U)
     this->dump -= _U.getDump();
     return *this;
 }
-bool CUtilitiesGlobal::setElectricity(double _electr)
+void CUtilitiesGlobal::setElectricity(double _electr)
 { electricity=_electr;
-    return true;
 }
-bool CUtilitiesGlobal::setWater(double _water)
+void CUtilitiesGlobal::setWater(double _water)
 { water=_water;
-    return true;
 }
-bool CUtilitiesGlobal::setDump(double _dump)
+void CUtilitiesGlobal::setDump(double _dump)
 { dump=_dump;
-    return true;
 }
 
 double CUtilitiesGlobal::getElectricity() const

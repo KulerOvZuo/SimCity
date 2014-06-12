@@ -5,6 +5,11 @@
 #include "cutilitiesglobal.h"
 #include "cpeopleneeds.h"
 
+/**
+ * @brief The CBuilding class
+ *
+ *
+ */
 class CBuilding : public CStructureForPeople
 {
 protected:
@@ -18,7 +23,6 @@ public:
     virtual ~CBuilding();
     virtual QList<QString> infoToDisplay();
 
-    ///implement
     virtual bool sendUtilitiesToCity();
     virtual double countIncome();
     virtual bool sendTaxes();

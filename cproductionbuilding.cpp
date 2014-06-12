@@ -22,7 +22,10 @@ QList<QString> CProductionBuilding::infoToDisplay()
      info.append(QString("Income: %1$").arg(income,1,'f',2));
      return info;
 }
-
+bool CProductionBuilding::setRandomName(int size)
+{  Q_UNUSED(size);
+    CStructure::setRandomName(3);
+return true;}
 
 void CProductionBuilding::payWorkers()
 {

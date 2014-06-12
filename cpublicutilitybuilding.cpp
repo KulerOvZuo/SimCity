@@ -13,8 +13,12 @@ void CPublicUtilityBuilding::setProperUtility(double _utility)
 bool CPublicUtilityBuilding::sendUtilitiesToCity()
 {   city->setUtilitiesGlobalProduction((city->getUtilitiesGlobalProduction()) + utilities);
     return true;}
+bool CPublicUtilityBuilding::setRandomName(int size)
+{   Q_UNUSED(size);
+    CStructure::setRandomName(4);
+return true;}
 
-///power
+//power
 CPowerStation::CPowerStation() : CPublicUtilityBuilding()
 {}
 CPowerStation::CPowerStation(const CPowerStation& _P) : CPublicUtilityBuilding(_P)
@@ -22,7 +26,7 @@ CPowerStation::CPowerStation(const CPowerStation& _P) : CPublicUtilityBuilding(_
 void CPowerStation::setProperUtility(double _utility)
 {   setUtilities(CUtilitiesGlobal(_utility,0,0));}
 
-///water
+//water
 CWaterStation::CWaterStation(): CPublicUtilityBuilding()
 {}
 CWaterStation::CWaterStation(const CWaterStation& _W): CPublicUtilityBuilding(_W)
@@ -30,7 +34,7 @@ CWaterStation::CWaterStation(const CWaterStation& _W): CPublicUtilityBuilding(_W
 void CWaterStation::setProperUtility(double _utility)
 {   setUtilities(CUtilitiesGlobal(0,_utility,0));}
 
-///dump
+//dump
 CDumpStation::CDumpStation(): CPublicUtilityBuilding()
 {}
 CDumpStation::CDumpStation(const CDumpStation& _D): CPublicUtilityBuilding(_D)
@@ -38,7 +42,7 @@ CDumpStation::CDumpStation(const CDumpStation& _D): CPublicUtilityBuilding(_D)
 void CDumpStation::setProperUtility(double _utility)
 {   setUtilities(CUtilitiesGlobal(0,0,_utility));}
 
-///allon1
+//allon1
 CPublicUtilityBuildingAllInOne::CPublicUtilityBuildingAllInOne(): CPublicUtilityBuilding()
 {   sizeOnGameMap = CCoordinates(8,5);}
 CPublicUtilityBuildingAllInOne::CPublicUtilityBuildingAllInOne(const CPublicUtilityBuildingAllInOne& _P): CPublicUtilityBuilding(_P)

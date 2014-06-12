@@ -30,13 +30,19 @@ QList<QString> CSchool::infoToDisplay()
     return info;
 
 }
+bool CSchool::setRandomName(int size)
+{  Q_UNUSED(size);
+    CStructure::setRandomName(3);
+    name.append(QString(" School"));
+return true;}
+
 double CSchool::countBuildingEfficiency()
 {
     if(maxNOChildren<=0)
         return 0;
     double ratio = actualNOChildren/maxNOChildren;
     double multiply;
-    if(ratio < 0.8) ///0-0.8 ratio
+    if(ratio < 0.8) //0-0.8 ratio
     {   multiply=1;}
     else
     {   if(ratio < 1.5)
@@ -77,7 +83,7 @@ void CSchool::setActualEducationIndicator(double _actual)
 {   actualEducationIndicator = _actual;}
 
 
-///CSchoolALLin1
+//CSchoolALLin1
 CSchoolAllInOne::CSchoolAllInOne() : CSchool()
 {   sizeOnGameMap = CCoordinates(4,3);}
 CSchoolAllInOne::CSchoolAllInOne(const CSchoolAllInOne& _S) : CSchool(_S)

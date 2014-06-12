@@ -60,7 +60,7 @@ CUtilitiesGlobal CBuilding::getUtilities() const
 { return utilities;}
 
 
-///class
+//class
 CProductsBuildingPointer::CProductsBuildingPointer()
 {
     building = NULL;
@@ -83,7 +83,7 @@ void CProductsBuildingPointer::setProducts(CProducts _prod)
 void CProductsBuildingPointer::setBuilding(CBuilding* _building)
 {   building =_building;}
 
-///class
+//class
 CPeopleNeedsBuildingPointer::CPeopleNeedsBuildingPointer()
 {building = NULL;}
 CPeopleNeedsBuildingPointer::CPeopleNeedsBuildingPointer(const CPeopleNeedsBuildingPointer& _PB)

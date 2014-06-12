@@ -18,15 +18,20 @@ QList<QString> CRecreationBuilding::infoToDisplay()
     info.clear();
     info.append(CWorking::infoToDisplay());
     info.append(QString("Base recreation: %1\nActual recreation: %2").
-                arg(baseRecreation.getRecreation1(),1).
-                arg(baseRecreation.getRecreation1(),1));
+                arg(baseRecreation.getRecreation1(),1,'f',2).
+                arg(baseRecreation.getRecreation1(),1,'f',2));
     return info;
 }
+bool CRecreationBuilding::setRandomName(int size)
+{   Q_UNUSED(size);
+    CStructure::setRandomName(2);
+return true;}
+
 double CRecreationBuilding::countBuildingEfficiency()
 {
     double ratio = 0.5;
     double multiply;
-    if(ratio < 0.8) ///0-0.8 ratio
+    if(ratio < 0.8) //0-0.8 ratio
     {   multiply=1;}
     else
     {   if(ratio < 1.5)
@@ -52,7 +57,7 @@ void CRecreationBuilding::setActualRecreation(CRecreation _actual)
 {   actualRecreation = _actual;}
 
 
-///CCinema
+//CCinema
 CCinema::CCinema() : CRecreationBuilding()
 {   sizeOnGameMap = CCoordinates(3,2);}
 CCinema::CCinema(const CCinema& _C): CRecreationBuilding(_C)

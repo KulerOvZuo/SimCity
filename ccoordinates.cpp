@@ -41,12 +41,12 @@ double CCoordinates::getX() const
 double CCoordinates::getY() const
 {return y;
 }
-bool CCoordinates::setX(double _x)
-{x=_x; return true;
+void CCoordinates::setX(double _x)
+{x=_x;
 }
-bool CCoordinates::setY(double _y)
-{y=_y; return true;
+void CCoordinates::setY(double _y)
+{y=_y;
 }
-bool CCoordinates::setCoordinates(double _x, double _y)
-{x=_x; y=_y;return true;
+void CCoordinates::setCoordinates(double _x, double _y)
+{x=_x; y=_y;
 }

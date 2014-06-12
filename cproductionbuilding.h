@@ -25,6 +25,7 @@ public:
     double countBuildingEfficiency();
     void countSetActualProductionPerTick();
     void clearTemporary();
+    virtual bool setRandomName(int size);
 
     void setAll(CProducts _stacked,CProducts _maxStacked,CProducts _prod,CProducts _maxProd, double _income);
     void setStackedProducts(CProducts _P);

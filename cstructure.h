@@ -4,11 +4,10 @@
 #include <QString>
 #include "ccoordinates.h"
 #include "enumerators.h"
-#include "idisplayinginterface.h"
 #include "cdirections.h"
 
 class CCity;
-class CStructure : public IDisplayingInterface
+class CStructure
 {
 protected:
     int age;
@@ -41,7 +40,7 @@ public:
     void addAge(int _age);
     bool setAge(int _age);
     bool setName(QString _name);
-    bool setRandomName(int size);
+    virtual bool setRandomName(int size);
     bool setBuildCost(double _cost);
     bool setDestroyCost(double _cost);
     bool setCostPerTick(double _cost);

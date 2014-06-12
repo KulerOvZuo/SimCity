@@ -178,7 +178,7 @@ double CPeopleNeeds::getTraffic() const
 { return traffic;}
 
 
-///CProducts
+//CProducts
 CProducts::CProducts()
 {
     lightIndustry=0;
@@ -253,7 +253,7 @@ void CProducts::setHeavy(double _heavy)
 void CProducts::setFood(double _food)
 { food=_food;}
 
-///CService
+//CService
 CService::CService()
 {
     service1=0;
@@ -296,7 +296,7 @@ double CService::getService1() const
 void CService::setService1(double _serv)
 {   service1=_serv;}
 
-///CRecreation
+//CRecreation
 CRecreation::CRecreation()
 { recreation1=0;}
 CRecreation::CRecreation(double _recr1)

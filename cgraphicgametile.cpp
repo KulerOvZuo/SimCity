@@ -18,13 +18,7 @@ CGraphicGameTile::CGraphicGameTile(QSize tileSize, QObject *sender) : QGraphicsO
     {   connect(sender,SIGNAL(repaintAreaUnderBuilding(QBrush,QSize,QSize)),this,SLOT(repaintTile(QBrush,QSize,QSize)));
         setParent(sender);}
 }
-void CGraphicGameTile::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{
-    //setCursor(Qt::ClosedHandCursor);
-     //QPointF pos =this->scenePos();
-    // emit mouseClicked(pos,event);
-    Q_UNUSED(event);
-}
+
 void CGraphicGameTile::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     //Q_UNUSED(event);
@@ -33,11 +27,6 @@ void CGraphicGameTile::mousePressEvent(QGraphicsSceneMouseEvent *event)
     //qDebug()<<"clicked";
     emit mouseClicked(this,pos,event);
     //setCursor(Qt::ClosedHandCursor);
-}
-void CGraphicGameTile::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{
-    //setCursor(Qt::OpenHandCursor);
-    Q_UNUSED(event);
 }
 
 QRectF CGraphicGameTile::boundingRect() const

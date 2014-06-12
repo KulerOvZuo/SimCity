@@ -93,7 +93,7 @@ void CGraphicTaxes::setValues(int _prod, int _people, int _others)
     sliderFromProd->setValue(1);
     sliderFromPeople->setValue(1);
     sliderFromOthers->setValue(1);
-    ///for change
+    //for change
     sliderFromProd->setValue(_prod);
     sliderFromPeople->setValue(_people);
     sliderFromOthers->setValue(_others);

@@ -4,11 +4,20 @@
 #include <cmath>
 #include "enumerators.h"
 
+/**
+ * @brief Klasa CProducts (produkty)
+ *
+ *Klasa jest kontenerem informacji o produktach.
+ *Pozwala na proste operacje matematyczne.
+ */
 class CProducts
 {
 protected:
+    ///Ilość produktów przemysłu Light
     double lightIndustry;
+    ///Ilość produktów przemysłu Heavy
     double heavyIndustry;
+    ///Ilość produktów przemysłu Food
     double food;
 public:
     CProducts();
@@ -19,6 +28,12 @@ public:
     CProducts& operator+= (CProducts const &_C);
     CProducts& operator=(CProducts const &_C);
 
+    /**
+     * @brief Napraw jeśli nie dodatnie.
+     *
+     *Jeśli wartości produktów są mniejsze od 0, powoduje ustawienie danego na 0.
+     * @return Zwraca false jeśli potrzebna była naprawa.
+     */
     bool restoreIfNotPossitiveNONeeds();
 
     double getLight() const;
@@ -29,10 +44,16 @@ public:
     void setHeavy(double _heavy);
     void setFood(double _food);
 };
-
+/**
+ * @brief Klasa CService (usługi)
+ *
+ *Klasa jest kontenerem informacji o usługach.
+ *Pozwala na proste operacje matematyczne.
+ */
 class CService
 {
 protected:
+    ///ilość usług
     double service1;
 public:
     CService();
@@ -48,6 +69,12 @@ public:
     void setService1(double _serv);
 };
 
+/**
+ * @brief Klasa CProducts (produkty)
+ *
+ *Klasa jest kontenerem informacji o produktach.
+ *Pozwala na proste operacje matematyczne.
+ */
 class CRecreation
 {
 protected:
@@ -66,6 +93,12 @@ public:
     void setRecreation1(double _rec);
 };
 
+/**
+ * @brief Klasa CProducts (produkty)
+ *
+ *Klasa jest kontenerem informacji o produktach.
+ *Pozwala na proste operacje matematyczne.
+ */
 class CPeopleNeeds
 {
 protected:

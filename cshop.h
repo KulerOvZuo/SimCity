@@ -18,6 +18,7 @@ public:
     CShop(const  CShop& _S);
     virtual ~CShop();
     virtual QList<QString> infoToDisplay();
+    virtual bool setRandomName(int size);
 
     bool sendProductsNeedToMarket();
     CProducts countSetProductsSellPrice();

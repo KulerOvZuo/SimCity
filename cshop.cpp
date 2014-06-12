@@ -30,6 +30,11 @@ QList<QString> CShop::infoToDisplay()
                 arg(productsSellPrice.getHeavy(),1,'f',2));
     return info;
 }
+bool CShop::setRandomName(int size)
+{  Q_UNUSED(size);
+    CStructure::setRandomName(2);
+return true;}
+
 CProducts CShop::countSetProductsSellPrice()
 {
     double indicator = 1.3;
@@ -85,7 +90,7 @@ bool CShop::sendProductsToLivings()
 {   CProducts allLivingNeeds;
     for(int i=0; i<listOfLivingNeeds.count();i++)
     {   allLivingNeeds += listOfLivingNeeds.at(i)->getProducts();}
-    ///it will not take more products from market than all living need anyway
+    //it will not take more products from market than all living need anyway
     //distribute all
     double lightIndicator=0;
     if(allLivingNeeds.getLight()!=0)
@@ -195,7 +200,7 @@ double CShop::getIncome() const
 {   return income;}
 
 
-///CSmallShop
+//CSmallShop
 CSmallShop::CSmallShop() : CShop()
 {   sizeOnGameMap = CCoordinates(3,2);}
 CSmallShop::CSmallShop(const CSmallShop& _S): CShop(_S)

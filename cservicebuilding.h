@@ -21,6 +21,7 @@ public:
     CServiceBuilding(const CServiceBuilding& _S);
     virtual ~CServiceBuilding();
     virtual QList<QString> infoToDisplay();
+    virtual bool setRandomName(int size);
 
     void payWorkers();
     void countSetActualServiceCost();

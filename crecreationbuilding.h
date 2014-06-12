@@ -13,6 +13,7 @@ public:
     CRecreationBuilding(const CRecreationBuilding& _R);
     virtual ~CRecreationBuilding();
     virtual QList<QString> infoToDisplay();
+    virtual bool setRandomName(int size);
 
     void countSetRecreationQuality();
 

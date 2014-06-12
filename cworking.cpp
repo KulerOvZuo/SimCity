@@ -98,7 +98,7 @@ bool CWorking::addWorkers(CPeople _P)
 
     return actualNumberOfWorkers.restoreIfNotPossitiveNOPeople();
 }
-double CWorking::countPeopleEfficiency() ///linear efficiency
+double CWorking::countPeopleEfficiency() //linear efficiency
 {
     double _L = leadWorkerEff*actualNumberOfWorkers.getLeadWorker()+serviceWorkerEff*actualNumberOfWorkers.getServiceWorker()+
             lightWorkerEff*actualNumberOfWorkers.getLightWorker()+heavyWorkerEff*actualNumberOfWorkers.getHeavyWorker()+

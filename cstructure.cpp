@@ -3,7 +3,7 @@
 #include "QFile"
 #include <QTextStream>
 
-CStructure::CStructure() : IDisplayingInterface(),
+CStructure::CStructure() :
     age(0), name("none"), buildCost(0), destroyCost(0), costPerTick(0), sizeOnGameMap(), coordinatesOfActualLUCorner(),
     turnedDirection(CDirections()), city(NULL)
 {
@@ -35,7 +35,7 @@ bool CStructure::build()
 {
     city->addMoney(-1*buildCost);
     bool** _map = city->getMapOfStructures()->getMapOfTakenPlaces();
-    ///starts in coordinates, going y--, x++
+    //starts in coordinates, going y--, x++
     for(int y=coordinatesOfActualLUCorner.getY(); y<coordinatesOfActualLUCorner.getY()+sizeOnGameMap.getY();y++)
     {   for(int x=coordinatesOfActualLUCorner.getX(); x<coordinatesOfActualLUCorner.getX()+sizeOnGameMap.getX();x++)
         {   _map[x][y] = true; //take place
@@ -47,7 +47,7 @@ bool CStructure::destroy()
 {
     city->addMoney(-1*destroyCost);
     bool** _map = city->getMapOfStructures()->getMapOfTakenPlaces();
-    ///starts in coordinates, going y--, x++
+    //starts in coordinates, going y--, x++
     for(int y=coordinatesOfActualLUCorner.getY(); y<coordinatesOfActualLUCorner.getY()+sizeOnGameMap.getY();y++)
     {   for(int x=coordinatesOfActualLUCorner.getX(); x<coordinatesOfActualLUCorner.getX()+sizeOnGameMap.getX();x++)
         {   _map[x][y] = false; //take place
@@ -70,15 +70,15 @@ bool CStructure::checkIfCanBeBuiled() const
     if(_map==NULL)
         return false;
     CCoordinates _size = city->getMapOfStructures()->getMapSize();
-    ///starts in coordinates, going y++, x++
+    //starts in coordinates, going y++, x++
     for(int y=coordinatesOfActualLUCorner.getY(); y<coordinatesOfActualLUCorner.getY()+sizeOnGameMap.getY();y++)
-    {   ///map sizes
+    {   //map sizes
         if(y>=_size.getY())
             return false;
         if(y<0)
             return false;
         for(int x=coordinatesOfActualLUCorner.getX(); x<coordinatesOfActualLUCorner.getX()+sizeOnGameMap.getX();x++)
-        {   ///map sizes
+        {   //map sizes
             if(x >=_size.getX())
                 return false;
             if(x<0)
@@ -87,7 +87,7 @@ bool CStructure::checkIfCanBeBuiled() const
                 return false; //cant be builed
         }
     }
-///if ended here, structure can be placed
+//if ended here, structure can be placed
     return true;
 }
 double CStructure::distanceToOther(CStructure* other) const
@@ -100,7 +100,7 @@ bool CStructure::rotate(Erotation rotateAngle)
 {
     turnedDirection.rotate(rotateAngle);
     if(0)//turnedDirection.getDirUp()==true) //basic or reverse
-    {   ///do nothing
+    {   //do nothing
         return true;}
     else
     {   sizeOnGameMap.setCoordinates(sizeOnGameMap.getY(),sizeOnGameMap.getX()); //changes x->-y; y->-x
@@ -117,7 +117,7 @@ CCoordinates CStructure::countCoordinatesOfCentre() const
 
 void CStructure::addAge(int _age)
 {   age += _age;}
-///setters
+//setters
 bool CStructure::setAge(int _age)
 {   age = _age;
     return true;
@@ -129,7 +129,7 @@ bool CStructure::setName(QString _name)
 bool CStructure::setRandomName(int size)
 {   QString _name;
     QFile myFile(namesFilePath);
-    ///[1]
+    //[1]
     if(!myFile.open(QIODevice::ReadOnly))
         return false;
     QTextStream text(&myFile);
@@ -138,7 +138,7 @@ bool CStructure::setRandomName(int size)
     {   QString line = text.readLine(20);
         lines++;}
     myFile.close();
-    ///[2]
+    //[2]
     for(int i=0; i<size;i++)
     {   if(!myFile.open(QIODevice::ReadOnly))
             return false;
@@ -191,7 +191,7 @@ bool CStructure::setCity(CCity* _city)
         return false;
 }
 
-///getters
+//getters
 int CStructure::getAge() const
 { return age;}
 QString CStructure::getName() const

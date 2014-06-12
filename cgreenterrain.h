@@ -21,7 +21,7 @@ class CPark : public CGreenTerrain
 public:
     CPark();
     CPark(const CPark& _P);
-
+    virtual bool setRandomName(int size);
 };
 
 class CLawn : public CGreenTerrain
@@ -29,6 +29,6 @@ class CLawn : public CGreenTerrain
 public:
     CLawn();
     CLawn(const CLawn& _L);
-
+    virtual bool setRandomName(int size);
 };
 #endif // CGREENTERRAIN_H

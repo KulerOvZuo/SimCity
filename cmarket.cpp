@@ -87,7 +87,7 @@ void CMarket::takeAndPayPBForProducts()
     {   _stackedProd += stackedProductsAvailableList.at(i)->getProducts();
     }
 
-    ///food
+    //food
     double _foodQuantity1=_shopsProd.getFood() - _tickProd.getFood();
     double _foodQuantity2 =0;
     if(_foodQuantity1 > 0) //if production per tick is lower than need, take from stacked prod
@@ -113,7 +113,7 @@ void CMarket::takeAndPayPBForProducts()
         productsGotFromProduction += _P;
     }
 
-    ///light
+    //light
     double _lightQuantity1=_shopsProd.getLight() - _tickProd.getLight();
     double _lightQuantity2 =0;
     if(_lightQuantity1 > 0) //if production per tick is lower than need, take from stacked prod
@@ -139,7 +139,7 @@ void CMarket::takeAndPayPBForProducts()
         productsGotFromProduction += _P;
     }
 
-    ///heavy
+    //heavy
     double _heavyQuantity1=_shopsProd.getHeavy() - _tickProd.getHeavy();
     double _heavyQuantity2 =0;
     if(_heavyQuantity1 > 0) //if production per tick is lower than need, take from stacked prod
@@ -170,7 +170,7 @@ void CMarket::splitAndSendProductsToShops()
     CProducts allShopsNeed;
     for(int i=0; i<shopsNeedsList.count();i++)
     {   allShopsNeed += shopsNeedsList.at(i)->getProducts();}
-    ///it will not take more products from production buildings than all shops need anyway
+    //it will not take more products from production buildings than all shops need anyway
     //distribute all
     double lightIndicator;
     if(allShopsNeed.getLight()!=0)

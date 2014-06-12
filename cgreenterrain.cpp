@@ -33,6 +33,12 @@ CPark::CPark() : CGreenTerrain()
 }
 CPark::CPark(const CPark& _P) : CGreenTerrain(_P)
 {   sizeOnGameMap = _P.getSizeOnGameMap();}
+bool CPark::setRandomName(int size)
+{   Q_UNUSED(size);
+    CStructure::setRandomName(1);
+    name.append(QString(" Park"));
+return true;}
+
 CLawn::CLawn() : CGreenTerrain()
 {
     disturbance = lawnInf;
@@ -41,3 +47,7 @@ CLawn::CLawn() : CGreenTerrain()
 }
 CLawn::CLawn(const CLawn& _L) : CGreenTerrain(_L)
 {   sizeOnGameMap = _L.getSizeOnGameMap();}
+bool CLawn::setRandomName(int size)
+{   Q_UNUSED(size);
+    name= QString("Lawn");
+return true;}

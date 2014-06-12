@@ -15,7 +15,7 @@ void CTrafficEngine::setCity(CCity* _city)
 bool CTrafficEngine::createMapOfTraffic()
 {
     CCoordinates _size = city->getMapOfStructures()->getMapSize();
-    ///optimal size of squares is trafficSquare
+    //optimal size of squares is trafficSquare
     CCoordinates _C;
     _C.setX((int)_size.getX()/trafficSquare+1);
     _C.setY((int)_size.getY()/trafficSquare+1);
@@ -38,6 +38,10 @@ bool CTrafficEngine::createMapOfTraffic()
 double CTrafficEngine::giveTrafficInfo(CCoordinates _C) const
 {   int x = _C.getX()/trafficSquare;
     int y = _C.getY()/trafficSquare;
+    if(x<0 || x>sizeofSimplifiedMap.getX()-1)
+        return -1;
+    if(y<0 || y>sizeofSimplifiedMap.getX()-1)
+        return -1;
     return simplifiedMapOfTraffic[x][y];
 }
 void CTrafficEngine::countTraffic()
@@ -46,7 +50,7 @@ void CTrafficEngine::countTraffic()
     int x =sizeofSimplifiedMap.getX();
     int y =sizeofSimplifiedMap.getY();
     double _temp[x][y]; //used for count quantity of people
-    ///[1]count traffic
+    //[1]count traffic
     for(int _y=0; _y<y; _y++)
         for(int _x=0; _x<x;_x++)
             _temp[_x][_y] =0;
@@ -56,7 +60,7 @@ void CTrafficEngine::countTraffic()
     for(int i=0; i<city->getMapOfStructures()->getAllLivings().count();i++)
     {   CCoordinates _C = city->getMapOfStructures()->getAllLivings().at(i)->countCoordinatesOfCentre();
         double _traff = (city->getMapOfStructures()->getAllLivings().at(i)->getAllPeopleLiving());
-        ///add to proper square
+        //add to proper square
         _x=_C.getX()/trafficSquare;
         _y=_C.getY()/trafficSquare;
         _temp[_x][_y] += _traff;
@@ -65,7 +69,7 @@ void CTrafficEngine::countTraffic()
     for(int i=0; i<city->getMapOfStructures()->getAllProductionBuildings().count();i++)
     {  CCoordinates _C = city->getMapOfStructures()->getAllProductionBuildings().at(i)->countCoordinatesOfCentre();
         double _traff = (city->getMapOfStructures()->getAllProductionBuildings().at(i))->getActualNumberOfWorkers().getAllPeople();
-        ///add to proper square
+        //add to proper square
         _x=_C.getX()/trafficSquare;
         _y=_C.getY()/trafficSquare;
         _temp[_x][_y] += _traff;
@@ -74,7 +78,7 @@ void CTrafficEngine::countTraffic()
     for(int i=0; i<city->getMapOfStructures()->getAllShops().count();i++)
     {  CCoordinates _C = city->getMapOfStructures()->getAllShops().at(i)->countCoordinatesOfCentre();
         double _traff = (city->getMapOfStructures()->getAllShops().at(i))->getActualNumberOfWorkers().getAllPeople();
-        ///add to proper square
+        //add to proper square
         _x=_C.getX()/trafficSquare;
         _y=_C.getY()/trafficSquare;
         _temp[_x][_y] += _traff;
@@ -83,23 +87,23 @@ void CTrafficEngine::countTraffic()
     for(int i=0; i<city->getMapOfStructures()->getAllServiceBuildings().count();i++)
     {  CCoordinates _C = city->getMapOfStructures()->getAllServiceBuildings().at(i)->countCoordinatesOfCentre();
         double _traff = (city->getMapOfStructures()->getAllServiceBuildings().at(i))->getActualNumberOfWorkers().getAllPeople();
-        ///add to proper square
+        //add to proper square
         _x=_C.getX()/trafficSquare;
         _y=_C.getY()/trafficSquare;
         _temp[_x][_y] += _traff;
     }
-    ///[/1]
-    ///[2] count capacity
+    //[/1]
+    //[2] count capacity
     for(int i=0; i<city->getMapOfStructures()->getAllRoadsAndBridges().count();i++)
     {  CCoordinates _C = city->getMapOfStructures()->getAllRoadsAndBridges().at(i)->countCoordinatesOfCentre();
         double _capacity = (city->getMapOfStructures()->getAllRoadsAndBridges().at(i))->getCapacity();
-        ///add to proper square
+        //add to proper square
         _x=_C.getX()/trafficSquare;
         _y=_C.getY()/trafficSquare;
         simplifiedMapOfTraffic[_x][_y] += _capacity;
     }
-    ///[/2]
-    ///[3] count actual traffic
+    //[/2]
+    //[3] count actual traffic
     double _traffic;
     for(int y=0; y<sizeofSimplifiedMap.getY();y++)
         for(int x=0; x<sizeofSimplifiedMap.getX();x++)
@@ -108,7 +112,7 @@ void CTrafficEngine::countTraffic()
             else
                 _traffic = simplifiedMapOfTraffic[x][y]/_temp[x][y];
             simplifiedMapOfTraffic[x][y] = _traffic;}
-    ///[/3]
+    //[/3]
 }
 void CTrafficEngine::clearTemporary()
 {   for(int y=0; y<sizeofSimplifiedMap.getY(); y++)
