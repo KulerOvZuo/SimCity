@@ -6,6 +6,7 @@
 #include <QGraphicsSceneContextMenuEvent>
 #include <QWidget>
 #include <QPixmap>
+#include <QPalette>
 #include <QString>
 
 class CGraphicBuildingTile : public CGraphicGameTile
@@ -27,6 +28,7 @@ public:
     CGraphicBuildingTile(CStructure* _structure, QSize tileSize, QObject *sender = 0);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    virtual void display(QList<QString> _toDisplay);
 
     CStructure* getStructure();
 signals:

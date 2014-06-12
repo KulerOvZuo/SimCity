@@ -4,6 +4,7 @@ CRecreationBuilding::CRecreationBuilding() : CWorking()
 {
     baseRecreation = CRecreation(0);
     actualRecreation = CRecreation(0);
+    setRandomName(2);
 }
 CRecreationBuilding::CRecreationBuilding(const CRecreationBuilding& _R) : CWorking(_R)
 {
@@ -12,7 +13,15 @@ CRecreationBuilding::CRecreationBuilding(const CRecreationBuilding& _R) : CWorki
 }
 CRecreationBuilding::~CRecreationBuilding()
 {}
-
+QList<QString> CRecreationBuilding::infoToDisplay()
+{   QList<QString> info;
+    info.clear();
+    info.append(CWorking::infoToDisplay());
+    info.append(QString("Base recreation: %1\nActual recreation: %2").
+                arg(baseRecreation.getRecreation1(),1).
+                arg(baseRecreation.getRecreation1(),1));
+    return info;
+}
 double CRecreationBuilding::countBuildingEfficiency()
 {
     double ratio = 0.5;

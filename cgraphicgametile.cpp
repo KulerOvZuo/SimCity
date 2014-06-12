@@ -7,7 +7,7 @@
 #include <QPixmap>
 #include "cgraphicmainview.h"
 
-CGraphicGameTile::CGraphicGameTile(QSize tileSize, QObject *sender) : QGraphicsObject()
+CGraphicGameTile::CGraphicGameTile(QSize tileSize, QObject *sender) : QGraphicsObject(), IDisplayingInterface()
 {
     this->tileSize = tileSize;
     brush.setColor(Qt::NoPen);
@@ -62,6 +62,9 @@ void CGraphicGameTile::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     if(moving==true)
     {   //painter->drawRoundedRect(rect,5,5);
         QRectF pixMapRectF(0,0,pixMap.size().width(),pixMap.size().height());
+        brush.setStyle(Qt::NoBrush);
+        painter->setPen(QPen(Qt::blue,2,Qt::DotLine,Qt::RoundCap,Qt::RoundJoin));
+        painter->drawRect(rect);
         painter->drawPixmap(rect,pixMap,pixMapRectF);
        // painter->drawPixmap(rect,px);
     }

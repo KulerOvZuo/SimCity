@@ -29,6 +29,7 @@ public:
     CLiving();
     CLiving(const CLiving& _L);
     virtual ~CLiving();
+    virtual QList<QString> infoToDisplay();
 
     bool searchSetForBetterSchool();
     bool searchAndSendNeedsToShops();

@@ -17,8 +17,8 @@ bool CTrafficEngine::createMapOfTraffic()
     CCoordinates _size = city->getMapOfStructures()->getMapSize();
     ///optimal size of squares is trafficSquare
     CCoordinates _C;
-    _C.setX((int)_size.getX()/trafficSquare);
-    _C.setY((int)_size.getY()/trafficSquare);
+    _C.setX((int)_size.getX()/trafficSquare+1);
+    _C.setY((int)_size.getY()/trafficSquare+1);
     if(_C.getX()<1)
         _C.setX(1);
     if(_C.getY()<1)

@@ -16,7 +16,8 @@ public:
     CProductionBuilding();
     CProductionBuilding(const CProductionBuilding& _P);
 
-    ///implement more
+    virtual QList<QString> infoToDisplay();
+
     void payWorkers();
     double giveTaxes(double _tax);
     bool sendProductionInfoToMarket();

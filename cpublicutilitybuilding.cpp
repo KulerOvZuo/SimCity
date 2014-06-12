@@ -2,7 +2,7 @@
 #include "ccity.h"
 
 CPublicUtilityBuilding::CPublicUtilityBuilding(): CWorking()
-{
+{   setRandomName(4);
 }
 CPublicUtilityBuilding::CPublicUtilityBuilding(const CPublicUtilityBuilding& _U) : CWorking(_U)
 {}

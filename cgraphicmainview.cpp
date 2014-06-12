@@ -116,6 +116,9 @@ QPixmap CGraphicMainView::findGraphicForBuilding(CStructure *_S)
     if(dynamic_cast<CRoadTurning*>(_S) !=NULL)
     {   return QPixmap(turningPixmapSource);
     }
+    if(dynamic_cast<CRoadThreeWay*>(_S) !=NULL)
+    {   return QPixmap(threeWayPixmapSource);
+    }
     qDebug()<<"no image";
     return QPixmap("://noimage.jpg");
 }
@@ -127,7 +130,7 @@ void CGraphicMainView::wheelEvent(QWheelEvent *event)
 #endif
 void CGraphicMainView::scaleView(qreal scaleFactor, QWheelEvent *event)
 {   qreal factor = this->transform().scale(scaleFactor,scaleFactor).mapRect(QRectF(0,0,1,1)).width();
-    if(factor <0.5 || factor >100)
+    if(factor <0.1 || factor >100)
         return;
     actualFactor = factor;
     this->scale(scaleFactor,scaleFactor);
@@ -224,7 +227,6 @@ void CGraphicMainView::newStructureChosen(CStructure *structure)
         QBrush brush;
         brush.setColor(Qt::NoPen);
         this->repaintAreaUnderBuilding(brush,pos,QSize(_x,_y));
-        scene->update();
     }
 
     structureHolding=true;
@@ -255,7 +257,8 @@ void CGraphicMainView::mouseMoveRepaint(QMouseEvent *event)
 
         ///[/1]
 
-        movingTile->setPos(cursorPos+QPoint(30/actualFactor,30/actualFactor));
+        movingTile->setPos(cursorPos+QPoint(10/actualFactor,10/actualFactor));
+        movingTile->setZValue(5);
         //if((abs(beforeCursorPoint.x()-cursorPos.x())*20>tileSize.width()/actualFactor) || (abs(beforeCursorPoint.y()-cursorPos.y())*20>tileSize.height()/actualFactor))
         if(1)
         {  // qDebug()<<"size";

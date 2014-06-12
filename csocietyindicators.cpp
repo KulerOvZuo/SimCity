@@ -1,11 +1,11 @@
 #include "csocietyindicators.h"
 
-CSocietyIndicators::CSocietyIndicators()
+CSocietyIndicators::CSocietyIndicators() : IDisplayingInterface()
 {
     birthIndicator=0;
     children=0;
 }
-CSocietyIndicators::CSocietyIndicators(const CSocietyIndicators& _I)
+CSocietyIndicators::CSocietyIndicators(const CSocietyIndicators& _I) : IDisplayingInterface()
 {
     peopleEarnings =_I.getPeopleEarnings();
     allPeople = _I.getAllPeople();

@@ -5,6 +5,7 @@
 CProductionBuilding::CProductionBuilding() : CWorking()
 {
     income=0;
+    setRandomName(3);
 }
 CProductionBuilding::CProductionBuilding(const CProductionBuilding& _P) : CWorking(_P)
 {
@@ -14,6 +15,14 @@ CProductionBuilding::CProductionBuilding(const CProductionBuilding& _P) : CWorki
     maxProductionPerTick = _P.getMaxProductionPerTick();
     income = _P.getIncome();
 }
+QList<QString> CProductionBuilding::infoToDisplay()
+{    QList<QString> info;
+     info.clear();
+     info.append(CWorking::infoToDisplay());
+     info.append(QString("Income: %1$").arg(income,1));
+     return info;
+}
+
 
 void CProductionBuilding::payWorkers()
 {

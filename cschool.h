@@ -14,6 +14,7 @@ public:
     CSchool();
     CSchool(const CSchool& _S);
     virtual ~CSchool();
+    virtual QList<QString> infoToDisplay();
 
     void countSetEducationQuality();
 

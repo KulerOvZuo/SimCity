@@ -1,0 +1,75 @@
+Arcelor 
+Areva
+Aricent
+ARM
+Limited
+BBC
+BBVA
+BCC
+Research
+BT
+Bull 
+Casio
+CBS
+CDAC
+Celera
+Cemex
+Cenex
+Dell
+Denning & Fourcade
+DHL
+Dick
+Digg
+Eletropaulo 
+Embraer
+EMBRAPA 
+EMBRATEL
+EMC Corporation
+EMI
+Ferodo
+Ferrari
+Fiat
+Finnair
+Firestone
+Genentech
+GEICO
+Gerdau
+Glaxo
+Harvey Norman
+Hasbro
+HBOS
+HDFC
+Korg
+KPMG
+Kroger
+KUKA
+Lonsdale
+Maggi
+Malév
+MAN
+Iiyama
+Imdad 
+IKEA
+IMI
+Maggi
+Malév
+MAN
+Pemex
+Pennzoil
+Pepsi
+Petrobras
+Reckitt & Colman
+Reckitt Benckiser
+Red Hat
+Reebok
+SGI
+Sharp
+Shell
+Siemens
+TCL
+TCS
+TDK Corporation
+Vaisala
+Valero Energy
+Valtra
+Valve Corporation

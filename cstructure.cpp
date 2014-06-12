@@ -1,12 +1,12 @@
 #include "cstructure.h"
 #include "ccity.h"
+#include "QFile"
+#include <QTextStream>
 
-CStructure::CStructure() :
+CStructure::CStructure() : IDisplayingInterface(),
     age(0), name("none"), buildCost(0), destroyCost(0), costPerTick(0), sizeOnGameMap(), coordinatesOfActualLUCorner(),
     turnedDirection(CDirections()), city(NULL)
 {
-   /* qDebug()<<age<<name<<buildCost<<destroyCost<<costPerTick<<sizeOnGameMap.getX()<<coordinatesOfLUCorner.getY()
-           <<static_cast<direction>(turnedDirection)<<city;*/
 
 }
 CStructure::CStructure(int age, QString name, double buildCost,double destroyCost,
@@ -33,6 +33,7 @@ CStructure::~CStructure()
 
 bool CStructure::build()
 {
+    city->addMoney(-1*buildCost);
     bool** _map = city->getMapOfStructures()->getMapOfTakenPlaces();
     ///starts in coordinates, going y--, x++
     for(int y=coordinatesOfActualLUCorner.getY(); y<coordinatesOfActualLUCorner.getY()+sizeOnGameMap.getY();y++)
@@ -44,6 +45,7 @@ bool CStructure::build()
     return true;}
 bool CStructure::destroy()
 {
+    city->addMoney(-1*destroyCost);
     bool** _map = city->getMapOfStructures()->getMapOfTakenPlaces();
     ///starts in coordinates, going y--, x++
     for(int y=coordinatesOfActualLUCorner.getY(); y<coordinatesOfActualLUCorner.getY()+sizeOnGameMap.getY();y++)
@@ -53,6 +55,14 @@ bool CStructure::destroy()
         }
     }
     return true;
+}
+QList<QString> CStructure::infoToDisplay()
+{   QList<QString> info;
+    info.clear();
+    info.append(QString("Name: %1").arg(name,1));
+    info.append(QString("Age: %1").arg(age,1));
+    info.append(QString("Destroy cost: %1$").arg(destroyCost,1));
+    return info;
 }
 bool CStructure::checkIfCanBeBuiled() const
 {
@@ -114,6 +124,35 @@ bool CStructure::setAge(int _age)
 }
 bool CStructure::setName(QString _name)
 {   name=_name;
+    return true;
+}
+bool CStructure::setRandomName(int size)
+{   QString _name;
+    QFile myFile(namesFilePath);
+    ///[1]
+    if(!myFile.open(QIODevice::ReadOnly))
+        return false;
+    QTextStream text(&myFile);
+    int lines=0;
+    while(!text.atEnd())
+    {   QString line = text.readLine(20);
+        lines++;}
+    myFile.close();
+    ///[2]
+    for(int i=0; i<size;i++)
+    {   if(!myFile.open(QIODevice::ReadOnly))
+            return false;
+        QTextStream _text(&myFile);
+        CPeople people;
+        int number = people.randBetween(1,lines-1);
+        QString line;
+        for(int i=0; i<number;i++)
+        {   line = _text.readLine();}
+        _name.append(line);
+        _name.append(" ");
+        myFile.close();
+    }
+    name = _name;
     return true;
 }
 bool CStructure::setBuildCost(double _cost)

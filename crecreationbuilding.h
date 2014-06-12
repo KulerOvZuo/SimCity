@@ -12,6 +12,7 @@ public:
     CRecreationBuilding();
     CRecreationBuilding(const CRecreationBuilding& _R);
     virtual ~CRecreationBuilding();
+    virtual QList<QString> infoToDisplay();
 
     void countSetRecreationQuality();
 

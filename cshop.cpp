@@ -3,6 +3,7 @@
 CShop::CShop() : CWorking()
 {
     income =0;
+    setRandomName(2);
     //productsNeedFromPeople = CProducts();
    // productsGotFromMarket = CProducts();
    // productsSellPrice = CProducts();
@@ -14,20 +15,40 @@ CShop::CShop(const  CShop& _S) : CWorking(_S)
     productsGotFromMarket =_S.getProductsGotFromMarket();
     productsSellPrice = _S.getProductsSellPrice();
     income = _S.getIncome();
+
 }
 CShop:: ~ CShop()
 {}
+QList<QString> CShop::infoToDisplay()
+{   QList<QString> info;
+    info.clear();
+    info.append(CWorking::infoToDisplay());
+    info.append(QString("Income: %1$").arg(income,1));
+    info.append(QString("Products sell price:\nFood price: %1$\nLight price: %2$\nHeavy price: %2$").
+                arg(productsSellPrice.getFood(),1).
+                arg(productsSellPrice.getLight(),1).
+                arg(productsSellPrice.getHeavy(),1));
+    return info;
+}
 CProducts CShop::countSetProductsSellPrice()
 {
     double indicator = 1.3;
-    CProducts marketPrice = city->getMarket()->getActualProductsCost();
+    //CProducts marketPrice = city->getMarket()->getActualProductsCost();
     CProducts allShopsNeed;
     for(int i=0; i< city->getMarket()->getShopsNeedsList().count();i++)
     {   allShopsNeed += city->getMarket()->getShopsNeedsList().at(i)->getProducts();}
 
-    CProducts P = CProducts((indicator+0.4*productsGotFromMarket.getLight()/allShopsNeed.getLight())*marketPrice.getLight(),
-                                  (indicator+0.4*productsGotFromMarket.getHeavy()/allShopsNeed.getHeavy())*marketPrice.getHeavy(),
-                                  (indicator+0.4*productsGotFromMarket.getFood()/allShopsNeed.getFood())*marketPrice.getFood());
+    double _lightCost=productsSellPrice.getLight();
+    if(allShopsNeed.getLight()!=0)
+        _lightCost=indicator+0.4*productsGotFromMarket.getLight()/allShopsNeed.getLight();
+    double _heavyCost=productsSellPrice.getHeavy();
+    if(allShopsNeed.getHeavy()!=0)
+        _heavyCost= indicator+0.4*productsGotFromMarket.getHeavy()/allShopsNeed.getHeavy();
+    double _foodCost = productsSellPrice.getFood();
+    if(allShopsNeed.getFood()!=0)
+        _foodCost= indicator+0.4*productsGotFromMarket.getFood()/allShopsNeed.getFood();
+
+    CProducts P = CProducts(_lightCost,_heavyCost,_foodCost);
 
     productsSellPrice = CProducts((productsSellPrice.getLight()+P.getLight())/2,
                                   (productsSellPrice.getHeavy()+P.getHeavy())/2,
@@ -66,15 +87,24 @@ bool CShop::sendProductsToLivings()
     {   allLivingNeeds += listOfLivingNeeds.at(i)->getProducts();}
     ///it will not take more products from market than all living need anyway
     //distribute all
-    double lightIndicator = productsGotFromMarket.getLight()/allLivingNeeds.getLight();
+    double lightIndicator=0;
+    if(allLivingNeeds.getLight()!=0)
+        lightIndicator= productsGotFromMarket.getLight()/allLivingNeeds.getLight();
     if(lightIndicator>1)
         lightIndicator=1;
-    double heavyIndicator = productsGotFromMarket.getHeavy()/allLivingNeeds.getHeavy();
+
+    double heavyIndicator=0;
+    if(allLivingNeeds.getHeavy()!=0)
+        heavyIndicator= productsGotFromMarket.getHeavy()/allLivingNeeds.getHeavy();
     if(heavyIndicator>1)
         heavyIndicator=1;
-    double foodIndicator = productsGotFromMarket.getFood()/allLivingNeeds.getFood();
+
+    double foodIndicator=0;
+    if(allLivingNeeds.getFood()!=0)
+        foodIndicator= productsGotFromMarket.getFood()/allLivingNeeds.getFood();
     if(foodIndicator>1)
         foodIndicator=1;
+
     for(int i=0; i<listOfLivingNeeds.count();i++)
     {   CProducts _P(listOfLivingNeeds.at(i)->getProducts().getLight()*lightIndicator,
                      listOfLivingNeeds.at(i)->getProducts().getHeavy()*heavyIndicator,
@@ -116,7 +146,7 @@ void CShop::clearTemporary()
 {   clearListOfLivingNeeds();
     productsNeedFromPeople = CProducts(0,0,0);
     productsGotFromMarket = CProducts(0,0,0);
-    productsSellPrice = CProducts(0,0,0);
+   // productsSellPrice = CProducts(0,0,0);
     money += income;
     income =0;
 

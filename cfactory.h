@@ -19,6 +19,7 @@ public:
     CLightFactory();
     CLightFactory(const CLightFactory& _F);
     void sellProducts(CProducts _prod);
+    virtual QList<QString> infoToDisplay();
 };
 class CHeavyFactory  : public CFactory
 {
@@ -27,5 +28,6 @@ public:
     CHeavyFactory();
     CHeavyFactory(const CHeavyFactory& _F);
     void sellProducts(CProducts _prod);
+    virtual QList<QString> infoToDisplay();
 };
 #endif // CFACTORY_H

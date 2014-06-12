@@ -3,11 +3,12 @@
 
 #include "clearningpeople.h"
 #include "cpeopleearnings.h"
+#include "idisplayinginterface.h"
 #include <qglobal.h>
 #include <QTime>
 #include <cmath>
 
-class CSocietyIndicators
+class CSocietyIndicators : public IDisplayingInterface
 {
 protected:
     CPeopleEarnings peopleEarnings;

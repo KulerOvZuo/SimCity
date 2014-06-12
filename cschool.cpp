@@ -6,6 +6,7 @@ CSchool::CSchool() : CWorking()
     actualNOChildren=0;
     baseEducationIndicator=0;
     actualEducationIndicator=0;
+    setRandomName(3);
 }
 CSchool::CSchool(const CSchool& _S) : CWorking(_S)
 {
@@ -16,7 +17,19 @@ CSchool::CSchool(const CSchool& _S) : CWorking(_S)
 }
 CSchool::~CSchool()
 {}
+QList<QString> CSchool::infoToDisplay()
+{   QList<QString> info;
+    info.clear();
+    info.append(CWorking::infoToDisplay());
+    info.append(QString("Base education indicator: %1\nActual education indicator: %2").
+                arg(baseEducationIndicator,1).
+                arg(actualEducationIndicator,1));
+    info.append(QString("Maximum number of children: %1\nActual number of children: %2").
+                arg(maxNOChildren,1).
+                arg(actualNOChildren,1));
+    return info;
 
+}
 double CSchool::countBuildingEfficiency()
 {
     if(maxNOChildren<=0)

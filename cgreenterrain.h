@@ -10,6 +10,7 @@ protected:
 public:
     CGreenTerrain();
     CGreenTerrain(const CGreenTerrain& _G);
+    virtual QList<QString> infoToDisplay();
 
     bool setDisturbance(double _dist);
     double getDisturbance() const;

@@ -4,6 +4,7 @@
 CRoadsAndBridges::CRoadsAndBridges() : CStructure(), capacity(0), onWater(false)
 {
     directions = CDirections(true,false,true,false);
+    name = QString("Road");
 }
 CRoadsAndBridges::CRoadsAndBridges(double _capacity,bool _water,CDirections _dir)
 {
@@ -56,6 +57,16 @@ bool CRoadsAndBridges::checkIfCanBeBuiled() const
     }
     return false;
 }
+QList<QString> CRoadsAndBridges::infoToDisplay()
+{
+    QList<QString> info;
+    info.clear();
+    info.append(CStructure::infoToDisplay());
+    info.append(QString("Keep cost: %1$").arg(costPerTick,1));
+    info.append(QString("Capacity: %1").arg(capacity,1));
+    return info;
+}
+
 void CRoadsAndBridges::setAllRoadAndBridges(double _capacity,bool _water,CDirections _dir)
 {
     capacity = _capacity;

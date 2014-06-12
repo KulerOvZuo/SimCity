@@ -20,7 +20,31 @@ CWorking::CWorking(const CWorking& _W, CPeople _need, CPeople _actual) : CBuildi
     neededNumberOfWorkers.restoreIfNotPossitiveNOPeople();
     actualNumberOfWorkers.restoreIfNotPossitiveNOPeople();
 }
-
+CWorking::~CWorking()
+{
+}
+bool CWorking::destroy()
+{   CPeople people = actualNumberOfWorkers;
+    int max = city->getMapOfStructures()->getAllLivings().count();
+    int all = people.getAllPeople();
+    int counter =5*all;
+    while(counter>0 && all>0)
+    {   int number = people.randBetween(0,max-1);
+        CPeople extract;
+        extract = people.randomExtract(1);
+        if(extract.getAllPeople()!=0)
+        {   CPeople working = city->getMapOfStructures()->getAllLivings().at(number)->getLivingNotWorkingPeople();
+            working +=extract;
+            CPeople notWorking = city->getMapOfStructures()->getAllLivings().at(number)->getLivingWorkingPeople();
+            notWorking -= extract;
+            city->getMapOfStructures()->getAllLivings().at(number)->setLivingNotWorkingPeople(working);
+            city->getMapOfStructures()->getAllLivings().at(number)->setLivingWorkingPeople(notWorking);
+            all--;}
+        counter--;
+    }
+    CStructure::destroy();
+    return true;
+}
 
 void CWorking::sendWorkInfoToCity()
 {
@@ -28,6 +52,25 @@ void CWorking::sendWorkInfoToCity()
     A += neededNumberOfWorkers;
     city->getSocietyIndicators()->setAllWorkForPeople(A);
 }
+QList<QString> CWorking::infoToDisplay()
+{   QList<QString> info;
+    info.clear();
+    info.append(CBuilding::infoToDisplay());
+    info.append(QString("Needed number of workers:\nLead workers: %1\nService workers: %2\nLight workers: %3\nHeavy workers: %4\nLow workers: %5").
+                arg(neededNumberOfWorkers.getLeadWorker(),1).
+                arg(neededNumberOfWorkers.getServiceWorker(),1).
+                arg(neededNumberOfWorkers.getLightWorker(),1).
+                arg(neededNumberOfWorkers.getHeavyWorker(),1).
+                arg(neededNumberOfWorkers.getLowWorker(),1));
+    info.append(QString("Actual number of workers:\nLead workers: %1\nService workers: %2\nLight workers: %3\nHeavy workers: %4\nLow workers: %5").
+                arg(actualNumberOfWorkers.getLeadWorker(),1).
+                arg(actualNumberOfWorkers.getServiceWorker(),1).
+                arg(actualNumberOfWorkers.getLightWorker(),1).
+                arg(actualNumberOfWorkers.getHeavyWorker(),1).
+                arg(actualNumberOfWorkers.getLowWorker(),1));
+    return info;
+}
+
 bool CWorking::addWorkers(CPeople _P)
 {
     actualNumberOfWorkers += _P;

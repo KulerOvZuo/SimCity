@@ -9,8 +9,9 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QString>
+#include "idisplayinginterface.h"
 
-class CGraphicGameTile : public QGraphicsObject
+class CGraphicGameTile : public QGraphicsObject, public IDisplayingInterface
 {
     Q_OBJECT
 private:

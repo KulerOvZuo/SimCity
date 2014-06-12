@@ -30,7 +30,7 @@ protected:
     CStructure* makeNewStructureProperly(CStructure *checking);
 
 public:
-    explicit MainWindow(QSize mapSize, QSize tileSize, QWidget *parent = 0);
+    explicit MainWindow(QString userName, QSize mapSize, QSize tileSize, QWidget *parent = 0);
     ~MainWindow();
 
 private:
@@ -87,6 +87,7 @@ private:
         QAction *roadStraightAct;
         QAction *roadCrossAct;
         QAction* roadTurnAct;
+        QAction* roadThreeWayAct;
 
     QWidget *mainWidget;
     CGraphicMainView *mainView;
@@ -98,9 +99,9 @@ private:
         QAction *exitAct;
     QMenu *cityManagement;
         QAction *taxesAct;
-    QMenu *statistics;
         QAction *trafficAct;
-        QAction *peopleStatisticsAct;
+        QAction *societyStatisticsAct;
+        QAction *marketAct;
         QAction *publicUtilityAct;
     QLabel* infoLabel;
 
@@ -114,7 +115,8 @@ private slots:
     void newGame();
     void taxes();
     void traffic();
-    void peopleStatistics();
+    void societyStatistics();
+    void market();
     void publicUtility();
     void destroy(CStructure*);
     void showInfo();
@@ -146,6 +148,7 @@ private slots:
     void newRoadStraight();
     void newRoadCross();
     void newRoadTurn();
+    void newRoadThreeway();
 };
 
 #endif // MAINWINDOW_H

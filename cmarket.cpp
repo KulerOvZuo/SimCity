@@ -172,15 +172,30 @@ void CMarket::splitAndSendProductsToShops()
     {   allShopsNeed += shopsNeedsList.at(i)->getProducts();}
     ///it will not take more products from production buildings than all shops need anyway
     //distribute all
-    double lightIndicator = productsGotFromProduction.getLight()/allShopsNeed.getLight();
+    double lightIndicator;
+    if(allShopsNeed.getLight()!=0)
+        lightIndicator = productsGotFromProduction.getLight()/allShopsNeed.getLight();
+    else
+        lightIndicator =0;
     if(lightIndicator>1)
         lightIndicator=1;
-    double heavyIndicator = productsGotFromProduction.getHeavy()/allShopsNeed.getHeavy();
+
+    double heavyIndicator;
+    if(allShopsNeed.getHeavy()!=0)
+        heavyIndicator= productsGotFromProduction.getHeavy()/allShopsNeed.getHeavy();
+    else
+        heavyIndicator=0;
     if(heavyIndicator>1)
         heavyIndicator=1;
-    double foodIndicator = productsGotFromProduction.getFood()/allShopsNeed.getFood();
+
+    double foodIndicator;
+    if(allShopsNeed.getFood()!=0)
+        foodIndicator= productsGotFromProduction.getFood()/allShopsNeed.getFood();
+    else
+        foodIndicator=0;
     if(foodIndicator>1)
         foodIndicator=1;
+
     for(int i=0; i<shopsNeedsList.count();i++)
     {   CProducts _P((shopsNeedsList.at(i)->getProducts().getLight())*lightIndicator,
                      (shopsNeedsList.at(i)->getProducts().getHeavy())*heavyIndicator,

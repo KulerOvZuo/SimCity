@@ -17,6 +17,18 @@ CBuilding::CBuilding(double _money, CUtilitiesGlobal _U) : CStructureForPeople()
 }
 CBuilding::~CBuilding()
 {}
+QList<QString> CBuilding::infoToDisplay()
+{
+    QList<QString> info;
+    info.clear();
+    info.append(CStructure::infoToDisplay());
+    info.append(QString("Money: %1$").arg(money,1));
+    info.append(QString("Utilities:\ndump: %1\nwater: %2\nelectricity: %3").
+                arg(utilities.getDump(),1).
+                arg(utilities.getWater(),1).
+                arg(utilities.getElectricity(),1));
+    return info;
+}
 
 bool CBuilding::sendUtilitiesToCity()
 {

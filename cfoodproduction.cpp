@@ -16,6 +16,18 @@ void CFoodProduction::sellProducts(CProducts _prod)
     if(stackedProducts.getFood() <0)
         stackedProducts.setFood(0);
 }
+QList<QString> CFoodProduction::infoToDisplay()
+{   QList<QString> info;
+    info.clear();
+    info.append(CProductionBuilding::infoToDisplay());
+    info.append(QString("Base food production: %1\nActual food production: %2").
+                arg(maxProductionPerTick.getFood(),1).
+                arg(actualProductionPerTick.getFood(),1));
+    info.append(QString("Max food stacked: %1\nActual food stacked: %2").
+                arg(maxStackedProducts.getFood(),1).
+                arg(stackedProducts.getFood(),1));
+    return info;
+}
 
 CFarm::CFarm() : CFoodProduction()
 {   sizeOnGameMap = CCoordinates(4,3);}

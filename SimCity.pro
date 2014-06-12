@@ -47,7 +47,9 @@ SOURCES += main.cpp \
     cgraphictaxes.cpp \
     cgraphicmainview.cpp \
     cgraphicgametile.cpp \
-    cgraphicbuildingtile.cpp
+    cgraphicbuildingtile.cpp \
+    idisplayinginterface.cpp \
+    cstartingwindow.cpp
 
 HEADERS  += mainwindow.h \
     cstructure.h \
@@ -83,7 +85,9 @@ HEADERS  += mainwindow.h \
     cgraphictaxes.h \
     cgraphicmainview.h \
     cgraphicgametile.h \
-    cgraphicbuildingtile.h
+    cgraphicbuildingtile.h \
+    idisplayinginterface.h \
+    cstartingwindow.h
 
 FORMS    += mainwindow.ui
 

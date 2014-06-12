@@ -16,7 +16,8 @@ protected:
 public:
     CShop();
     CShop(const  CShop& _S);
-    virtual ~ CShop();
+    virtual ~CShop();
+    virtual QList<QString> infoToDisplay();
 
     bool sendProductsNeedToMarket();
     CProducts countSetProductsSellPrice();

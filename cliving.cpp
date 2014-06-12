@@ -10,6 +10,7 @@ CLiving::CLiving() : CBuilding(),schoolConnected(NULL)
     income=0;
     lifeSatisfaction=0;
     learningPeopleList.clear();
+    setRandomName(1);
 }
 CLiving::CLiving(const CLiving& _L) : CBuilding(_L)
 {
@@ -28,7 +29,48 @@ CLiving::~CLiving()
 {
     learningPeopleList.clear();
 }
-
+QList<QString> CLiving::infoToDisplay()
+{   QList<QString> info;
+    info.clear();
+    info.append(CBuilding::infoToDisplay());
+    info.append(QString("Income: %1$").arg(income,1));
+    info.append(QString("Maximum living people: %1\nChildren: %2").arg(maxLivingPeople,1).arg(children,1));
+    info.append(QString("Living working people:\nLead workers: %1\nService workers: %2\nLight workers: %3\nHeavy workers: %4\nLow workers: %5").
+                arg(livingWorkingPeople.getLeadWorker(),1).
+                arg(livingWorkingPeople.getServiceWorker(),1).
+                arg(livingWorkingPeople.getLightWorker(),1).
+                arg(livingWorkingPeople.getHeavyWorker(),1).
+                arg(livingWorkingPeople.getLowWorker(),1));
+    info.append(QString("Living NOT working people:\nLead workers: %1\nService workers: %2\nLight workers: %3\nHeavy workers: %4\nLow workers: %5").
+                arg(livingNotWorkingPeople.getLeadWorker(),1).
+                arg(livingNotWorkingPeople.getServiceWorker(),1).
+                arg(livingNotWorkingPeople.getLightWorker(),1).
+                arg(livingNotWorkingPeople.getHeavyWorker(),1).
+                arg(livingNotWorkingPeople.getLowWorker(),1));
+    CPeople _learningPeople;
+    for(int i=0;i<learningPeopleList.count();i++)
+    {   _learningPeople += *(learningPeopleList.at(i));}
+    info.append(QString("People learning to professions:\nLead workers: %1\nService workers: %2\nLight workers: %3\nHeavy workers: %4\nLow workers: %5").
+                arg(_learningPeople.getLeadWorker(),1).
+                arg(_learningPeople.getServiceWorker(),1).
+                arg(_learningPeople.getLightWorker(),1).
+                arg(_learningPeople.getHeavyWorker(),1).
+                arg(_learningPeople.getLowWorker(),1));
+    info.append(QString("Life satisfaction: %1").arg(lifeSatisfaction,1));
+    info.append(QString("People needs:\nProducts need:\n   Food: %1\n   Light products: %2\n   Heavy products: %3\nService: %4\nRecreation: %5\nPeace need: %6\nTraffic need: %7").
+                arg(peopleNeeds.getProductsNeed().getFood(),1).
+                arg(peopleNeeds.getProductsNeed().getLight(),1).
+                arg(peopleNeeds.getProductsNeed().getHeavy(),1).
+                arg(peopleNeeds.getServiceNeed().getService1(),1).
+                arg(peopleNeeds.getRecreationNeed().getRecreation1(),1).
+                arg(peopleNeeds.getDisturbance(),1).
+                arg(peopleNeeds.getTraffic(),1));
+    if(schoolConnected!=NULL)
+        info.append(QString("School's connected name: %1").arg(schoolConnected->getName(),1));
+    else
+        info.append(QString("No school connected"));
+    return info;
+}
 
 bool CLiving::searchSetForBetterSchool()
 {
@@ -151,10 +193,13 @@ bool CLiving::searchForService()
         _tempList.append(_ind);
         sum+=_ind;
     }
-    //decide to which service building go
+    //decide to which service building to go
     double sendIndicator;
     for(int i=0; i<(city->getMapOfStructures()->getAllServiceBuildings()).count(); i++)
-    {   sendIndicator = (_tempList.at(i))/sum;
+    {   if(sum!=0)
+            sendIndicator = (_tempList.at(i))/sum;
+        else
+            sendIndicator=0;
         CService _S;
         _S.setService1((peopleNeeds.getServiceNeed().getService1())*sendIndicator);
         CPeopleNeedsBuildingPointer* _PN = new CPeopleNeedsBuildingPointer;

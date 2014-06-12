@@ -10,6 +10,7 @@ public:
     CFoodProduction();
     CFoodProduction(const CFoodProduction& _F);
     void sellProducts(CProducts _prod);
+    virtual QList<QString> infoToDisplay();
 };
 
 class CFarm : public CFoodProduction

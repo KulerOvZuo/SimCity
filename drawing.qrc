@@ -19,5 +19,7 @@
         <file>food.png</file>
         <file>park.png</file>
         <file>lawn.png</file>
+        <file>threeway.jpg</file>
+        <file>names.txt</file>
     </qresource>
 </RCC>

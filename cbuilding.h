@@ -16,6 +16,7 @@ public:
     CBuilding(const CBuilding& _B);
     CBuilding(double _money, CUtilitiesGlobal _U);
     virtual ~CBuilding();
+    virtual QList<QString> infoToDisplay();
 
     ///implement
     virtual bool sendUtilitiesToCity();

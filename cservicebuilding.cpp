@@ -7,6 +7,7 @@ CServiceBuilding::CServiceBuilding() : CWorking()
     baseService = CService(0);
     actualService = CService(0);
     income=0;
+    setRandomName(3);
 }
 CServiceBuilding::CServiceBuilding(const CServiceBuilding& _S) : CWorking(_S)
 {
@@ -19,7 +20,19 @@ CServiceBuilding::CServiceBuilding(const CServiceBuilding& _S) : CWorking(_S)
 }
 CServiceBuilding::~CServiceBuilding()
 {}
-
+QList<QString> CServiceBuilding::infoToDisplay()
+{   QList<QString> info;
+    info.clear();
+    info.append(CWorking::infoToDisplay());
+    info.append(QString("Income: %1$").arg(income,1));
+    info.append(QString("Base service: %1$\nActual service: %2$").
+                arg(baseService.getService1(),1).
+                arg(actualService.getService1(),1));
+    info.append(QString("Base service cost: %1$\nActual service cost: %2$").
+                arg(baseServiceCost.getService1(),1).
+                arg(actualServiceCost.getService1(),1));
+    return info;
+}
 bool CServiceBuilding::addLivingTolist(CPeopleNeedsBuildingPointer* _living)
 {   bool free = true;
     if(dynamic_cast<CLiving*>(_living->getBuilding()) == NULL)
@@ -68,7 +81,11 @@ void CServiceBuilding::countSetServiceQuality()
     actualService = CService(((baseService.getService1())*countBuildingEfficiency()+actualService.getService1())/2);
 }
 bool CServiceBuilding::giveServiceToLivings()
-{   double service1Indicator = actualService.getService1()/serviceNeedFromPeople.getService1();
+{   double service1Indicator;
+    if(serviceNeedFromPeople.getService1()!=0)
+        service1Indicator = actualService.getService1()/serviceNeedFromPeople.getService1();
+    else
+        return false;
     for(int i=0; i<listOfLivingNeeds.count(); i++)
     {   CService _S;
         if(service1Indicator <= 1)

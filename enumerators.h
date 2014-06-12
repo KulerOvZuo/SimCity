@@ -1,6 +1,8 @@
 #ifndef ENUMERATORS_H
 #define ENUMERATORS_H
 
+//names file
+#define namesFilePath "://names.txt"
 //graphic
 #define emptyTileHighlightStyle Qt::Dense3Pattern
 
@@ -19,6 +21,7 @@
 #define straightPixmapSource "://straight.jpg"
 #define crossPixmapSource "://cross.jpg"
 #define turningPixmapSource "://turning.jpg"
+#define threeWayPixmapSource "://threeway.jpg"
 #define noImagePixmapSource "://noimage.jpg"
 
 //map

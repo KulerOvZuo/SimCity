@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QDebug>
-
 #include "cstructure.h"
 #include "croadsandbridges.h"
 #include "croad.h"
@@ -21,16 +20,17 @@
 #include "csocietyindicators.h"
 #include "ccity.h"
 #include "enumerators.h"
+#include "cstartingwindow.h"
 
 int MainWindow::turnNumber = 1;
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w(QSize(23,15),QSize(50,50));
     QTime time = QTime::currentTime();
     qsrand((uint)time.msec());
-    w.show();
+    CStartingWindow startingWindow;
+    startingWindow.show();
 
     /*
     CCity* city = new CCity;

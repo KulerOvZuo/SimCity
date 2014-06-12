@@ -11,7 +11,7 @@
 #include "enumerators.h"
 #include "ctrafficengine.h"
 
-class CCity //: public QObject
+class CCity : public IDisplayingInterface
 {
    // Q_OBJECT
 protected:
@@ -28,6 +28,7 @@ public:
     CCity();
     CCity(const CCity& _C);
     virtual ~CCity();
+    //virtual QList<QString> infoToDisplay();
 
     ///main function
     void makeTick();
