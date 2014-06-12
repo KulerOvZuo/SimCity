@@ -99,7 +99,6 @@ private:
         QAction *exitAct;
     QMenu *cityManagement;
         QAction *taxesAct;
-        QAction *trafficAct;
         QAction *societyStatisticsAct;
         QAction *marketAct;
         QAction *publicUtilityAct;
@@ -114,7 +113,6 @@ signals:
 private slots:
     void newGame();
     void taxes();
-    void traffic();
     void societyStatistics();
     void market();
     void publicUtility();
@@ -130,6 +128,14 @@ private slots:
 
     void taxesWidgetChanged();
     void taxesWidgetRead();
+    void basePeopleEarningsChangedLead(int);
+    void basePeopleEarningsChangedService(int);
+    void basePeopleEarningsChangedLight(int);
+    void basePeopleEarningsChangedHeavy(int);
+    void basePeopleEarningsChangedLow(int);
+    void baseProductsCostChangedFood(int);
+    void baseProductsCostChangedLight(int);
+    void baseProductsCostChangedHeavy(int);
 
     void canBeBuiledStructure(CStructure *);
 

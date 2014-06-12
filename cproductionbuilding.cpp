@@ -19,7 +19,7 @@ QList<QString> CProductionBuilding::infoToDisplay()
 {    QList<QString> info;
      info.clear();
      info.append(CWorking::infoToDisplay());
-     info.append(QString("Income: %1$").arg(income,1));
+     info.append(QString("Income: %1$").arg(income,1,'f',2));
      return info;
 }
 

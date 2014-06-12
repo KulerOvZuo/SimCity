@@ -42,23 +42,23 @@ void CGraphicGameTile::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 QRectF CGraphicGameTile::boundingRect() const
 {  
-    return QRectF(0,0,tileSize.width(),tileSize.height());
+    return QRectF(tileSize.width()*0,tileSize.height()*0,tileSize.width()*1,tileSize.height()*1);
 }
 void CGraphicGameTile::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
     //this->setToolTip(QString("Empty field\nPos(%1,%2)").arg(this->pos().x()/tileSize.width(),1).arg(this->pos().y()/tileSize.height(),1));
-    painter->setPen(QPen(Qt::black,2,Qt::DotLine,Qt::RoundCap,Qt::RoundJoin));
+    painter->setPen(QPen(Qt::black,1,Qt::DotLine,Qt::RoundCap,Qt::RoundJoin));
     if(moving==true)
     {   painter->setOpacity(0.8);    }
     else
         painter->setOpacity(1);
     painter->setBrush(brush);
     painter->setRenderHint(QPainter::Antialiasing,true);
-    QRectF rect((tileSize.width()*0),(tileSize.height()*0),
-                (tileSize.width()-tileSize.width()*0),
-                (tileSize.height()-tileSize.height()*0));
+    QRectF rect((tileSize.width()*0.01),(tileSize.height()*0.01),
+                (tileSize.width()-tileSize.width()*0.02),
+                (tileSize.height()-tileSize.height()*0.02));
     if(moving==true)
     {   //painter->drawRoundedRect(rect,5,5);
         QRectF pixMapRectF(0,0,pixMap.size().width(),pixMap.size().height());
@@ -69,7 +69,8 @@ void CGraphicGameTile::paint(QPainter *painter, const QStyleOptionGraphicsItem *
        // painter->drawPixmap(rect,px);
     }
     else
-        painter->drawRoundedRect(rect,tileSize.width()*0.2,tileSize.height()*0.2);
+    {   painter->drawRoundedRect(rect,tileSize.width()*0.2,tileSize.height()*0.2);
+    }
 }
 
 void CGraphicGameTile::setTileSize(QSize _size)

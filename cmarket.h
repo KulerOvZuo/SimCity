@@ -40,6 +40,9 @@ public:
     CProducts getActualProductsCost();
 
     void setBaseProductsCost(CProducts _cost);
+    void setBaseProductsCostFood(double _cost);
+    void setBaseProductsCostLight(double _cost);
+    void setBaseProductsCostHeavy(double _cost);
     void setActualProductsCost(CProducts _cost);
     void setCity(CCity* city);
 };

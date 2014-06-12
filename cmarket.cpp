@@ -30,7 +30,7 @@ void CMarket::countSetActualProductsCost()
     }
 
     //the bigger final ratio is, the cheaper product will be
-    double _foodRatio1 = 4; //how many times suppy is bigger than need
+    double _foodRatio1 = 4; //how many times supply is bigger than need
     if(_shopsProd.getFood()>0)
         _foodRatio1 = _tickProd.getFood()/_shopsProd.getFood();
     if(_foodRatio1>4)
@@ -270,6 +270,12 @@ CProducts CMarket::getActualProductsCost()
 
 void CMarket::setBaseProductsCost(CProducts _cost)
 {   baseProductsCost = _cost;}
+void CMarket::setBaseProductsCostFood(double _cost)
+{   baseProductsCost.setFood(_cost);}
+void CMarket::setBaseProductsCostLight(double _cost)
+{   baseProductsCost.setLight(_cost);}
+void CMarket::setBaseProductsCostHeavy(double _cost)
+{   baseProductsCost.setHeavy(_cost);}
 void CMarket::setActualProductsCost(CProducts _cost)
 {   actualProductsCost = _cost;}
 void CMarket::setCity(CCity* city)

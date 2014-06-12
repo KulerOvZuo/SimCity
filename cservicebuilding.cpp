@@ -24,13 +24,13 @@ QList<QString> CServiceBuilding::infoToDisplay()
 {   QList<QString> info;
     info.clear();
     info.append(CWorking::infoToDisplay());
-    info.append(QString("Income: %1$").arg(income,1));
+    info.append(QString("Income: %1$").arg(income,1,'f',2));
     info.append(QString("Base service: %1$\nActual service: %2$").
-                arg(baseService.getService1(),1).
-                arg(actualService.getService1(),1));
+                arg(baseService.getService1(),1,'f',2).
+                arg(actualService.getService1(),1,'f',2));
     info.append(QString("Base service cost: %1$\nActual service cost: %2$").
-                arg(baseServiceCost.getService1(),1).
-                arg(actualServiceCost.getService1(),1));
+                arg(baseServiceCost.getService1(),1,'f',2).
+                arg(actualServiceCost.getService1(),1,'f',2));
     return info;
 }
 bool CServiceBuilding::addLivingTolist(CPeopleNeedsBuildingPointer* _living)

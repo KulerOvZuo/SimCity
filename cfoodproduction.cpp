@@ -21,11 +21,11 @@ QList<QString> CFoodProduction::infoToDisplay()
     info.clear();
     info.append(CProductionBuilding::infoToDisplay());
     info.append(QString("Base food production: %1\nActual food production: %2").
-                arg(maxProductionPerTick.getFood(),1).
-                arg(actualProductionPerTick.getFood(),1));
+                arg(maxProductionPerTick.getFood(),1,'f',2).
+                arg(actualProductionPerTick.getFood(),1,'f',2));
     info.append(QString("Max food stacked: %1\nActual food stacked: %2").
-                arg(maxStackedProducts.getFood(),1).
-                arg(stackedProducts.getFood(),1));
+                arg(maxStackedProducts.getFood(),1,'f',2).
+                arg(stackedProducts.getFood(),1,'f',2));
     return info;
 }
 

@@ -28,7 +28,6 @@ public:
     CCity();
     CCity(const CCity& _C);
     virtual ~CCity();
-    //virtual QList<QString> infoToDisplay();
 
     ///main function
     void makeTick();

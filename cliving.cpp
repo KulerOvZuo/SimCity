@@ -33,7 +33,7 @@ QList<QString> CLiving::infoToDisplay()
 {   QList<QString> info;
     info.clear();
     info.append(CBuilding::infoToDisplay());
-    info.append(QString("Income: %1$").arg(income,1));
+    info.append(QString("Income: %1$").arg(income,1,'f',2));
     info.append(QString("Maximum living people: %1\nChildren: %2").arg(maxLivingPeople,1).arg(children,1));
     info.append(QString("Living working people:\nLead workers: %1\nService workers: %2\nLight workers: %3\nHeavy workers: %4\nLow workers: %5").
                 arg(livingWorkingPeople.getLeadWorker(),1).
@@ -56,18 +56,19 @@ QList<QString> CLiving::infoToDisplay()
                 arg(_learningPeople.getLightWorker(),1).
                 arg(_learningPeople.getHeavyWorker(),1).
                 arg(_learningPeople.getLowWorker(),1));
-    info.append(QString("Life satisfaction: %1").arg(lifeSatisfaction,1));
+    info.append(QString("Life satisfaction: %1").arg(lifeSatisfaction,1,'f',2));
     info.append(QString("People needs:\nProducts need:\n   Food: %1\n   Light products: %2\n   Heavy products: %3\nService: %4\nRecreation: %5\nPeace need: %6\nTraffic need: %7").
-                arg(peopleNeeds.getProductsNeed().getFood(),1).
-                arg(peopleNeeds.getProductsNeed().getLight(),1).
-                arg(peopleNeeds.getProductsNeed().getHeavy(),1).
-                arg(peopleNeeds.getServiceNeed().getService1(),1).
-                arg(peopleNeeds.getRecreationNeed().getRecreation1(),1).
-                arg(peopleNeeds.getDisturbance(),1).
-                arg(peopleNeeds.getTraffic(),1));
+                arg(peopleNeeds.getProductsNeed().getFood(),1,'f',2).
+                arg(peopleNeeds.getProductsNeed().getLight(),1,'f',2).
+                arg(peopleNeeds.getProductsNeed().getHeavy(),1,'f',2).
+                arg(peopleNeeds.getServiceNeed().getService1(),1,'f',2).
+                arg(peopleNeeds.getRecreationNeed().getRecreation1(),1,'f',2).
+                arg(peopleNeeds.getDisturbance(),1,'f',2).
+                arg(peopleNeeds.getTraffic(),1,'f',2));
     if(schoolConnected!=NULL)
-        info.append(QString("School's connected name: %1").arg(schoolConnected->getName(),1));
-    else
+    {   info.append(QString("School's connected name: %1").arg(schoolConnected->getName(),1));
+        info.append(QString("School's connected education indicator: %1").arg(schoolConnected->getActualEducationIndicator(),1,'f',2));
+    }else
         info.append(QString("No school connected"));
     return info;
 }

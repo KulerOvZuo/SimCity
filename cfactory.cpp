@@ -31,11 +31,11 @@ QList<QString> CLightFactory::infoToDisplay()
     info.clear();
     info.append(CProductionBuilding::infoToDisplay());
     info.append(QString("Base light production: %1\nActual light production: %2").
-                arg(maxProductionPerTick.getLight(),1).
-                arg(actualProductionPerTick.getLight(),1));
+                arg(maxProductionPerTick.getLight(),1,'f',2).
+                arg(actualProductionPerTick.getLight(),1,'f',2));
     info.append(QString("Max light products stacked: %1\nActual light products stacked: %2").
-                arg(maxStackedProducts.getLight(),1).
-                arg(stackedProducts.getLight(),1));
+                arg(maxStackedProducts.getLight(),1,'f',2).
+                arg(stackedProducts.getLight(),1,'f',2));
     return info;
 }
 
@@ -58,10 +58,10 @@ QList<QString> CHeavyFactory::infoToDisplay()
     info.clear();
     info.append(CProductionBuilding::infoToDisplay());
     info.append(QString("Base heavy production: %1\nActual heavy production: %2").
-                arg(maxProductionPerTick.getHeavy(),1).
-                arg(actualProductionPerTick.getHeavy(),1));
+                arg(maxProductionPerTick.getHeavy(),1,'f',2).
+                arg(actualProductionPerTick.getHeavy(),1,'f',2));
     info.append(QString("Max heavy products stacked: %1\nActual heavy products stacked: %2").
-                arg(maxStackedProducts.getHeavy(),1).
-                arg(stackedProducts.getHeavy(),1));
+                arg(maxStackedProducts.getHeavy(),1,'f',2).
+                arg(stackedProducts.getHeavy(),1,'f',2));
     return info;
 }

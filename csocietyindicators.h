@@ -48,6 +48,11 @@ public:
 
     void setPeopleEarnings(CPeopleEarnings _earn);
     void setBasePeopleEarnings(CPeopleEarnings _earn);
+    void setBasePeopleEarningsLead(double _earn);
+    void setBasePeopleEarningsService(double _earn);
+    void setBasePeopleEarningsHeavy(double _earn);
+    void setBasePeopleEarningsLight(double _earn);
+    void setBasePeopleEarningsLow(double _earn);
     void setAllPeople(CPeople _people);
     void setAllLivingWorkingPeople(CPeople _people);
     void setAllLivingNotWorkingPeople(CPeople _people);

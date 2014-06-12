@@ -23,7 +23,7 @@ QList<QString> CSchool::infoToDisplay()
     info.append(CWorking::infoToDisplay());
     info.append(QString("Base education indicator: %1\nActual education indicator: %2").
                 arg(baseEducationIndicator,1).
-                arg(actualEducationIndicator,1));
+                arg(actualEducationIndicator,1,'f',2));
     info.append(QString("Maximum number of children: %1\nActual number of children: %2").
                 arg(maxNOChildren,1).
                 arg(actualNOChildren,1));

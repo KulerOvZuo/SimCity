@@ -88,10 +88,6 @@ void MainWindow::createActions()
     taxesAct->setStatusTip(tr("Change taxes"));
     connect(taxesAct,SIGNAL(triggered()),this,SLOT(taxes()));
 
-    trafficAct = new QAction(tr("&Traffic"),this);
-    trafficAct->setStatusTip(tr("Global traffic information"));
-    connect(trafficAct,SIGNAL(triggered()),this,SLOT(traffic()));
-
     marketAct = new QAction(tr("&Market"),this);
     marketAct->setStatusTip(tr("Market information"));
     connect(marketAct,SIGNAL(triggered()),this,SLOT(market()));
@@ -116,7 +112,6 @@ void MainWindow::createMenus()
         cityManagement->addAction(marketAct);
         cityManagement->addAction(societyStatisticsAct);
         cityManagement->addAction(publicUtilityAct);
-        cityManagement->addAction(trafficAct);
     taxesWidget = new CGraphicTaxes;
 }
 void MainWindow::createToolBar()
@@ -485,6 +480,23 @@ void MainWindow::taxesWidgetRead()
 {
     taxesWidget->setValues(city->getTaxes()->getFromProductionInd(),city->getTaxes()->getFromPeopleInd(),city->getTaxes()->getFromOthersInd());
 }
+void MainWindow::basePeopleEarningsChangedLead(int value)
+{   city->getSocietyIndicators()->setBasePeopleEarningsLead(value);}
+void MainWindow::basePeopleEarningsChangedService(int value)
+{   city->getSocietyIndicators()->setBasePeopleEarningsService(value);}
+void MainWindow::basePeopleEarningsChangedLight(int value)
+{   city->getSocietyIndicators()->setBasePeopleEarningsLight(value);}
+void MainWindow::MainWindow::basePeopleEarningsChangedHeavy(int value)
+{   city->getSocietyIndicators()->setBasePeopleEarningsHeavy(value);}
+void MainWindow::basePeopleEarningsChangedLow(int value)
+{   city->getSocietyIndicators()->setBasePeopleEarningsLow(value);}
+void MainWindow::baseProductsCostChangedFood(int value)
+{   city->getMarket()->setBaseProductsCostFood(value);}
+void MainWindow::baseProductsCostChangedLight(int value)
+{   city->getMarket()->setBaseProductsCostLight(value);}
+void MainWindow::baseProductsCostChangedHeavy(int value)
+{   city->getMarket()->setBaseProductsCostHeavy(value);}
+
 void MainWindow::canBeBuiledStructure(CStructure *structure)
 {
     structure->setCity(city);
@@ -563,8 +575,6 @@ CStructure* MainWindow::makeNewStructureProperly(CStructure *checking)
     return temp;
 }
 
-void MainWindow::traffic()
-{}
 void MainWindow::societyStatistics()
 {
     //QDialog *societyWidget = new QDialog(dynamic_cast<QWidget*>(this));
@@ -579,31 +589,35 @@ void MainWindow::societyStatistics()
     basePeopleEarningsLead->setRange(0,10000);
     basePeopleEarningsLead->setSingleStep(10);
     basePeopleEarningsLead->setValue(city->getSocietyIndicators()->getBasePeopleEarnings().getLeadWorkerEarn());
+    connect(basePeopleEarningsLead,SIGNAL(valueChanged(int)),this,SLOT(basePeopleEarningsChangedLead(int)));
 
     QLabel *basePeopleEarningsServiceLabel = new QLabel(QString("Base service worker earning [$]"));
     QSpinBox* basePeopleEarningsService = new QSpinBox(basePeopleEarningsLead);
     basePeopleEarningsService->setRange(0,10000);
     basePeopleEarningsService->setSingleStep(10);
     basePeopleEarningsService->setValue(city->getSocietyIndicators()->getBasePeopleEarnings().getServiceWorkerEarn());
+    connect(basePeopleEarningsService,SIGNAL(valueChanged(int)),this,SLOT(basePeopleEarningsChangedService(int)));
 
     QLabel *basePeopleEarningsLightLabel = new QLabel(QString("Base Light worker earning [$]"));
     QSpinBox* basePeopleEarningsLight = new QSpinBox(basePeopleEarningsLead);
     basePeopleEarningsLight->setRange(0,10000);
     basePeopleEarningsLight->setSingleStep(10);
     basePeopleEarningsLight->setValue(city->getSocietyIndicators()->getBasePeopleEarnings().getLightWorkerEarn());
+    connect(basePeopleEarningsLight,SIGNAL(valueChanged(int)),this,SLOT(basePeopleEarningsChangedLight(int)));
 
     QLabel *basePeopleEarningsHeavyLabel = new QLabel(QString("Base heavy worker earning [$]"));
     QSpinBox* basePeopleEarningsHeavy = new QSpinBox(basePeopleEarningsLead);
     basePeopleEarningsHeavy->setRange(0,10000);
     basePeopleEarningsHeavy->setSingleStep(10);
     basePeopleEarningsHeavy->setValue(city->getSocietyIndicators()->getBasePeopleEarnings().getHeavyWorkerEarn());
+    connect(basePeopleEarningsHeavy,SIGNAL(valueChanged(int)),this,SLOT(basePeopleEarningsChangedHeavy(int)));
 
     QLabel *basePeopleEarningsLowLabel = new QLabel(QString("Base low worker earning [$]"));
     QSpinBox* basePeopleEarningsLow = new QSpinBox(basePeopleEarningsLead);
     basePeopleEarningsLow->setRange(0,10000);
     basePeopleEarningsLow->setSingleStep(10);
     basePeopleEarningsLow->setValue(city->getSocietyIndicators()->getBasePeopleEarnings().getLowWorkerEarn());
-
+    connect(basePeopleEarningsLow,SIGNAL(valueChanged(int)),this,SLOT(basePeopleEarningsChangedLow(int)));
 
     ///[1.1]
     QLabel *actualPeopleEarningsLeadLabel = new QLabel(QString("Actual lead worker earning [$]"));
@@ -704,7 +718,7 @@ void MainWindow::societyStatistics()
     double bla = -1;
     if(city->getSocietyIndicators()->getAllPeople().getAllPeople()!=0)
         bla = city->getSocietyIndicators()->getallLivingNotWorkingPeople().getAllPeople()/city->getSocietyIndicators()->getAllPeople().getAllPeople();
-    QLabel *unemployment = new QLabel(QString("Unemployed rate: %1").arg(bla,1));
+    QLabel *unemployment = new QLabel(QString("Unemployed rate: %1").arg(bla,1,'f',2));
     unemployment->setFrameStyle(frameStyle);
 
     QWidget* page2 = new QWidget;
@@ -769,18 +783,21 @@ void MainWindow::market()
     baseProductsCostFood->setRange(0,10000);
     baseProductsCostFood->setSingleStep(1);
     baseProductsCostFood->setValue(city->getMarket()->getBaseProductsCost().getFood());
+    connect(baseProductsCostFood,SIGNAL(valueChanged(int)),this,SLOT(baseProductsCostChangedFood(int)));
 
     QLabel *baseProductsCostLabelLight = new QLabel(QString("Base light products cost [$]"));
     QSpinBox* baseProductsCostLight = new QSpinBox;
     baseProductsCostLight->setRange(0,10000);
     baseProductsCostLight->setSingleStep(1);
     baseProductsCostLight->setValue(city->getMarket()->getBaseProductsCost().getLight());
+    connect(baseProductsCostLight,SIGNAL(valueChanged(int)),this,SLOT(baseProductsCostChangedLight(int)));
 
     QLabel *baseProductsCostLabelHeavy = new QLabel(QString("Base heavy products cost [$]"));
     QSpinBox* baseProductsCostHeavy = new QSpinBox;
     baseProductsCostHeavy->setRange(0,10000);
     baseProductsCostHeavy->setSingleStep(1);
     baseProductsCostHeavy->setValue(city->getMarket()->getBaseProductsCost().getHeavy());
+    connect(baseProductsCostHeavy,SIGNAL(valueChanged(int)),this,SLOT(baseProductsCostChangedHeavy(int)));
 
     ///[2]
     QLabel *actualProductsCostLabelFood = new QLabel(QString("Actual food cost [$]"));
@@ -868,12 +885,8 @@ void MainWindow::showInfo()
 {}
 void MainWindow::nextTurn()
 {
-   // qDebug()<<"turn: "<<turnNumber;
     turnNumber++;
     city->makeTick();
-    /*for(int i=0; i<100000000;i++)
-    {   int x=1000000;
-        x=i*x*x;}*/
     money->setText(QString::number(city->getMoney())+" $");
     turn->setText(tr("Turn number: ")+QString::number(turnNumber));
     NOPeople->setText(QString::number(city->getSocietyIndicators()->getAllPeople().getAllPeople()));

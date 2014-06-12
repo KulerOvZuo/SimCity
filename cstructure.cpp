@@ -61,7 +61,7 @@ QList<QString> CStructure::infoToDisplay()
     info.clear();
     info.append(QString("Name: %1").arg(name,1));
     info.append(QString("Age: %1").arg(age,1));
-    info.append(QString("Destroy cost: %1$").arg(destroyCost,1));
+    info.append(QString("Destroy cost: %1$").arg(destroyCost,1,'f',2));
     return info;
 }
 bool CStructure::checkIfCanBeBuiled() const
@@ -146,11 +146,13 @@ bool CStructure::setRandomName(int size)
         CPeople people;
         int number = people.randBetween(1,lines-1);
         QString line;
-        for(int i=0; i<number;i++)
+        for(int num=0; num<number;num++)
         {   line = _text.readLine();}
         _name.append(line);
         _name.append(" ");
         myFile.close();
+        if(size>=3 && i%3 ==1)
+            _name.append("\n");
     }
     name = _name;
     return true;

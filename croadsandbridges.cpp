@@ -62,7 +62,7 @@ QList<QString> CRoadsAndBridges::infoToDisplay()
     QList<QString> info;
     info.clear();
     info.append(CStructure::infoToDisplay());
-    info.append(QString("Keep cost: %1$").arg(costPerTick,1));
+    info.append(QString("Keep cost: %1$").arg(costPerTick,1,'f',2));
     info.append(QString("Capacity: %1").arg(capacity,1));
     return info;
 }

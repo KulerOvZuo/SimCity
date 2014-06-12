@@ -23,11 +23,11 @@ QList<QString> CShop::infoToDisplay()
 {   QList<QString> info;
     info.clear();
     info.append(CWorking::infoToDisplay());
-    info.append(QString("Income: %1$").arg(income,1));
-    info.append(QString("Products sell price:\nFood price: %1$\nLight price: %2$\nHeavy price: %2$").
-                arg(productsSellPrice.getFood(),1).
-                arg(productsSellPrice.getLight(),1).
-                arg(productsSellPrice.getHeavy(),1));
+    info.append(QString("Income: %1$").arg(income,1,'f',2));
+    info.append(QString("Products sell price:\nFood price: %1$\nLight price: %2$\nHeavy price: %3$").
+                arg(productsSellPrice.getFood(),1,'f',2).
+                arg(productsSellPrice.getLight(),1,'f',2).
+                arg(productsSellPrice.getHeavy(),1,'f',2));
     return info;
 }
 CProducts CShop::countSetProductsSellPrice()
@@ -40,13 +40,13 @@ CProducts CShop::countSetProductsSellPrice()
 
     double _lightCost=productsSellPrice.getLight();
     if(allShopsNeed.getLight()!=0)
-        _lightCost=indicator+0.4*productsGotFromMarket.getLight()/allShopsNeed.getLight();
+        _lightCost=(indicator+0.4*productsGotFromMarket.getLight()/allShopsNeed.getLight())*city->getMarket()->getActualProductsCost().getLight();
     double _heavyCost=productsSellPrice.getHeavy();
     if(allShopsNeed.getHeavy()!=0)
-        _heavyCost= indicator+0.4*productsGotFromMarket.getHeavy()/allShopsNeed.getHeavy();
+        _heavyCost= (indicator+0.4*productsGotFromMarket.getHeavy()/allShopsNeed.getHeavy())*city->getMarket()->getActualProductsCost().getHeavy();
     double _foodCost = productsSellPrice.getFood();
     if(allShopsNeed.getFood()!=0)
-        _foodCost= indicator+0.4*productsGotFromMarket.getFood()/allShopsNeed.getFood();
+        _foodCost= (indicator+0.4*productsGotFromMarket.getFood()/allShopsNeed.getFood())*city->getMarket()->getActualProductsCost().getFood();
 
     CProducts P = CProducts(_lightCost,_heavyCost,_foodCost);
 

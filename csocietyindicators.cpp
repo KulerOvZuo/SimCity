@@ -163,6 +163,17 @@ void CSocietyIndicators::setPeopleEarnings(CPeopleEarnings _earn)
 {   peopleEarnings = _earn; }
 void CSocietyIndicators::setBasePeopleEarnings(CPeopleEarnings _earn)
 {   basePeopleEarnings = _earn;}
+void CSocietyIndicators::setBasePeopleEarningsLead(double _earn)
+{   peopleEarnings.setLeadWorkerEarn(_earn);}
+void CSocietyIndicators::setBasePeopleEarningsService(double _earn)
+{   peopleEarnings.setServiceWorkerEarn(_earn);}
+void CSocietyIndicators::setBasePeopleEarningsHeavy(double _earn)
+{   peopleEarnings.setHeavyWorkerEarn(_earn);}
+void CSocietyIndicators::setBasePeopleEarningsLight(double _earn)
+{   peopleEarnings.setLightWorkerEarn(_earn);}
+void CSocietyIndicators::setBasePeopleEarningsLow(double _earn)
+{   peopleEarnings.setLowWorkerEarn(_earn);}
+
 void CSocietyIndicators::setAllPeople(CPeople _people)
 {   allPeople = _people;}
 void CSocietyIndicators::setAllLivingWorkingPeople(CPeople _people)
