@@ -202,7 +202,13 @@ double CShop::getIncome() const
 
 //CSmallShop
 CSmallShop::CSmallShop() : CShop()
-{   sizeOnGameMap = CCoordinates(3,2);}
+{   sizeOnGameMap = CCoordinates(3,2);
+    buildCost=200;
+    destroyCost=buildCost/2;
+    money=5000;
+    utilities=CUtilitiesGlobal(5,5,5);
+    neededNumberOfWorkers=CPeople(2,2,2,5,15);
+}
 CSmallShop::CSmallShop(const CSmallShop& _S): CShop(_S)
 {   sizeOnGameMap = _S.getSizeOnGameMap();}
 CSmallShop::~CSmallShop()

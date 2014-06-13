@@ -30,6 +30,11 @@ QList<QString> CFoodProduction::infoToDisplay()
 }
 
 CFarm::CFarm() : CFoodProduction()
-{   sizeOnGameMap = CCoordinates(4,3);}
+{   sizeOnGameMap = CCoordinates(4,3);
+    buildCost=500;
+    destroyCost=buildCost/2;
+    money=5000;
+utilities=CUtilitiesGlobal(30,30,30);
+neededNumberOfWorkers=CPeople(2,5,5,20,40);}
 CFarm::CFarm(const CFarm& _F) : CFoodProduction(_F)
 {   sizeOnGameMap = _F.getSizeOnGameMap();}

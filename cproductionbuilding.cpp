@@ -6,6 +6,7 @@ CProductionBuilding::CProductionBuilding() : CWorking()
 {
     income=0;
     setRandomName(3);
+    utilities=CUtilitiesGlobal(35,35,35);
 }
 CProductionBuilding::CProductionBuilding(const CProductionBuilding& _P) : CWorking(_P)
 {

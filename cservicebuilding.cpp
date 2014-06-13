@@ -148,7 +148,11 @@ void CServiceBuilding::setIncome(double _inc)
 
 //COffice
 COffice::COffice() : CServiceBuilding()
-{   sizeOnGameMap = CCoordinates(2,3);}
+{   sizeOnGameMap = CCoordinates(2,3);
+    buildCost=200;
+    destroyCost=buildCost/2;
+money=5000;
+neededNumberOfWorkers=CPeople(5,30,15,5,10);}
 COffice::COffice(const COffice& _O): CServiceBuilding(_O)
 {   sizeOnGameMap = _O.getSizeOnGameMap();}
 COffice::~COffice()

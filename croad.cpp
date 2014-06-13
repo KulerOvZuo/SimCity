@@ -3,6 +3,9 @@
 CRoad::CRoad() : CRoadsAndBridges()
 {
     onWater = false;
+    buildCost=30;
+    destroyCost=buildCost/2;
+    capacity=10;
 }
 CRoad::CRoad(const CRoad& _R) : CRoadsAndBridges(_R)
 {   onWater = _R.getOnWater();}

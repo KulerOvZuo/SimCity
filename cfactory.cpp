@@ -12,7 +12,11 @@ void CFactory::sellProducts(CProducts _prod)
 
 CLightFactory::CLightFactory() : CFactory()
 {   sizeOnGameMap = CCoordinates(4,3);
-
+    buildCost=500;
+    destroyCost=buildCost/2;
+    money=5000;
+    utilities=CUtilitiesGlobal(30,30,30);
+    neededNumberOfWorkers=CPeople(2,10,30,10,20);
 }
 CLightFactory::CLightFactory(const CLightFactory& _F) : CFactory(_F)
 {   sizeOnGameMap = _F.getSizeOnGameMap();}
@@ -40,7 +44,12 @@ QList<QString> CLightFactory::infoToDisplay()
 }
 
 CHeavyFactory::CHeavyFactory(): CFactory()
-{   sizeOnGameMap = CCoordinates(5,4);}
+{   sizeOnGameMap = CCoordinates(5,4);
+    buildCost=500;
+    destroyCost=buildCost/2;
+money=5000;
+utilities=CUtilitiesGlobal(30,30,30);
+neededNumberOfWorkers=CPeople(2,10,10,30,20);}
 CHeavyFactory::CHeavyFactory(const CHeavyFactory& _F) : CFactory(_F)
 {   sizeOnGameMap = _F.getSizeOnGameMap();}
 void CHeavyFactory::sellProducts(CProducts _prod)

@@ -10,7 +10,10 @@ CLiving::CLiving() : CBuilding(),schoolConnected(NULL)
     income=0;
     lifeSatisfaction=0;
     learningPeopleList.clear();
+    money=5000;
+
     setRandomName(1);
+
 }
 CLiving::CLiving(const CLiving& _L) : CBuilding(_L)
 {
@@ -521,11 +524,20 @@ double CLiving::countLifeSatisfaction()
     double _service= (peopleNeeds.getServiceNeed()).getService1()/_allPeople;
     if(_service<1)
         _service=1;
+    double traffic=peopleNeeds.getTraffic();
+    if(traffic<1)
+        traffic=1;
+    double dist=abs(peopleNeeds.getDisturbance());
+    if(dist<1)
+        dist=1;
+    double _income=abs(income/_allPeople);
+    if(_income<1)
+        _income=1;
 
-    lifeSat = (1+0.2*(trafficInd*log10(peopleNeeds.getTraffic())+aDist*disturbanceInd*log10(abs(peopleNeeds.getDisturbance()))+
+    lifeSat = (1+0.2*(trafficInd*log10(traffic)+aDist*disturbanceInd*log10(dist)+
                              recreationInd*log10(_rec1)+foodInd*log10(_food)+
                              lightInd*log10(_light)+heavyInd*log10(_heavy)+
-                         serviceInd*log10(_service)+aInc*incomeInd*log10(abs(income/_allPeople))));
+                         serviceInd*log10(_service)+aInc*incomeInd*log10(_income)));
     return (3*_pastLifeSat+lifeSat)/4;
 }
 void CLiving::searchAndGoToWork()
@@ -802,12 +814,28 @@ CPeopleNeeds CLiving::getPeopleNeeds() const
 
 //CBLocks
 CBlocks::CBlocks() : CLiving()
-{   sizeOnGameMap = CCoordinates(3,4);}
+{   sizeOnGameMap = CCoordinates(3,4);
+    buildCost=250;
+    destroyCost=buildCost/2;
+    utilities=CUtilitiesGlobal(20,20,20);
+    maxLivingPeople=60;
+    CPeople p;
+    p.randomAdd(30);
+    livingNotWorkingPeople=p;
+    }
 CBlocks::CBlocks(const CBlocks& _B): CLiving(_B)
 {   sizeOnGameMap = _B.getSizeOnGameMap();}
 
 //CHouse
 CHouse::CHouse(): CLiving()
-{   sizeOnGameMap = CCoordinates(3,2);}
+{   sizeOnGameMap = CCoordinates(3,2);
+    buildCost=100;
+    destroyCost=buildCost/2;
+utilities=CUtilitiesGlobal(10,10,10);
+maxLivingPeople=20;
+CPeople p;
+p.randomAdd(10);
+livingNotWorkingPeople=p;
+}
 CHouse::CHouse(const CHouse& _H): CLiving(_H)
 {   sizeOnGameMap = _H.getSizeOnGameMap();}
