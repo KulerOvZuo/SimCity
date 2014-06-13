@@ -15,7 +15,7 @@
  *analizowaniu i podawaniu informacji jakie zawody są najbardziej potrzebne
  *oraz ustalaniu płac pracowników.
  */
-class CSocietyIndicators : public IDisplayingInterface
+class CSocietyIndicators
 {
 protected:
     ///Aktualne zarobki ludzi.
