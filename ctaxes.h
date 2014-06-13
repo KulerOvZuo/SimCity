@@ -1,6 +1,11 @@
 #ifndef CTAXES_H
 #define CTAXES_H
 
+/**
+ * @brief Klasa CTaxes (podatki)
+ *
+ *Klasa będąca kontenerem informacji o podatkach.
+ */
 class CTaxes
 {
 protected:

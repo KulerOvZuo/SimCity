@@ -157,31 +157,25 @@ bool CStructure::setRandomName(int size)
     name = _name;
     return true;
 }
-bool CStructure::setBuildCost(double _cost)
+void CStructure::setBuildCost(double _cost)
 {   buildCost=_cost;
-            return true;
 }
-bool CStructure::setDestroyCost(double _cost)
+void CStructure::setDestroyCost(double _cost)
 {   destroyCost=_cost;
-    return true;
 }
-bool CStructure::setCostPerTick(double _cost)
+void CStructure::setCostPerTick(double _cost)
 {   costPerTick=_cost;
-    return true;
 }
-bool CStructure::setSizeOnGameMap(const CCoordinates& _C)
+void CStructure::setSizeOnGameMap(const CCoordinates& _C)
 {
     sizeOnGameMap.setX(abs(_C.getX())); //always x>0;
     sizeOnGameMap.setY(abs(_C.getY())); //always y<0
-    return true;
 }
-bool CStructure::setCoordinatesOfActualLUCorner(const CCoordinates& _C)
+void CStructure::setCoordinatesOfActualLUCorner(const CCoordinates& _C)
 {   coordinatesOfActualLUCorner = _C;
-    return true;
 }
-bool CStructure::setTurnedDirection(CDirections _dir)
+void CStructure::setTurnedDirection(CDirections _dir)
 {   turnedDirection = _dir;
-    return true;
 }
 bool CStructure::setCity(CCity* _city)
 {   if(_city!=NULL)

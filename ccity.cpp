@@ -3,7 +3,6 @@
 CCity::CCity()
 {
     market = new CMarket;
-    market->setCity(this);
     taxes = new CTaxes;
     societyIndicators = new CSocietyIndicators;
     mapOfStructures = new CMapOfStructures;

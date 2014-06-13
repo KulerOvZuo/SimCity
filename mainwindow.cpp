@@ -770,6 +770,7 @@ void MainWindow::societyStatistics()
     mainToolBox->addItem(page3,QTranslator::tr("All work for people"));
     //[/3]
     mainToolBox->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::Dialog);
+    mainToolBox->setWindowTitle(QString("Society Indicators"));
     mainToolBox->show();
 }
 void MainWindow::market()
@@ -842,6 +843,7 @@ void MainWindow::market()
     mainToolBox->addItem(page1,QTranslator::tr("Products cost"));
     //[/3]
     mainToolBox->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::Dialog);
+    mainToolBox->setWindowTitle(QString("Market"));
     mainToolBox->show();
 }
 void MainWindow::publicUtility()
@@ -877,6 +879,7 @@ void MainWindow::publicUtility()
     mainToolBox->addItem(page1,QTranslator::tr("Public utilities"));
     //[/3]
     mainToolBox->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::Dialog);
+    mainToolBox->setWindowTitle(QString("Public Utilities"));
     mainToolBox->show();
 }
 void MainWindow::destroy(CStructure * _structure)

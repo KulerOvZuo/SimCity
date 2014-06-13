@@ -79,6 +79,7 @@ CGraphicTaxes::CGraphicTaxes(QWidget *parent) :
 
     this->setLayout(mainLayout);
     this->setWindowFlags(Qt::WindowStaysOnTopHint);
+    this->setWindowTitle(QString("Taxes Manager"));
 }
 
 void CGraphicTaxes::connectSignalsSlots()

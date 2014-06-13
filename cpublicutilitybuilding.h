@@ -3,6 +3,12 @@
 
 #include "cworking.h"
 
+/**
+ * @brief Klasa CPublicUtilityBuilding (budynki komunalne)
+ *
+ *Klasa nadrzędna dla wszystkich budynków komunalnych w mieście.
+ *Te budynki "produkują" usługi komunalne.
+ */
 class CPublicUtilityBuilding : public CWorking
 {
 protected:
@@ -12,10 +18,13 @@ public:
     virtual ~CPublicUtilityBuilding();
 
     bool sendUtilitiesToCity();
+    ///Ustawia wartość usługi komunalnej w zależności od rodzaju.
     virtual void setProperUtility(double _utility);
     virtual bool setRandomName(int size);
 };
-
+/**
+ * @brief Klasa CPowerStation (elektrownia)
+ */
 class CPowerStation : public CPublicUtilityBuilding
 {
 protected:
@@ -26,6 +35,9 @@ public:
     void setProperUtility(double _utility);
 };
 
+/**
+ * @brief Klasa CWaterStation (uzdatnianie wody)
+ */
 class CWaterStation : public CPublicUtilityBuilding
 {
 protected:
@@ -36,6 +48,9 @@ public:
     void setProperUtility(double _utility);
 };
 
+/**
+ * @brief Klasa CDumpStation (wysypisko)
+ */
 class CDumpStation : public CPublicUtilityBuilding
 {
 protected:
@@ -46,6 +61,9 @@ public:
     void setProperUtility(double _utility);
 };
 
+/**
+ * @brief Klasa CPublicUtilityBuildingAllInOne (obiekt komunalny wszystko w jednym)
+ */
 class CPublicUtilityBuildingAllInOne : public CPublicUtilityBuilding
 {
 protected:

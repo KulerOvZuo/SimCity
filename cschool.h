@@ -3,12 +3,21 @@
 
 #include "cworking.h"
 
+/**
+ * @brief Klasa CSchool (szkoła)
+ *
+ *Klasa nadrzędna dla wszystkich budynków dających edukację.
+ */
 class CSchool : public CWorking
 {
 protected:
+    ///Maksymalna ilość dzieci uczących się
     int maxNOChildren;
+    ///Aktualna ilość dzieci uczących się
     int actualNOChildren;
+    ///Bazowy współczynnik edukacji
     double baseEducationIndicator;
+    ///Aktualny współczynnik edukacji
     double actualEducationIndicator;
 public:
     CSchool();
@@ -17,9 +26,20 @@ public:
     virtual QList<QString> infoToDisplay();
     virtual bool setRandomName(int size);
 
+    /**
+     * @brief Oblicz jakość edukacji
+     *
+     *Oblicza wartość wpółczynika edukacji w zależności od ilości dzieci w szkole oraz wydajności kadry.
+     */
     void countSetEducationQuality();
 
-    double countBuildingEfficiency();    
+    double countBuildingEfficiency();
+    /**
+     * @brief Dodaj dizeci do szkoły.
+     *
+     *@param _number - liczba dzieci do dodania
+     * @return zwraca false jeśli jest próba zejścia poniżej 0 z ilością dzieci w szkole.
+     */
     bool addNOChildren(int _number);
 
     int getMaxNOChildren() const;
@@ -32,7 +52,9 @@ public:
     void setBaseEducationIndicator(double _base);
     void setActualEducationIndicator(double _actual);
 };
-
+/**
+ * @brief Klasa CSchoolAllInOne (szkoła zintegrowana)
+ */
 class CSchoolAllInOne : public CSchool
 {
 protected:

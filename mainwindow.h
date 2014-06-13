@@ -22,11 +22,23 @@
 namespace Ui {
 class MainWindow;
 }
-
+/**
+ * @brief Klasa MainWindow (główne okno gry)
+ *
+ *Klasa odpowiada za połączenie elementów graficznych w całość. Jest także głównym interfejsem użytkownika.
+ *Przechowuje model graficzny gry. Pośredniczy w przesyłaniu informacji pomiędzy grafiką a modelem.
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 protected:
+    /**
+     * @brief Utwórz nową strukturę
+     *
+     *Metoda powoduje utworzenie nowej struktury jako kopii struktury \b checking\c schodząc niżej w hierarchii dziedziczenia.
+     * @param checking - wskaźnik do struktury kopiowanej
+     * @return Zwraca nową strukturę albo NULL jeśli utworzenie się nie powiodło.
+     */
     CStructure* makeNewStructureProperly(CStructure *checking);
 
 public:
@@ -35,20 +47,36 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    ///Łączy akcje okna
     void createActions();
+    ///Tworzy menu okna
     void createMenus();
+    ///Tworzy toolbar wyświelajaćy informacje o mieście
     void createToolBar();
+    ///Tworzy toolbar ikon budynków
     void createBuildingToolBar();
+    ///Łączy sygnały i sloty
     void connectSignalsSlots();
+    ///Inicjalizuje utworzenie mapy gry
     void createMap();
+    ///Inicjalizuje utworzenie miasta
     void createCity();
 
     void closeEvent(QCloseEvent *);
 
+    ///Wskaźnik do miasta
     CCity* city;
+    ///Imię gracza
     QString playerName;
+    ///Wielkość mapy w żetonach
     QSize mapSize; //in game squares
+    ///Wielkość żetonu w pixelach
     QSize tileSize; //size of 1 game tile
+    QWidget *mainWidget;
+    ///Wskaźnik do obiektu mapy
+    CGraphicMainView *mainView;
+    ///Wskaźnik do menadżera podatków
+    CGraphicTaxes *taxesWidget;
 
     int tickTime; //ms
     bool autoTick;
@@ -89,10 +117,6 @@ private:
         QAction* roadTurnAct;
         QAction* roadThreeWayAct;
 
-    QWidget *mainWidget;
-    CGraphicMainView *mainView;
-
-    CGraphicTaxes *taxesWidget;
 
     QMenu *gameMenu;
         QAction *newGameAct;
@@ -104,10 +128,11 @@ private:
         QAction *publicUtilityAct;
     QLabel* infoLabel;
 
-
 signals:
     void nextTurnEnded();
+    ///Sygnał emitowany jest wtedy, gdy wystąpiło wydarzenie w którym należy utworzyć nową strukturę
     void newStructure(CStructure *);
+    ///Sygnał jest emitowany po sprawdzeniu czy struktura możę być wybudowana.
     void canBeBuiled(CStructure *,bool);
 
 private slots:
@@ -137,6 +162,12 @@ private slots:
     void baseProductsCostChangedLight(int);
     void baseProductsCostChangedHeavy(int);
 
+    /**
+     * @brief Struktura może być wybudowana
+     *
+     *Metoda sprawdza czy struktura może być wybudowana w mieście.
+     *Jeśli tak to poprawnie go inicjalizuje, dodaje do miasta i buduje.
+     */
     void canBeBuiledStructure(CStructure *);
 
     void newHouse();

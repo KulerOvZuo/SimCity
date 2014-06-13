@@ -5,13 +5,22 @@
 #include "cpeopleneeds.h"
 #include "cliving.h"
 
+/**
+ * @brief Klasa CShop (sklep)
+ *
+ *Klasa nadrzędna w stosunku do wszystkich budynków mogących sprzedawać produkty.
+ *Komunikuje sie z ludźmi i rynkiem obrotu dóbr.
+ */
 class CShop : public CWorking
 {
 protected:
+    ///Lista potrzebnych produktów od danych budynków
     QList<CProductsBuildingPointer*> listOfLivingNeeds;
     CProducts productsNeedFromPeople;
     CProducts productsGotFromMarket;
+    ///Aktualna cena sprzedaży produktów ludziom.
     CProducts productsSellPrice;
+    ///Dochody.
     double income;
 public:
     CShop();
@@ -20,15 +29,45 @@ public:
     virtual QList<QString> infoToDisplay();
     virtual bool setRandomName(int size);
 
+    /**
+     * @brief Wyślij potrzeby produktów do rynku
+     *
+     *Wysyłą potrzeby.
+     * @return Jeśli nie można wysłać, zwraca false.
+     */
     bool sendProductsNeedToMarket();
+    ///Oblicza i ustawia aktualna cenę produktów sklepu.
     CProducts countSetProductsSellPrice();
+    /**
+     * @brief Zapłać pracownikom
+     *
+     *Metoda powoduje zapłacenie pracownikom należnych pieniędzy.
+     *Pomniejsza wartość dochodu.
+     */
     void payWorkers();
+    /**
+     * @brief Wyślij produkty do ludzi
+     *
+     *Metoda powoduje wysłanie otrzymanych produktów od mrynku, do ludzi.
+     *Przychód powieksza się o wartość zarobioną.
+     * @return Zwraca false jeśli nie może wykonać sprzedaży.
+     */
     bool sendProductsToLivings();
 
-    bool buyProductsGotFromMarket(CProducts _prod);  
+    /**
+     * @brief Kup produkty od rynku
+     *
+     *Powoduje wykunienie produktów z rynku.
+     * @param _prod - ilość produktów do kupienia.
+     * @return zwraca false, jeśli nie udało się kupić.
+     */
+    bool buyProductsGotFromMarket(CProducts _prod);
     double giveTaxes(double _tax);
+    ///Wyczyść listę potrzeb ludzi.
     void clearListOfLivingNeeds();
+    ///Dodaj potrzebne produkty ludzi do listy potrzebnych produktów.
     bool addLivingToProductsNeeds(CProductsBuildingPointer* _living);
+    ///Wyczyść zmienne czasowe.
     void clearTemporary();
 
     bool setProductsNeedFromPeople(CProducts _prod);
@@ -43,6 +82,9 @@ public:
     double getIncome() const;
 };
 
+/**
+ * @brief Klasa CSmallShop (mały sklep)
+ */
 class CSmallShop : public CShop
 {
 protected:

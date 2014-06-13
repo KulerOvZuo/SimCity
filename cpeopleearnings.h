@@ -1,6 +1,12 @@
 #ifndef CPEOPLEEARNINGS_H
 #define CPEOPLEEARNINGS_H
 
+/**
+ * @brief Klasa CPeopleEarnings (zarobki ludzi)
+ *
+ *Klasa kontener pozwalajaća na przechowywanie informacji o zarobkach ludzi.
+ *Udostępnia proste działania matematyczne.
+ */
 class CPeopleEarnings
 {
 protected:
@@ -11,16 +17,26 @@ protected:
     double lowWorkerEarn;
 public:
     CPeopleEarnings();
+    /**
+     * @brief CPeopleEarnings  - konstruktor
+     *
+     *Inicjalizuje atrybuty obiektu wartościami z parametrów
+     */
     CPeopleEarnings(double _lead, double _serv, double _light,double _heavy, double _low);
     CPeopleEarnings(const CPeopleEarnings& _P);
     CPeopleEarnings operator+ (CPeopleEarnings _P);
     CPeopleEarnings& operator+= (CPeopleEarnings const &_P);
     CPeopleEarnings& operator= (CPeopleEarnings const &_P);
 
+    ///Dodaj kwotę do zarobków profesji Lead
     void addLeadWorkerEarn(double _number);
+    ///Dodaj kwotę do zarobków profesji Service
     void addServiceWorkerEarn(double _number);
+    ///Dodaj kwotę do zarobków profesji Light
     void addLightWorkerEarn(double _number);
+    ///Dodaj kwotę do zarobków profesji Heavy
     void addHeavyWorkerEarn(double _number);
+    ///Dodaj kwotę do zarobków profesji Low
     void addLowWorkerEarn(double _number);
 
     double getLeadWorkerEarn() const;

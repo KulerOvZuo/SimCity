@@ -278,5 +278,3 @@ void CMarket::setBaseProductsCostHeavy(double _cost)
 {   baseProductsCost.setHeavy(_cost);}
 void CMarket::setActualProductsCost(CProducts _cost)
 {   actualProductsCost = _cost;}
-void CMarket::setCity(CCity* city)
-{  this->city = city; }

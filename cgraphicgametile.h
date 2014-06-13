@@ -14,7 +14,7 @@
 /**
  * @brief Klasa CGraphicGameTile (żeton gry)
  *
- *Klasa jest graficznym przedstawieniem żetonu na mapie.
+ *Klasa jest graficznym przedstawieniem żetonu na mapie. Jest nadrzędna wobec wszystkich żetonów.
  *Implementuje event kliknięcia oraz sposób wyświetlania zależny od atrybutów.
  */
 class CGraphicGameTile : public QGraphicsObject, public IDisplayingInterface
