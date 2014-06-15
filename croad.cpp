@@ -3,7 +3,7 @@
 CRoad::CRoad() : CRoadsAndBridges()
 {
     onWater = false;
-    buildCost=30;
+    buildCost=100;
     destroyCost=buildCost/2;
     capacity=10;
 }

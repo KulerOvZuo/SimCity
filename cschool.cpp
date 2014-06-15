@@ -54,7 +54,9 @@ double CSchool::countBuildingEfficiency()
 }
 void CSchool::countSetEducationQuality()
 {
-    actualEducationIndicator = (baseEducationIndicator*countBuildingEfficiency()+actualEducationIndicator)/2;
+    actualEducationIndicator = (3*baseEducationIndicator*countBuildingEfficiency()+actualEducationIndicator)/4;
+    if(actualEducationIndicator<1)
+        actualEducationIndicator=1;
 }
 bool CSchool::addNOChildren(int _number)
 {   actualNOChildren += _number;
@@ -88,9 +90,11 @@ CSchoolAllInOne::CSchoolAllInOne() : CSchool()
 {   sizeOnGameMap = CCoordinates(4,3);
     buildCost=250;
     destroyCost=buildCost/2;
-money=5000;
-utilities=CUtilitiesGlobal(5,5,5);
-neededNumberOfWorkers=CPeople(20,20,5,5,15);
+    money=5000;
+    utilities=CUtilitiesGlobal(5,5,5);
+    neededNumberOfWorkers=CPeople(10,10,5,5,5);
+    maxNOChildren=200;
+    baseEducationIndicator=15;
 }
 CSchoolAllInOne::CSchoolAllInOne(const CSchoolAllInOne& _S) : CSchool(_S)
 {   sizeOnGameMap = _S.getSizeOnGameMap();}

@@ -29,7 +29,7 @@
 #define roadTrafficCapacity 10
 
 //satisfaction
-#define foodInd 1
+#define foodInd 1.2
 #define lightInd 1
 #define heavyInd 1
 #define serviceInd 1
@@ -42,10 +42,10 @@
 #define parkInf 1
 #define lawnInf 0.1
 #define livingInf 0.1
-#define lightInf 0.6
-#define heavyInf 1.3
-#define foodInf 0.8
-#define utilityInf 1.3
+#define lightInf 2
+#define heavyInf 3
+#define foodInf 1.5
+#define utilityInf 5
 
 //education
 #define minLeadEdu 50

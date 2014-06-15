@@ -21,7 +21,7 @@ CStartingWindow::CStartingWindow(QWidget *parent) :
     mapSizeX = new QSpinBox(this);
     mapSizeX->setSingleStep(1);
     mapSizeX->setMinimum(5);
-    mapSizeX->setValue(25);
+    mapSizeX->setValue(45);
 
     second->addWidget(mapSizeXLabel);
     second->addWidget(mapSizeX);
@@ -32,7 +32,7 @@ CStartingWindow::CStartingWindow(QWidget *parent) :
     mapSizeY= new QSpinBox(this);
     mapSizeY->setSingleStep(1);
     mapSizeY->setMinimum(5);
-    mapSizeY->setValue(20);
+    mapSizeY->setValue(30);
 
     third->addWidget(mapSizeYLabel);
     third->addWidget(mapSizeY);

@@ -48,8 +48,8 @@ CPublicUtilityBuildingAllInOne::CPublicUtilityBuildingAllInOne(): CPublicUtility
     buildCost=1000;
     destroyCost=buildCost/2;
     money=5000;
-    utilities=CUtilitiesGlobal(100,100,100);
-neededNumberOfWorkers=CPeople(5,15,15,40,30);
+    utilities=CUtilitiesGlobal(1000,1000,1000);
+    neededNumberOfWorkers=CPeople(5,15,15,40,30);
 }
 CPublicUtilityBuildingAllInOne::CPublicUtilityBuildingAllInOne(const CPublicUtilityBuildingAllInOne& _P): CPublicUtilityBuilding(_P)
 {   sizeOnGameMap = _P.getSizeOnGameMap();}

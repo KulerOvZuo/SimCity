@@ -98,8 +98,10 @@ public:
      *
      *Metoda polegająca na wytworzeniu cyklu życia i śmierci.
      *Powoduje uśmiercenie pewnej liczby osób oraz narodzenie nowych.
+     *
+     *@return Zwraca ilość martwych pracujących ludzi.
      */
-    void makeDeadsAndBorns();
+    CPeople makeDeadsAndBorns();
     /**
      * @brief Zmień miejsce zamieszkania.
      *

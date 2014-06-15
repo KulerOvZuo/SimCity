@@ -32,6 +32,7 @@ CPark::CPark() : CGreenTerrain()
     setRandomName(1);
     buildCost=50;
     destroyCost=buildCost/2;
+    costPerTick=100;
 }
 CPark::CPark(const CPark& _P) : CGreenTerrain(_P)
 {   sizeOnGameMap = _P.getSizeOnGameMap();}
@@ -48,6 +49,7 @@ CLawn::CLawn() : CGreenTerrain()
     name = QString("Lawn");
     buildCost=5;
     destroyCost=buildCost/2;
+    costPerTick=5;
 }
 CLawn::CLawn(const CLawn& _L) : CGreenTerrain(_L)
 {   sizeOnGameMap = _L.getSizeOnGameMap();}

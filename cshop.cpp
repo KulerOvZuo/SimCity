@@ -15,7 +15,6 @@ CShop::CShop(const  CShop& _S) : CWorking(_S)
     productsGotFromMarket =_S.getProductsGotFromMarket();
     productsSellPrice = _S.getProductsSellPrice();
     income = _S.getIncome();
-
 }
 CShop:: ~ CShop()
 {}

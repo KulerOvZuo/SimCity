@@ -5,7 +5,7 @@ CRoadsAndBridges::CRoadsAndBridges() : CStructure(), capacity(0), onWater(false)
 {
     directions = CDirections(true,false,true,false);
     name = QString("Road");
-    costPerTick=1;
+    costPerTick=30;
 }
 CRoadsAndBridges::CRoadsAndBridges(double _capacity,bool _water,CDirections _dir)
 {

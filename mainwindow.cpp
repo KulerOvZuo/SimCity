@@ -131,7 +131,7 @@ void MainWindow::createToolBar()
     moneyText->setPalette(pal);
     moneyText->setAutoFillBackground(true);
     money = new QLabel(this);
-    money->setText(QString::number(city->getMoney())+" $");
+    money->setText(QString("%1").arg(city->getMoney(),1,'f',2)+" $");
     money->setPalette(pal);
     money->setAutoFillBackground(true);
     money->setAlignment(Qt::AlignCenter);
@@ -142,7 +142,7 @@ void MainWindow::createToolBar()
     incomeText->setPalette(pal);
     incomeText->setAutoFillBackground(true);
     income = new QLabel(this);
-    income->setText(QString::number(city->getIncome())+" $/turn");
+    income->setText(QString("%1").arg(city->getIncome(),1,'f',2)+" $/turn");
     income->setPalette(pal);
     income->setAutoFillBackground(true);
     income->setAlignment(Qt::AlignCenter);
@@ -520,7 +520,7 @@ void MainWindow::canBeBuiledStructure(CStructure *structure)
                 {   //qDebug()<<"building added";
                     _newS->build();
                     _newS->setRandomName(0);
-                    money->setText(QString::number(city->getMoney())+" $");
+                    money->setText(QString("%1").arg(city->getMoney(),1,'f',2)+" $");
                    // this->update();
                     //qDebug()<<" newS: "<<_newS->getCoordinatesOfActualLUCorner().getX()<<" "<<_newS->getCoordinatesOfActualLUCorner().getY();
                     statusBar()->showMessage("Builded.");
@@ -720,7 +720,7 @@ void MainWindow::societyStatistics()
     double bla = -1;
     if(city->getSocietyIndicators()->getAllPeople().getAllPeople()!=0)
         bla = city->getSocietyIndicators()->getallLivingNotWorkingPeople().getAllPeople()/city->getSocietyIndicators()->getAllPeople().getAllPeople();
-    QLabel *unemployment = new QLabel(QString("Unemployed rate: %1").arg(bla,1,'f',2));
+    QLabel *unemployment = new QLabel(QString("Unemployed rate: %1").arg(bla*100,1,'f',2));
     unemployment->setFrameStyle(frameStyle);
 
     QWidget* page2 = new QWidget;
@@ -892,10 +892,10 @@ void MainWindow::nextTurn()
 {
     turnNumber++;
     city->makeTick();
-    money->setText(QString::number(city->getMoney())+" $");
+    money->setText(QString("%1").arg(city->getMoney(),1,'f',2)+" $");
     turn->setText(tr("Turn number: ")+QString::number(turnNumber));
     NOPeople->setText(QString::number(city->getSocietyIndicators()->getAllPeople().getAllPeople()));
-    income->setText(QString::number(city->getIncome())+" $/turn");
+    income->setText(QString("%1").arg(city->getIncome(),1,'f',2)+" $/turn");
     emit nextTurnEnded();
 }
 void MainWindow::autoTickChanged()

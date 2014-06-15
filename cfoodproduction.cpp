@@ -8,7 +8,7 @@ CFoodProduction::CFoodProduction(const CFoodProduction& _F) : CProductionBuildin
 {}
 void CFoodProduction::sellProducts(CProducts _prod)
 {   _prod.restoreIfNotPossitiveNONeeds();
-    income += (_prod.getFood())*(city->getMarket()->getActualProductsCost().getFood());
+    income += 5*(_prod.getFood())*(city->getMarket()->getActualProductsCost().getFood());
     //add/subtract to stacked products difference
     stackedProducts += actualProductionPerTick - _prod;
     if(stackedProducts.getFood() > maxStackedProducts.getFood())
@@ -34,7 +34,10 @@ CFarm::CFarm() : CFoodProduction()
     buildCost=500;
     destroyCost=buildCost/2;
     money=5000;
-utilities=CUtilitiesGlobal(30,30,30);
-neededNumberOfWorkers=CPeople(2,5,5,20,40);}
+    utilities=CUtilitiesGlobal(30,30,30);
+    neededNumberOfWorkers=CPeople(2,5,5,20,40);
+    maxStackedProducts=CProducts(0,0,15000);
+    maxProductionPerTick=CProducts(0,0,3000);
+}
 CFarm::CFarm(const CFarm& _F) : CFoodProduction(_F)
 {   sizeOnGameMap = _F.getSizeOnGameMap();}

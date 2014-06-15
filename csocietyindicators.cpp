@@ -4,6 +4,7 @@ CSocietyIndicators::CSocietyIndicators()
 {
     birthIndicator=0;
     children=0;
+    basePeopleEarnings=CPeopleEarnings(100,80,60,40,30);
 }
 CSocietyIndicators::CSocietyIndicators(const CSocietyIndicators& _I)
 {
@@ -164,15 +165,15 @@ void CSocietyIndicators::setPeopleEarnings(CPeopleEarnings _earn)
 void CSocietyIndicators::setBasePeopleEarnings(CPeopleEarnings _earn)
 {   basePeopleEarnings = _earn;}
 void CSocietyIndicators::setBasePeopleEarningsLead(double _earn)
-{   peopleEarnings.setLeadWorkerEarn(_earn);}
+{   basePeopleEarnings.setLeadWorkerEarn(_earn);}
 void CSocietyIndicators::setBasePeopleEarningsService(double _earn)
-{   peopleEarnings.setServiceWorkerEarn(_earn);}
+{   basePeopleEarnings.setServiceWorkerEarn(_earn);}
 void CSocietyIndicators::setBasePeopleEarningsHeavy(double _earn)
-{   peopleEarnings.setHeavyWorkerEarn(_earn);}
+{   basePeopleEarnings.setHeavyWorkerEarn(_earn);}
 void CSocietyIndicators::setBasePeopleEarningsLight(double _earn)
-{   peopleEarnings.setLightWorkerEarn(_earn);}
+{   basePeopleEarnings.setLightWorkerEarn(_earn);}
 void CSocietyIndicators::setBasePeopleEarningsLow(double _earn)
-{   peopleEarnings.setLowWorkerEarn(_earn);}
+{   basePeopleEarnings.setLowWorkerEarn(_earn);}
 
 void CSocietyIndicators::setAllPeople(CPeople _people)
 {   allPeople = _people;}

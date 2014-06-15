@@ -8,7 +8,7 @@ CLiving::CLiving() : CBuilding(),schoolConnected(NULL)
     children=0;
     birthRate=0;
     income=0;
-    lifeSatisfaction=0;
+    lifeSatisfaction=1;
     learningPeopleList.clear();
     money=5000;
 
@@ -222,26 +222,44 @@ void CLiving::clearTemporary()
 {   money+=income;
     income=0;
 }
-void CLiving::makeDeadsAndBorns()
+CPeople CLiving::makeDeadsAndBorns()
 {
     CPeople A;
     children += (int)(0.05*A.randBetween(birthRate/2,birthRate));
     int _allPeople = livingWorkingPeople.getAllPeople() + livingNotWorkingPeople.getAllPeople();
-    if(children<1 && _allPeople>=2)
-        children=1;
+    //if(children<1 && _allPeople>=2)
+        //children=1;
 
     int _deads = (int)(0.1*A.randBetween(_allPeople/2,_allPeople));
     if(_deads<1)
         _deads=1;
+    CPeople _deadPeople;
     if(_deads/2>=1)
-    {   livingWorkingPeople.randomSubb((int)(_deads*0.75));
-        livingNotWorkingPeople.randomSubb((int)(_deads*0.25));
+    {   _deadPeople+=livingWorkingPeople.randomExtract((int)(_deads*0.75));
+        livingNotWorkingPeople.randomExtract((int)(_deads*0.25));
     }
     else
-    {   livingWorkingPeople.randomSubb(_deads);}
-
+    {   int q=A.randBetween(1,2);
+        switch (q) {
+        case 1:
+            if(livingWorkingPeople.getAllPeople()<=1)
+                _deadPeople+=livingWorkingPeople.randomExtract(_deads);
+            else
+                livingNotWorkingPeople.randomExtract(_deads);
+            break;
+        case 2:
+            if(livingNotWorkingPeople.getAllPeople()<=1)
+                livingNotWorkingPeople.randomExtract(_deads);
+            else
+                _deadPeople+=livingWorkingPeople.randomExtract(_deads);
+            break;
+        default:
+            break;}
+    }
     livingWorkingPeople.restoreIfNotPossitiveNOPeople();
     livingNotWorkingPeople.restoreIfNotPossitiveNOPeople();
+
+    return _deadPeople;
 }
 bool CLiving::changeLivingPlace()
 {   CLiving* bestLiving = NULL;
@@ -335,13 +353,15 @@ double CLiving::giveTaxes(double _tax)
 }
 bool CLiving::countSetInfluanceFromOthers()
 {   //production
+    peopleNeeds.setDistrurbance(0);
+    peopleNeeds.setRecreationNeed(0);
     for(int i=0; i<city->getMapOfStructures()->getAllProductionBuildings().count();i++)
     {   double distance = distanceToOther(city->getMapOfStructures()->getAllProductionBuildings().at(i));
-        if(distance<15)
+        if(distance<25)
             distance=1;
         else
-        {   if(distance<30)
-                distance = 1-distance/30;
+        {   if(distance<40)
+                distance = 1-distance/25;
             else
                 distance=0;  }
         if(dynamic_cast<CLightFactory*>(city->getMapOfStructures()->getAllProductionBuildings().at(i)) != NULL)
@@ -358,11 +378,11 @@ bool CLiving::countSetInfluanceFromOthers()
     //public utility buildings
     for(int i=0; i<city->getMapOfStructures()->getAllPublicUtilityBuildings().count();i++)
     {   double distance = distanceToOther(city->getMapOfStructures()->getAllPublicUtilityBuildings().at(i));
-        if(distance<15)
+        if(distance<30)
             distance=1;
         else
-        {   if(distance<30)
-                distance = 1-distance/30;
+        {   if(distance<60)
+                distance = 1-distance/60;
             else
                 distance=0;  }
         if(dynamic_cast<CPublicUtilityBuilding*>(city->getMapOfStructures()->getAllPublicUtilityBuildings().at(i)) !=NULL)
@@ -452,7 +472,17 @@ double CLiving::countSetBirthRate()
              _birth=1;
     }
     int _allPeople = livingWorkingPeople.getAllPeople() + livingNotWorkingPeople.getAllPeople();
-    birthRate = _birth*_allPeople;
+    ;
+    double ind=1;
+    if(maxLivingPeople*1<=_allPeople)
+    {   if(3*maxLivingPeople>_allPeople)
+        {   if(maxLivingPeople!=0)
+                ind=1- 0.9*(_allPeople/(3*maxLivingPeople));
+            else
+                ind=0.1;
+        }
+    }
+    birthRate = _birth*_allPeople*ind;
     return _birth;
 }
 void CLiving::sendBirthRateToCity()
@@ -466,19 +496,19 @@ CPeopleNeeds CLiving::countPeopleNeeds()
     {
         _allPeople += (learningPeopleList.at(i))->getAllPeople();
     }
-    double _food=1+0.6*lifeSatisfaction;
+    double _food=1.4+0.6*lifeSatisfaction;
     _food *= _allPeople;
-    double _light=0.5+1*lifeSatisfaction;
+    double _light=1+0.9*lifeSatisfaction;
     _light*= _allPeople;
-    double _heavy=0.5+0.8*lifeSatisfaction;
+    double _heavy=1.1+0.8*lifeSatisfaction;
     _heavy*= _allPeople;
-    double _serv1=0.5+1*lifeSatisfaction;
+    double _serv1=0.2+1*lifeSatisfaction;
     _serv1*= _allPeople;
-    double _rec1=0.5+1*lifeSatisfaction;
+    double _rec1=0.2+1*lifeSatisfaction;
     //_rec1*= _allPeople;
 
-    double _disturbance=1+0.4*lifeSatisfaction;
-    double _traffic=2+0.3*lifeSatisfaction;
+    double _disturbance=0.6+0.8*lifeSatisfaction;
+    double _traffic=1+1*lifeSatisfaction;
     //for all people in building
     return CPeopleNeeds(CProducts(_light,_heavy,_food),CService(_serv1),CRecreation(_rec1),_traffic,_disturbance);
 }
@@ -534,16 +564,27 @@ double CLiving::countLifeSatisfaction()
     if(_income<1)
         _income=1;
 
-    lifeSat = (1+0.2*(trafficInd*log10(traffic)+aDist*disturbanceInd*log10(dist)+
+    lifeSat = (1+0.4*(trafficInd*log10(traffic)+aDist*disturbanceInd*log10(dist)+
                              recreationInd*log10(_rec1)+foodInd*log10(_food)+
                              lightInd*log10(_light)+heavyInd*log10(_heavy)+
                          serviceInd*log10(_service)+aInc*incomeInd*log10(_income)));
+    double ind=1;
+    if(maxLivingPeople<=_allPeople)
+    {   if(2*maxLivingPeople>_allPeople)
+        {   if(maxLivingPeople!=0)
+                ind=1- 0.8*(_allPeople/(2*maxLivingPeople));
+            else
+                ind=0.2;
+        }
+    }
+    lifeSat=lifeSat*ind;
+
     return (3*_pastLifeSat+lifeSat)/4;
 }
 void CLiving::searchAndGoToWork()
 {
     //CSocietyIndicators* S = city->getSocietyIndicators();
-    int numOfTries=5;
+    int numOfTries=10;
     CWorking* _W = NULL;
     CWorking* best = NULL;
     double rate =-1;
@@ -687,7 +728,10 @@ void CLiving::chooseChildrenProfessionsAndAdd()
     CPeople _temp = city->getSocietyIndicators()->getAllProfessionsToEducate();
     CPeople _prof = _temp.randomExtract(children);
     addNewLearningPeople(_prof);
+    if(schoolConnected!=NULL)
+        schoolConnected->addNOChildren(children);
     city->getSocietyIndicators()->setAllProfessionsToEducate(_temp);
+    children=0;
 }
 void CLiving::addNewLearningPeople(CPeople _professions)
 {

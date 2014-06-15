@@ -17,12 +17,14 @@ CLightFactory::CLightFactory() : CFactory()
     money=5000;
     utilities=CUtilitiesGlobal(30,30,30);
     neededNumberOfWorkers=CPeople(2,10,30,10,20);
+    maxStackedProducts=CProducts(10000,0,0);
+    maxProductionPerTick=CProducts(2000,0,0);
 }
 CLightFactory::CLightFactory(const CLightFactory& _F) : CFactory(_F)
 {   sizeOnGameMap = _F.getSizeOnGameMap();}
 void CLightFactory::sellProducts(CProducts _prod)
 {   _prod.restoreIfNotPossitiveNONeeds();
-    income += (_prod.getLight())*(city->getMarket()->getActualProductsCost().getLight());
+    income += 5*(_prod.getLight())*(city->getMarket()->getActualProductsCost().getLight());
     //add/subtract to stacked products difference
     stackedProducts += actualProductionPerTick - _prod;
     if(stackedProducts.getLight() > maxStackedProducts.getLight())
@@ -47,14 +49,17 @@ CHeavyFactory::CHeavyFactory(): CFactory()
 {   sizeOnGameMap = CCoordinates(5,4);
     buildCost=500;
     destroyCost=buildCost/2;
-money=5000;
-utilities=CUtilitiesGlobal(30,30,30);
-neededNumberOfWorkers=CPeople(2,10,10,30,20);}
+    money=5000;
+    utilities=CUtilitiesGlobal(30,30,30);
+    neededNumberOfWorkers=CPeople(2,10,10,30,20);
+    maxStackedProducts=CProducts(0,10000,0);
+    maxProductionPerTick=CProducts(0,2000,0);
+}
 CHeavyFactory::CHeavyFactory(const CHeavyFactory& _F) : CFactory(_F)
 {   sizeOnGameMap = _F.getSizeOnGameMap();}
 void CHeavyFactory::sellProducts(CProducts _prod)
 {   _prod.restoreIfNotPossitiveNONeeds();
-    income += (_prod.getHeavy())*city->getMarket()->getActualProductsCost().getHeavy();
+    income += 5*(_prod.getHeavy())*city->getMarket()->getActualProductsCost().getHeavy();
     //add/subtract to stacked products difference
     stackedProducts += actualProductionPerTick - _prod;
     if(stackedProducts.getHeavy() > maxStackedProducts.getHeavy())

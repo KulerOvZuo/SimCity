@@ -40,16 +40,17 @@ void CCity::makeTick()
     market->clearTemporary();
     societyIndicators->clearTemporary();
     mapOfStructures->clearTemporaryForStructures();
-    qDebug()<<"City: cleared - done";
+   // qDebug()<<"City: cleared - done";
     //[/1]
     //[2]make all with schools
     for(int i=0; i<mapOfStructures->getAllSchools().count();i++)
     {   mapOfStructures->getAllSchools().at(i)->addAge(1);
         mapOfStructures->getAllSchools().at(i)->sendUtilitiesToCity();
         mapOfStructures->getAllSchools().at(i)->countSetEducationQuality();
-        mapOfStructures->getAllSchools().at(i)->sendWorkInfoToCity();
+        mapOfStructures->getAllSchools().at(i)->setActualNOChildren(0);
+        mapOfStructures->getAllSchools().at(i)->sendWorkInfoToCity();        
     }
-    qDebug()<<"City: schools - done";
+   // qDebug()<<"City: schools - done";
     //[/2]complited schools
     //[3]all with production (other interaction will be thru market)
     for(int i=0; i<mapOfStructures->getAllProductionBuildings().count();i++)
@@ -58,9 +59,8 @@ void CCity::makeTick()
         mapOfStructures->getAllProductionBuildings().at(i)->countSetActualProductionPerTick();
         mapOfStructures->getAllProductionBuildings().at(i)->sendProductionInfoToMarket();
         mapOfStructures->getAllProductionBuildings().at(i)->sendWorkInfoToCity();
-        mapOfStructures->getAllProductionBuildings().at(i)->payWorkers();
     }
-    qDebug()<<"City: production - done";
+   // qDebug()<<"City: production - done";
     //[/3]
     //[4]
     for(int i=0; i<mapOfStructures->getAllServiceBuildings().count();i++)
@@ -71,7 +71,7 @@ void CCity::makeTick()
         mapOfStructures->getAllServiceBuildings().at(i)->sendWorkInfoToCity();
         mapOfStructures->getAllServiceBuildings().at(i)->payWorkers();
     }
-    qDebug()<<"City: service [1] - done";
+  //  qDebug()<<"City: service [1] - done";
     //[/4]
     for(int i=0; i<mapOfStructures->getAllRecreationBuildings().count();i++)
     {   mapOfStructures->getAllRecreationBuildings().at(i)->addAge(1);
@@ -79,42 +79,63 @@ void CCity::makeTick()
         mapOfStructures->getAllRecreationBuildings().at(i)->sendWorkInfoToCity();
         mapOfStructures->getAllRecreationBuildings().at(i)->countSetRecreationQuality();
     }
-    qDebug()<<"City: recreation - done";
+  //  qDebug()<<"City: recreation - done";
     for(int i=0; i<mapOfStructures->getAllRoadsAndBridges().count();i++)
     {   mapOfStructures->getAllRoadsAndBridges().at(i)->addAge(1);    }
-    qDebug()<<"City: roads - done";
+  //  qDebug()<<"City: roads - done";
     for(int i=0; i<mapOfStructures->getAllGreenTerrains().count();i++)
     {   mapOfStructures->getAllGreenTerrains().at(i)->addAge(1);    }
-    qDebug()<<"City: green terrain - done";
+  //  qDebug()<<"City: green terrain - done";
     for(int i=0; i<mapOfStructures->getAllPublicUtilityBuildings().count();i++)
     {   mapOfStructures->getAllPublicUtilityBuildings().at(i)->addAge(1);
         mapOfStructures->getAllPublicUtilityBuildings().at(i)->sendWorkInfoToCity();
         mapOfStructures->getAllPublicUtilityBuildings().at(i)->sendUtilitiesToCity();    }
-    qDebug()<<"City: public utility - done";
+  //  qDebug()<<"City: public utility - done";
     //[5]
+    CPeople deadPeople;
     for(int i=0; i<mapOfStructures->getAllLivings().count();i++)
     {   mapOfStructures->getAllLivings().at(i)->addAge(1);
         mapOfStructures->getAllLivings().at(i)->sendUtilitiesToCity();
         mapOfStructures->getAllLivings().at(i)->sendBirthRateToCity();
-        mapOfStructures->getAllLivings().at(i)->makeDeadsAndBorns();
+        deadPeople+=mapOfStructures->getAllLivings().at(i)->makeDeadsAndBorns();
         mapOfStructures->getAllLivings().at(i)->sendChildrenInfoToCity();
     }
-    qDebug()<<"City: living [1] - done";
+  //  qDebug()<<"City: living [1] - done";
+    //[1]take dead people from working buildings
+    int deadPeopleNum=deadPeople.getAllPeople();
+    int watchdog =5*deadPeopleNum;
+    for(int i=0;deadPeopleNum>0 && i<watchdog;i++)
+    {   CPeople workers;
+        CWorking* working = mapOfStructures->getRandomWorkingBuilding();
+        if(working!=NULL)
+            workers= working->getActualNumberOfWorkers();
+        CPeople worker(workers.randomExtract(1));
+        if(worker.getAllPeople()>0)
+        {   deadPeopleNum--;
+            working->setActualNumberOfWorkers(workers);}
+    }
+ //   qDebug()<<"City: city [1] - done";
     for(int i=0; i<mapOfStructures->getAllLivings().count();i++)
     {   mapOfStructures->getAllLivings().at(i)->searchAndGoToWork();}
-    qDebug()<<"City: living [2] - done";
+  //  qDebug()<<"City: living [2] - done";
     for(int i=0; i<mapOfStructures->getAllLivings().count();i++)
     {   mapOfStructures->getAllLivings().at(i)->sendPeopleInfoToCity();
-        mapOfStructures->getAllLivings().at(i)->searchSetForBetterSchool();
+        CPeople P;
+        for(int c=0;c<mapOfStructures->getAllLivings().at(i)->getListOfLearningPeople().count();c++)
+            P+=  *(dynamic_cast<CPeople*>(mapOfStructures->getAllLivings().at(i)->getListOfLearningPeople().at(c)));
+        if(mapOfStructures->getAllLivings().at(i)->getSchool()!=NULL)
+            mapOfStructures->getAllLivings().at(i)->getSchool()->addNOChildren(P.getAllPeople());
         mapOfStructures->getAllLivings().at(i)->searchAndSendNeedsToShops();
         mapOfStructures->getAllLivings().at(i)->searchForService();
     }
-    qDebug()<<"City: living [3] - done";
+    for(int i=0; i<mapOfStructures->getAllLivings().count();i++)
+    {   mapOfStructures->getAllLivings().at(i)->searchSetForBetterSchool();}
+  //  qDebug()<<"City: living [3] - done";
     //[/5]
 
     for(int i=0; i<mapOfStructures->getAllServiceBuildings().count();i++)
     {   mapOfStructures->getAllServiceBuildings().at(i)->giveServiceToLivings();  }
-    qDebug()<<"City: service [2] - done";
+  //  qDebug()<<"City: service [2] - done";
     //[6] shops and market
     for(int i=0; i<mapOfStructures->getAllShops().count();i++)
     {   mapOfStructures->getAllShops().at(i)->addAge(1);
@@ -122,26 +143,26 @@ void CCity::makeTick()
         mapOfStructures->getAllShops().at(i)->sendWorkInfoToCity();
         mapOfStructures->getAllShops().at(i)->sendProductsNeedToMarket();
     }
-    qDebug()<<"City: shops [1] - done";
+ //   qDebug()<<"City: shops [1] - done";
     market->countSetActualProductsCost();
-    qDebug()<<"City: market [1] - done";
+ //   qDebug()<<"City: market [1] - done";
     market->takeAndPayPBForProducts();
-    qDebug()<<"City: market [2] - done";
+  //  qDebug()<<"City: market [2] - done";
     market->splitAndSendProductsToShops();
-    qDebug()<<"City: market [3] - done";
+ //   qDebug()<<"City: market [3] - done";
     for(int i=0; i<mapOfStructures->getAllShops().count();i++)
     {   mapOfStructures->getAllShops().at(i)->countSetProductsSellPrice();
         mapOfStructures->getAllShops().at(i)->sendProductsToLivings();
         mapOfStructures->getAllShops().at(i)->payWorkers();
     }
-    qDebug()<<"City: shops [2] - done";
+ //   qDebug()<<"City: shops [2] - done";
     //[/6]shops end
     societyIndicators->countSetProffesionsToEducate();
-    qDebug()<<"City: society [1] - done";
+  //  qDebug()<<"City: society [1] - done";
     //[5]
     for(int i=0; i<mapOfStructures->getAllLivings().count();i++)
     {   mapOfStructures->getAllLivings().at(i)->changeLivingPlace(); }
-    qDebug()<<"City: living [4] - done";
+  //  qDebug()<<"City: living [4] - done";
     for(int i=0; i<mapOfStructures->getAllLivings().count();i++)
     {   mapOfStructures->getAllLivings().at(i)->extractEducatedPeople();
         mapOfStructures->getAllLivings().at(i)->chooseChildrenProfessionsAndAdd();
@@ -154,16 +175,20 @@ void CCity::makeTick()
         mapOfStructures->getAllLivings().at(i)->countSetLifeSatAndPeopleNeeds();
         mapOfStructures->getAllLivings().at(i)->countSetIncome();
     }
-    qDebug()<<"City: living [5] - done";
+ //   qDebug()<<"City: living [5] - done";
     //[/5]
-    societyIndicators->countSetPeopleEarnings();
-    qDebug()<<"City: society [2] - done";
+
+    for(int i=0; i<mapOfStructures->getAllProductionBuildings().count();i++)
+    {   mapOfStructures->getAllProductionBuildings().at(i)->payWorkers(); }
     trafficEngine->countTraffic();
-    qDebug()<<"City: traffic - done";
+ //   qDebug()<<"City: traffic - done";
     publicBuildingsKeepCost();
-    qDebug()<<"City: keep cost - done";
+  //  qDebug()<<"City: keep cost - done";
     takeTaxes();
-    qDebug()<<"City: taxes - done";
+  //  qDebug()<<"City: taxes - done";
+    societyIndicators->countSetPeopleEarnings();
+ //   qDebug()<<"City: society [2] - done";
+
 }
 
 void CCity::addMoney(double _money)

@@ -25,7 +25,7 @@ QList<QString> CServiceBuilding::infoToDisplay()
     info.clear();
     info.append(CWorking::infoToDisplay());
     info.append(QString("Income: %1$").arg(income,1,'f',2));
-    info.append(QString("Base service: %1$\nActual service: %2$").
+    info.append(QString("Base service: %1\nActual service: %2").
                 arg(baseService.getService1(),1,'f',2).
                 arg(actualService.getService1(),1,'f',2));
     info.append(QString("Base service cost: %1$\nActual service cost: %2$").
@@ -152,7 +152,10 @@ COffice::COffice() : CServiceBuilding()
     buildCost=200;
     destroyCost=buildCost/2;
 money=5000;
-neededNumberOfWorkers=CPeople(5,30,15,5,10);}
+neededNumberOfWorkers=CPeople(5,30,15,5,10);
+baseService = CService(600);
+baseServiceCost = CService(10);
+}
 COffice::COffice(const COffice& _O): CServiceBuilding(_O)
 {   sizeOnGameMap = _O.getSizeOnGameMap();}
 COffice::~COffice()

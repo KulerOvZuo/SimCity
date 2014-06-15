@@ -33,12 +33,12 @@ bool CWorking::destroy()
         CPeople extract;
         extract = people.randomExtract(1);
         if(extract.getAllPeople()!=0)
-        {   CPeople working = city->getMapOfStructures()->getAllLivings().at(number)->getLivingNotWorkingPeople();
-            working +=extract;
-            CPeople notWorking = city->getMapOfStructures()->getAllLivings().at(number)->getLivingWorkingPeople();
-            notWorking -= extract;
-            city->getMapOfStructures()->getAllLivings().at(number)->setLivingNotWorkingPeople(working);
-            city->getMapOfStructures()->getAllLivings().at(number)->setLivingWorkingPeople(notWorking);
+        {   CPeople notWorking = city->getMapOfStructures()->getAllLivings().at(number)->getLivingNotWorkingPeople();
+            notWorking +=extract;
+            CPeople working = city->getMapOfStructures()->getAllLivings().at(number)->getLivingWorkingPeople();
+            working -= extract;
+            city->getMapOfStructures()->getAllLivings().at(number)->setLivingNotWorkingPeople(notWorking);
+            city->getMapOfStructures()->getAllLivings().at(number)->setLivingWorkingPeople(working);
             all--;}
         counter--;
     }

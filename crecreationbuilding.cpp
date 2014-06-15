@@ -62,9 +62,11 @@ CCinema::CCinema() : CRecreationBuilding()
 {   sizeOnGameMap = CCoordinates(3,2);
     buildCost=150;
     destroyCost=buildCost/2;
-money=5000;
-utilities=CUtilitiesGlobal(5,5,5);
-neededNumberOfWorkers=CPeople(2,15,10,5,10);}
+    money=5000;
+    utilities=CUtilitiesGlobal(5,5,5);
+    neededNumberOfWorkers=CPeople(2,15,10,5,10);
+    baseRecreation = CRecreation(20);
+}
 CCinema::CCinema(const CCinema& _C): CRecreationBuilding(_C)
 {   sizeOnGameMap = _C.getSizeOnGameMap();}
 CCinema::~CCinema()

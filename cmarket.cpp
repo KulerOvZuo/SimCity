@@ -7,6 +7,7 @@ CMarket::CMarket()
     clearShopsNeedsList();
     clearProductsPerTickAvailableList();
     clearStackedProductsAvailableList();
+    baseProductsCost=CProducts(5,3,2);
 }
 CMarket::CMarket(const CMarket& _M)
 {   Q_UNUSED(_M);
